@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CompanyManager.Shared.Models
+﻿namespace CompanyManager.Shared.Models
 {
-    class Purchase
+    public class Purchase
     {
         public int Id { get; set; }
 
