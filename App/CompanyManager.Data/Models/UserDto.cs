@@ -1,4 +1,4 @@
-﻿namespace CompanyManager.Data.DTO
+﻿namespace CompanyManager.Data.Models
 {
     public class UserDto
     {
