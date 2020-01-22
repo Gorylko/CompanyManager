@@ -7,10 +7,10 @@ namespace CompanyManager.Data.Helpers
         public string GetConnectionString()
         {
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = "kiryl.database.windows.net";
-            builder.UserID = "gorylko";
-            builder.Password = "Rbhbkk78901234";
-            builder.InitialCatalog = "FinanceAnalyzer";
+            builder.DataSource = "company-manager.database.windows.net";
+            builder.UserID = "company-manager";
+            builder.Password = "Superpuperduperpassword123";
+            builder.InitialCatalog = "CompanyManagerDB";
 
             return builder.ToString();
         }
