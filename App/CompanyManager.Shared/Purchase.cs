@@ -1,4 +1,4 @@
-﻿namespace CompanyManager.Models
+﻿namespace CompanyManager.Shared.Models
 {
     public class Purchase
     {
@@ -6,10 +6,10 @@
 
         public string Name { get; set; }
 
-        public decimal Cost { get; set; }
+        public int Cost { get; set; }
 
-        public decimal RentCost { get; set; }
+        public int RentCost { get; set; }
 
-        public decimal Income { get; set; }
+        public int Income { get; set; }
     }
 }

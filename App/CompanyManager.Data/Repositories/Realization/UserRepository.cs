@@ -1,11 +1,11 @@
-﻿namespace CompanyManager.Data.Repositoies.Realization
+﻿namespace CompanyManager.Data.Repositories.Realization
 {
     using System;
     using System.Collections.Generic;
     using CompanyManager.Data.DbContext.Interfaces;
     using CompanyManager.Data.Mappers;
     using CompanyManager.Data.Models;
-    using CompanyManager.Data.Repositoies.Interfaces;
+    using CompanyManager.Data.Repositories.Interfaces;
 
     public class UserRepository : IUserRepository
     {

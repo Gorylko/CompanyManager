@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CompanyManager.Data.Repositoies.Interfaces
+﻿namespace CompanyManager.Data.Repositories.Interfaces
 {
+    using System.Collections.Generic;
+
     public interface IRepository<T>
     {
         IReadOnlyCollection<T> GetAll();
