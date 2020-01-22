@@ -1,0 +1,7 @@
+DROP TABLE [dbo].[Employees]
+DROP TABLE [dbo].[Purchases]
+DROP TABLE [dbo].[WorkAreas]
+DROP TABLE [dbo].[Enterprises]
+DROP TABLE [dbo].[Permissions]
+DROP TABLE [dbo].[Roles]
+DROP TABLE [dbo].[Users]
