@@ -13,5 +13,7 @@ sqlcmd -S %server% -d %database% -U %user% -P %password% -i tables\Enterprises.s
 sqlcmd -S %server% -d %database% -U %user% -P %password% -i tables\Employees.sql
 sqlcmd -S %server% -d %database% -U %user% -P %password% -i tables\Purchases.sql
 sqlcmd -S %server% -d %database% -U %user% -P %password% -i tables\WorkAreas.sql
+sqlcmd -S %server% -d %database% -U %user% -P %password% -i tables\RolesToPermissions.sql
+sqlcmd -S %server% -d %database% -U %user% -P %password% -i tables\UsersToEnterprises.sql
 
 pause
