@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-
-namespace CompanyManager.Data.Helpers
+﻿namespace CompanyManager.Data.DbContext.Realization
 {
-    public class ProcedureExecutor
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.SqlClient;
+    using CompanyManager.Data.DbContext.Interfaces;
+    using CompanyManager.Data.Helpers;
+
+    public class ProcedureExecutor : IExecutor
     {
         private readonly SqlConnectionHelper _connectionHelper = new SqlConnectionHelper();
 

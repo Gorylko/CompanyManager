@@ -1,10 +1,10 @@
-﻿using CompanyManager.Data.Models;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-
-namespace CompanyManager.Data.Mappers
+﻿namespace CompanyManager.Data.Mappers
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using CompanyManager.Data.Models;
+
     public class UserMapper
     {
         public UserDto MapUser(DataSet dataSet)

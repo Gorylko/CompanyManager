@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CompanyManager.Business\CompanyManager.Business.csproj" />
-    <ProjectReference Include="..\CompanyManager.Shared\CompanyManager.Shared.csproj" />
+    <ProjectReference Include="..\CompanyManager.Shared\CompanyManager.Models.csproj" />
   </ItemGroup>
 
 

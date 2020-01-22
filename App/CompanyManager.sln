@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyManager.Web", "CompanyManager.Web\CompanyManager.Web.csproj", "{0837C8BD-62C1-4643-B3E6-CD84D0B8AED6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyManager.Web", "CompanyManager.Web\CompanyManager.Web.csproj", "{0837C8BD-62C1-4643-B3E6-CD84D0B8AED6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyManager.Business", "CompanyManager.Business\CompanyManager.Business.csproj", "{464D69A2-EDB8-4CF8-ADDC-26FEA73DAE71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyManager.Business", "CompanyManager.Business\CompanyManager.Business.csproj", "{464D69A2-EDB8-4CF8-ADDC-26FEA73DAE71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyManager.Data", "CompanyManager.Data\CompanyManager.Data.csproj", "{875C5F1B-2209-44F8-B57C-D4ACED4FC3AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyManager.Data", "CompanyManager.Data\CompanyManager.Data.csproj", "{875C5F1B-2209-44F8-B57C-D4ACED4FC3AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyManager.Shared", "CompanyManager.Shared\CompanyManager.Shared.csproj", "{BFE47DF5-012B-4F56-B374-732FC58ADA05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyManager.Models", "CompanyManager.Shared\CompanyManager.Models.csproj", "{BFE47DF5-012B-4F56-B374-732FC58ADA05}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{A344F976-A272-4E00-832A-EBB3FCB97CCB}"
 	ProjectSection(SolutionItems) = preProject

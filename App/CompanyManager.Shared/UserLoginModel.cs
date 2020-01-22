@@ -1,4 +1,4 @@
-﻿namespace CompanyManager.Shared.Models
+﻿namespace CompanyManager.Models
 {
     public class UserLoginModel
     {

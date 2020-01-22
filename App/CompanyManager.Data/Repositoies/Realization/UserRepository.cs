@@ -1,25 +1,28 @@
-﻿using CompanyManager.Data.Helpers;
-using CompanyManager.Data.Mappers;
-using CompanyManager.Data.Models;
-using CompanyManager.Data.Repositoies.Interfaces;
-using System;
-using System.Collections.Generic;
-
-namespace CompanyManager.Data.Repositoies.Realization
+﻿namespace CompanyManager.Data.Repositoies.Realization
 {
-    public class UserDtoRepository : IUserDtoRepository
+    using System;
+    using System.Collections.Generic;
+    using CompanyManager.Data.DbContext.Interfaces;
+    using CompanyManager.Data.Mappers;
+    using CompanyManager.Data.Models;
+    using CompanyManager.Data.Repositoies.Interfaces;
+
+    public class UserRepository : IUserRepository
     {
-        private readonly ProcedureExecutor _executor;
+        private readonly IExecutor _executor;
         private readonly UserMapper _mapper;
 
-        public UserDtoRepository(ProcedureExecutor executor)
+        public UserRepository(IExecutor executor)
         {
             _executor = executor ?? throw new ArgumentNullException(nameof(executor));
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _executor.ExecuteNonQuery("sp_delete_user_by_id", new Dictionary<string, object>
+            {
+                { "id", id },
+            });
         }
 
         public IReadOnlyCollection<UserDto> GetAll()

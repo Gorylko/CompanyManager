@@ -2,7 +2,7 @@
 
 namespace CompanyManager.Data.Repositoies.Interfaces
 {
-    public interface IUserDtoRepository : IRepository<UserDto>
+    public interface IUserRepository : IRepository<UserDto>
     {
 
     }
