@@ -1,6 +1,6 @@
 ﻿namespace CompanyManager.Business.Services.Interfaces
 {
-    interface IService
+    public interface IService
     {
     }
 }
