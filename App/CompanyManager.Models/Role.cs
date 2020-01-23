@@ -1,6 +1,6 @@
-﻿namespace CompanyManager.Shared.Models
+﻿namespace CompanyManager.Models
 {
-    public class Permission
+    public class Role
     {
         public int Id { get; set; }
 
