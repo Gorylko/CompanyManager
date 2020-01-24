@@ -25,4 +25,10 @@
     <ProjectReference Include="..\CompanyManager.Models\CompanyManager.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mappers\" />
+    <Folder Include="Repositories\Interfaces\" />
+    <Folder Include="Repositories\Realization\" />
+  </ItemGroup>
+
 </Project>
