@@ -1,8 +1,6 @@
 ﻿namespace CompanyManager.Data.Models
 {
-    using System;
-
-    public class WorkAreaDto
+    public class WorkArea
     {
         public int Id { get; set; }
 
@@ -16,6 +14,6 @@
 
         public decimal? RentRrice { get; set; }
 
-        public virtual EnterpriseDto Enterprise { get; set; }
+        public virtual Enterprise Enterprise { get; set; }
     }
 }

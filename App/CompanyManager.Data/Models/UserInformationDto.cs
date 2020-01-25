@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CompanyManager.Data.Models
+﻿namespace CompanyManager.Data.Models
 {
     public class UserInformationDto
     {
@@ -16,6 +12,6 @@ namespace CompanyManager.Data.Models
 
         public string PhoneNumber { get; set; }
 
-        public virtual UserDto User { get; set; }
+        public virtual User User { get; set; }
     }
 }

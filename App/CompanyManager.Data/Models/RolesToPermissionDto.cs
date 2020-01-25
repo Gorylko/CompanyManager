@@ -8,8 +8,8 @@
 
         public int PermissionId { get; set; }
 
-        public virtual PermissionDto Permission { get; set; }
+        public virtual Permission Permission { get; set; }
 
-        public virtual RoleDto Role { get; set; }
+        public virtual Role Role { get; set; }
     }
 }
