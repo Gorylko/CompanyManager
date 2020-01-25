@@ -8,8 +8,6 @@ namespace CompanyManager.Web
     {
         public static void Main(string[] args)
         {
-            
-
             CreateHostBuilder(args).Build().Run();
 
             Log.CloseAndFlush();

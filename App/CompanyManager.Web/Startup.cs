@@ -19,7 +19,6 @@ namespace CompanyManager.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDataDependencies();
@@ -45,9 +44,8 @@ namespace CompanyManager.Web
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {          
+        {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -64,13 +62,13 @@ namespace CompanyManager.Web
                 endpoints.MapControllers();
             });
 
-            app.UseMiddleware<LoggerMiddleware>();
-
-            // Register the Swagger generator and the Swagger UI middlewares
             app.UseOpenApi();
             app.UseSwaggerUi3();
 
             ConfigureLogger();
+
+            app.UseMiddleware<LoggerMiddleware>();
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
         }
 
         private void ConfigureLogger()
