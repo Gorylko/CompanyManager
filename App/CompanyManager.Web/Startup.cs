@@ -2,11 +2,13 @@ namespace CompanyManager.Web
 {
     using CompanyManager.Business.Dependency;
     using CompanyManager.Data.Dependency;
+    using CompanyManager.Web.Middlewares;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Serilog;
 
     public class Startup
     {
@@ -45,7 +47,7 @@ namespace CompanyManager.Web
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        {          
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -62,9 +64,21 @@ namespace CompanyManager.Web
                 endpoints.MapControllers();
             });
 
+            app.UseMiddleware<LoggerMiddleware>();
+
             // Register the Swagger generator and the Swagger UI middlewares
             app.UseOpenApi();
             app.UseSwaggerUi3();
+
+            ConfigureLogger();
+        }
+
+        private void ConfigureLogger()
+        {
+            Log.Logger = new LoggerConfiguration()
+            .Enrich.FromLogContext()
+            .WriteTo.Console()
+            .CreateLogger();
         }
     }
 }
