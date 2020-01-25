@@ -1,12 +1,10 @@
 namespace CompanyManager.Web
 {
     using CompanyManager.Business.Dependency;
-    using CompanyManager.Data.Context;
     using CompanyManager.Data.Dependency;
     using CompanyManager.Web.Middlewares;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;

@@ -1,5 +1,0 @@
-{
-  "ConnectionStrings": {
-    "azureConnection": "Data Source=company-manager.database.windows.net;Initial Catalog=CompanyManagerDB;User ID=company-manager;Password=Superpuperduperpassword123"
-  }
-}
