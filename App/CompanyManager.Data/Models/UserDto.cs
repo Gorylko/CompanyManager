@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CompanyManager.Data.Models
+﻿namespace CompanyManager.Data.Models
 {
+    using System.Collections.Generic;
+
     public class UserDto
     {
         public int Id { get; set; }

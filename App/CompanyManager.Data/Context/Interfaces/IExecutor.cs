@@ -1,4 +1,4 @@
-﻿namespace CompanyManager.Data.DbContext.Interfaces
+﻿namespace CompanyManager.Data.Context.Interfaces
 {
     using System.Collections.Generic;
     using System.Data;

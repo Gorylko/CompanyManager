@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
@@ -27,8 +28,6 @@
 
   <ItemGroup>
     <Folder Include="Mappers\" />
-    <Folder Include="Repositories\Interfaces\" />
-    <Folder Include="Repositories\Realization\" />
   </ItemGroup>
 
 </Project>
