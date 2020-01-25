@@ -1,9 +1,11 @@
 namespace CompanyManager.Web
 {
     using CompanyManager.Business.Dependency;
+    using CompanyManager.Data.Context;
     using CompanyManager.Data.Dependency;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -41,6 +43,9 @@ namespace CompanyManager.Web
                     };
                 };
             });
+
+            services.AddDbContext<CompanyManagerContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("azureConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

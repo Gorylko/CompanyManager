@@ -10,6 +10,14 @@
 
     public class UnitOfWork : IUnitOfWork
     {
+        public UnitOfWork()
+        {
+            var options = new DbContextOptionsBuilder<CompanyManagerContext>()
+                    .EnableSensitiveDataLogging().Options;
+
+            _context = new CompanyManagerContext(options);
+        }
+
         #region Fields
 
         private readonly CompanyManagerContext _context;
@@ -70,15 +78,6 @@
         }
 
         #endregion
-
-        public UnitOfWork()
-        {
-            var options = new DbContextOptionsBuilder<CompanyManagerContext>()
-                    .EnableSensitiveDataLogging()
-                    .UseSqlServer(Settings.ConnectionString).Options;
-
-            _context = new CompanyManagerContext(options);
-        }
 
         public void SaveChanges()
         {
