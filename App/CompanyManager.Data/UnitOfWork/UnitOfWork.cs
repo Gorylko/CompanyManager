@@ -13,7 +13,8 @@
         public UnitOfWork()
         {
             var options = new DbContextOptionsBuilder<CompanyManagerContext>()
-                    .EnableSensitiveDataLogging().Options;
+                    .EnableSensitiveDataLogging()
+                    .UseSqlServer(Settings.ConnectionString).Options;
 
             _context = new CompanyManagerContext(options);
         }

@@ -44,9 +44,6 @@ namespace CompanyManager.Web
                     };
                 };
             });
-
-            services.AddDbContext<CompanyManagerContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("azureConnection")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
