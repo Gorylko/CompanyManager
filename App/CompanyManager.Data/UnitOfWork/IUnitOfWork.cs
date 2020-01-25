@@ -3,6 +3,7 @@
     using System;
     using System.Threading.Tasks;
     using CompanyManager.Data.Context;
+    using CompanyManager.Data.Repositories.RepositoryInterfaces;
 
     public interface IUnitOfWork : IDisposable
     {
@@ -10,13 +11,20 @@
 
         #region Repositories
 
-        //IDetainedPersonRepository DetainedPersonRepository { get; set; }
-        //IDetentionCenterRepository DetentionCenterRepository { get; set; }
-        //IDetentionRepository DetentionRepository { get; set; }
-        //IMobilePhoneRepository MobilePhoneRepository { get; set; }
-        //IPolicemanRepository PolicemanRepository { get; set; }
-        //IRankRepository RankRepository { get; set; }
-        //IUserRepository UserRepository { get; set; }
+        IEmployeeRepository EmployeeRepository { get; set; }
+
+        IEnterpriseRepository EnterpriseRepository { get; set; }
+
+        IPermissionRepository PermissionRepository { get; set; }
+
+        IPurchaseRepository PurchaseRepository { get; set; }
+
+        IRoleRepository RoleRepository { get; set; }
+
+        IUserRepository UserRepository { get; set; }
+
+        IWorkAreaRepository WorkAreaRepository { get; set; }
+
         #endregion
 
         void SaveChanges();

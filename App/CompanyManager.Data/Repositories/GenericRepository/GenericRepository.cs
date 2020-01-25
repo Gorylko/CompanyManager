@@ -1,8 +1,7 @@
-﻿namespace CompanyManager.Data.Repositories.Realization
+﻿namespace CompanyManager.Data.Repositories.GenericRepository
 {
     using System.Linq;
     using CompanyManager.Data.Context;
-    using CompanyManager.Data.Repositories.Interfaces;
     using Microsoft.EntityFrameworkCore;
 
     public class GenericRepository<TEntity> : IGenericRepository<TEntity>

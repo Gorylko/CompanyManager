@@ -1,84 +1,90 @@
 ﻿namespace CompanyManager.Data.UnitOfWork
 {
     using System;
+    using System.Diagnostics;
+    using System.Threading.Tasks;
+    using CompanyManager.Data.Context;
+    using CompanyManager.Data.Repositories.RepositoryInterfaces;
+    using CompanyManager.Data.Repositories.RepositoryRealization;
+    using Microsoft.EntityFrameworkCore;
 
     public class UnitOfWork : IUnitOfWork
     {
         #region Fields
 
-        private readonly IsolationContext context;
-        private IDetainedPersonRepository detainedPersonRepository;
-        private IDetentionCenterRepository detentionCenterRepository;
-        private IDetentionRepository detentionRepository;
-        private IMobilePhoneRepository mobilePhoneRepository;
-        private IPolicemanRepository policemanRepository;
-        private IRankRepository rankRepository;
-        private IUserRepository userRepository;
+        private readonly CompanyManagerContext _context;
+        private IEmployeeRepository _employeeRepository;
+        private IEnterpriseRepository _enterpriseRepository;
+        private IPermissionRepository _permissionRepository;
+        private IPurchaseRepository _purchaseRepository;
+        private IRoleRepository _roleRepository;
+        private IWorkAreaRepository _workAreaRepository;
+        private IUserRepository _userRepository;
 
         #endregion
 
         #region Reps
 
-        public IsolationContext Context => context;
+        public CompanyManagerContext Context => _context;
 
-        public IDetainedPersonRepository DetainedPersonRepository
+        public IEmployeeRepository EmployeeRepository
         {
-            get => detainedPersonRepository ?? new DetainedPersonRepository(context);
-            set => detainedPersonRepository = value;
+            get => _employeeRepository ?? new EmployeeRepository(_context);
+            set => _employeeRepository = value;
         }
 
-        public IDetentionCenterRepository DetentionCenterRepository
+        public IEnterpriseRepository EnterpriseRepository
         {
-            get => detentionCenterRepository ?? new DetentionCenterRepository(context);
-            set => detentionCenterRepository = value;
+            get => _enterpriseRepository ?? new EnterpriseRepository(_context);
+            set => _enterpriseRepository = value;
         }
 
-        public IDetentionRepository DetentionRepository
+        public IPermissionRepository PermissionRepository
         {
-            get => detentionRepository ?? new DetentionRepository(context);
-            set => detentionRepository = value;
+            get => _permissionRepository ?? new PermissionRepository(_context);
+            set => _permissionRepository = value;
         }
 
-        public IMobilePhoneRepository MobilePhoneRepository
+        public IPurchaseRepository PurchaseRepository
         {
-            get => mobilePhoneRepository ?? new MobilePhoneRepository(context);
-            set => mobilePhoneRepository = value;
+            get => _purchaseRepository ?? new PurchaseRepository(_context);
+            set => _purchaseRepository = value;
         }
 
-        public IPolicemanRepository PolicemanRepository
+        public IRoleRepository RoleRepository
         {
-            get => policemanRepository ?? new PolicemanRepository(context);
-            set => policemanRepository = value;
+            get => _roleRepository ?? new RoleRepository(_context);
+            set => _roleRepository = value;
         }
 
-        public IRankRepository RankRepository
+        public IWorkAreaRepository WorkAreaRepository
         {
-            get => rankRepository ?? new RankRepository(context);
-            set => rankRepository = value;
+            get => _workAreaRepository ?? new WorkAreaRepository(_context);
+            set => WorkAreaRepository = value;
         }
 
         public IUserRepository UserRepository
         {
-            get => userRepository ?? new UserRepository(context);
-            set => userRepository = value;
+            get => _userRepository ?? new UserRepository(_context);
+            set => _userRepository = value;
         }
 
         #endregion
 
         public UnitOfWork()
         {
-            var options = new DbContextOptionsBuilder<IsolationContext>()
+            var options = new DbContextOptionsBuilder<CompanyManagerContext>()
                     .EnableSensitiveDataLogging()
                     .UseSqlServer(Settings.ConnectionString).Options;
 
-            context = new IsolationContext(options);
+            _context = new CompanyManagerContext(options);
         }
 
         public void SaveChanges()
         {
             try
             {
-                context.SaveChanges();
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -91,7 +97,7 @@
         {
             try
             {
-                await context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -112,7 +118,7 @@
         {
             if (!Disposed && disposing)
             {
-                context.Dispose();
+                _context.Dispose();
             }
 
             Disposed = true;

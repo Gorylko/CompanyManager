@@ -1,4 +1,4 @@
-﻿namespace CompanyManager.Data.Repositories.Interfaces
+﻿namespace CompanyManager.Data.Repositories.GenericRepository
 {
     using System.Linq;
 
