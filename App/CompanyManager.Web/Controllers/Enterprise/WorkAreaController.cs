@@ -4,9 +4,9 @@
 
     [ApiController]
     [Route("api/[controller]")]
-    public class EnterpriseController : Controller
+    public class WorkAreaController : Controller
     {
-        public EnterpriseController(/*params from ioc*/)
+        public WorkAreaController(/*params from ioc*/)
         {
             // service initialization
         }
@@ -17,20 +17,26 @@
             return BadRequest();
         }
 
-        [HttpGet("get-all")]
-        public IActionResult GetAll()
+        [HttpGet("get-by-enterprise-id")]
+        public IActionResult GetByEnterpriseId()
         {
             return BadRequest();
         }
 
+        [HttpGet("get-all")]
+        public IActionResult GetAll()
+        {
+            return View();
+        }
+
         [HttpPost("save")]
-        public IActionResult Save(Models.Enterprise enterprise)
+        public IActionResult Save(Models.WorkArea workArea)
         {
             return BadRequest();
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Models.Enterprise enterprise)
+        public IActionResult Update(Models.WorkArea workArea)
         {
             return BadRequest();
         }

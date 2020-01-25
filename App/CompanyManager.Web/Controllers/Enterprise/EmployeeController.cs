@@ -4,15 +4,21 @@
 
     [ApiController]
     [Route("api/[controller]")]
-    public class EnterpriseController : Controller
+    public class EmployeeController : Controller
     {
-        public EnterpriseController(/*params from ioc*/)
+        public EmployeeController(/*params from ioc*/)
         {
             // service initialization
         }
 
         [HttpGet("get-by-id")]
         public IActionResult GetById(int id)
+        {
+            return BadRequest();
+        }
+
+        [HttpGet("get-by-enterprise-id")]
+        public IActionResult GetByEnterpriseId()
         {
             return BadRequest();
         }
@@ -24,13 +30,13 @@
         }
 
         [HttpPost("save")]
-        public IActionResult Save(Models.Enterprise enterprise)
+        public IActionResult Save(Models.Employee employee)
         {
             return BadRequest();
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Models.Enterprise enterprise)
+        public IActionResult Update(Models.Employee employee)
         {
             return BadRequest();
         }
