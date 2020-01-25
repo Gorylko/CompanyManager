@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "azureConnection": "Data Source=companymanagerdb.database.windows.net;Initial Catalog=CompanyManager;Persist Security Info=True;User ID=companymanageradmin;Password=CompManPass876654312"
+  }
+}
