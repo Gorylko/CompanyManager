@@ -1,6 +1,6 @@
 ﻿namespace CompanyManager.Models
 {
-    public class Enterprice
+    public class Enterprise
     {
         public int Id { get; set; }
 
