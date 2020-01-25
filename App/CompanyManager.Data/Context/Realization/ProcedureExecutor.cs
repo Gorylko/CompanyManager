@@ -1,9 +1,9 @@
-﻿namespace CompanyManager.Data.DbContext.Realization
+﻿namespace CompanyManager.Data.Context.Realization
 {
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
-    using CompanyManager.Data.DbContext.Interfaces;
+    using CompanyManager.Data.Context.Interfaces;
     using CompanyManager.Data.Helpers;
 
     public class ProcedureExecutor : IExecutor

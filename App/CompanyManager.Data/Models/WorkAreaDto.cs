@@ -1,7 +1,5 @@
 ﻿namespace CompanyManager.Data.Models
 {
-    using System;
-
     public class WorkAreaDto
     {
         public int Id { get; set; }

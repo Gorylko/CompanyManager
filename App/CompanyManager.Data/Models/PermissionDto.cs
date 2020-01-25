@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CompanyManager.Data.Models
+﻿namespace CompanyManager.Data.Models
 {
+    using System.Collections.Generic;
+
     public class PermissionDto
     {
         public int Id { get; set; }
