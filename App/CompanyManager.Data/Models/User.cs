@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class UserDto
+    public class User
     {
         public int Id { get; set; }
 
@@ -12,7 +12,7 @@
 
         public byte[] PasswordSalt { get; set; }
 
-        public virtual ICollection<EnterpriseDto> Enterprises { get; set; }
+        public virtual ICollection<Enterprise> Enterprises { get; set; }
 
         public virtual ICollection<UserInformationDto> UserInformations { get; set; }
 

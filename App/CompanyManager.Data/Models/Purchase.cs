@@ -1,6 +1,6 @@
 ﻿namespace CompanyManager.Data.Models
 {
-    public class PurchaseDto
+    public class Purchase
     {
         public int Id { get; set; }
 
@@ -14,6 +14,6 @@
 
         public decimal? Income { get; set; }
 
-        public virtual EnterpriseDto Enterprise { get; set; }
+        public virtual Enterprise Enterprise { get; set; }
     }
 }
