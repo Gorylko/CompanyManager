@@ -1,6 +1,6 @@
 ﻿namespace CompanyManager.Data.Models
 {
-    public class Employee
+    public class EmployeeDto
     {
         public int Id { get; set; }
 
@@ -14,6 +14,6 @@
 
         public decimal Salary { get; set; }
 
-        public virtual Enterprise Enterprise { get; set; }
+        public virtual EnterpriseDto Enterprise { get; set; }
     }
 }

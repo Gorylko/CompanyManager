@@ -5,7 +5,7 @@
     using CompanyManager.Data.Repositories.GenericRepository;
     using CompanyManager.Data.Repositories.RepositoryInterfaces;
 
-    public class PurchaseRepository : GenericRepository<Purchase>, IPurchaseRepository
+    public class PurchaseRepository : GenericRepository<PurchaseDto>, IPurchaseRepository
     {
         public PurchaseRepository(CompanyManagerContext context)
             : base(context)

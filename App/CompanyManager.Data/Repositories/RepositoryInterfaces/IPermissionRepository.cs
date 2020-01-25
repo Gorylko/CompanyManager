@@ -3,7 +3,7 @@
     using CompanyManager.Data.Models;
     using CompanyManager.Data.Repositories.GenericRepository;
 
-    public interface IPermissionRepository : IGenericRepository<Permission>
+    public interface IPermissionRepository : IGenericRepository<PermissionDto>
     {
     }
 }

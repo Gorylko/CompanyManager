@@ -3,7 +3,7 @@
     using CompanyManager.Data.Models;
     using CompanyManager.Data.Repositories.GenericRepository;
 
-    public interface IEmployeeRepository : IGenericRepository<Employee>
+    public interface IEmployeeRepository : IGenericRepository<EmployeeDto>
     {
     }
 }

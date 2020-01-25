@@ -5,7 +5,7 @@
     using CompanyManager.Data.Repositories.GenericRepository;
     using CompanyManager.Data.Repositories.RepositoryInterfaces;
 
-    public class EnterpriseRepository : GenericRepository<Enterprise>, IEnterpriseRepository
+    public class EnterpriseRepository : GenericRepository<EnterpriseDto>, IEnterpriseRepository
     {
         public EnterpriseRepository(CompanyManagerContext context)
             : base(context)

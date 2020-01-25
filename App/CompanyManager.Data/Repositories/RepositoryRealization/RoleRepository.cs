@@ -5,7 +5,7 @@
     using CompanyManager.Data.Repositories.GenericRepository;
     using CompanyManager.Data.Repositories.RepositoryInterfaces;
 
-    public class RoleRepository : GenericRepository<Role>, IRoleRepository
+    public class RoleRepository : GenericRepository<RoleDto>, IRoleRepository
     {
         public RoleRepository(CompanyManagerContext context)
             : base(context)

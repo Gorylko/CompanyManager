@@ -5,7 +5,7 @@
     using CompanyManager.Data.Repositories.GenericRepository;
     using CompanyManager.Data.Repositories.RepositoryInterfaces;
 
-    public class PermissionRepository : GenericRepository<Permission>, IPermissionRepository
+    public class PermissionRepository : GenericRepository<PermissionDto>, IPermissionRepository
     {
         public PermissionRepository(CompanyManagerContext context)
             : base(context)

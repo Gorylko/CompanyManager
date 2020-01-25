@@ -10,18 +10,18 @@
         {
         }
 
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<EmployeeDto> Employees { get; set; }
 
-        public DbSet<Enterprise> Enterprises { get; set; }
+        public DbSet<EnterpriseDto> Enterprises { get; set; }
 
-        public DbSet<Permission> Permissions { get; set; }
+        public DbSet<PermissionDto> Permissions { get; set; }
 
-        public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<PurchaseDto> Purchases { get; set; }
 
-        public DbSet<Role> Roles { get; set; }
+        public DbSet<RoleDto> Roles { get; set; }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserDto> Users { get; set; }
 
-        public DbSet<WorkArea> WorkAreas { get; set; }
+        public DbSet<WorkAreaDto> WorkAreas { get; set; }
     }
 }

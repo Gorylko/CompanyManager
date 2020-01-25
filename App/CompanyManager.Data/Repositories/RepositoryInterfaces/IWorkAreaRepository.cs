@@ -3,7 +3,7 @@
     using CompanyManager.Data.Models;
     using CompanyManager.Data.Repositories.GenericRepository;
 
-    public interface IWorkAreaRepository : IGenericRepository<WorkArea>
+    public interface IWorkAreaRepository : IGenericRepository<WorkAreaDto>
     {
     }
 }

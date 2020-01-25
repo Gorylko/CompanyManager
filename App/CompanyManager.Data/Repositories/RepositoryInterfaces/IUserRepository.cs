@@ -3,7 +3,7 @@
     using CompanyManager.Data.Models;
     using CompanyManager.Data.Repositories.GenericRepository;
 
-    public interface IUserRepository : IGenericRepository<User>
+    public interface IUserRepository : IGenericRepository<UserDto>
     {
     }
 }

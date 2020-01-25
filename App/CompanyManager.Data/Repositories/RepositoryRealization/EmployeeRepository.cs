@@ -5,7 +5,7 @@
     using CompanyManager.Data.Repositories.GenericRepository;
     using CompanyManager.Data.Repositories.RepositoryInterfaces;
 
-    public class EmployeeRepository : GenericRepository<Employee>, IEmployeeRepository
+    public class EmployeeRepository : GenericRepository<EmployeeDto>, IEmployeeRepository
     {
         public EmployeeRepository(CompanyManagerContext context)
             : base(context)

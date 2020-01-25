@@ -12,6 +12,6 @@
 
         public string PhoneNumber { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual UserDto User { get; set; }
     }
 }
