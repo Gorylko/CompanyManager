@@ -1,6 +1,7 @@
 ﻿namespace CompanyManager.Data.Repositories.GenericRepository
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using CompanyManager.Data.Context;
     using Microsoft.EntityFrameworkCore;
 
@@ -45,6 +46,11 @@
         public TEntity GetById(object id)
         {
             return _dbSet.Find(id);
+        }
+
+        public async Task<TEntity> GetByIdAsync(object id)
+        {
+            return await _dbSet.FindAsync(id);
         }
 
         public void Update(TEntity entity)

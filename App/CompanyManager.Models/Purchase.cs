@@ -1,4 +1,6 @@
-﻿namespace CompanyManager.Models
+﻿using System;
+
+namespace CompanyManager.Models
 {
     public class Purchase
     {
