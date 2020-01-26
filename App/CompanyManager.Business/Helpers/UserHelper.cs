@@ -10,8 +10,6 @@
             return new UserDto
             {
                 Id = model.Id,
-                Name = model.Name,
-                
             };
         }
     }
