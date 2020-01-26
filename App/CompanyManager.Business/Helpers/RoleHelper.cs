@@ -1,8 +1,8 @@
 ﻿namespace CompanyManager.Business.Helpers
 {
+    using System.Linq;
     using CompanyManager.Data.Models;
     using CompanyManager.Models;
-    using System.Linq;
 
     public static class RoleHelper
     {

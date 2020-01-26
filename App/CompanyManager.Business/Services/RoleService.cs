@@ -2,8 +2,8 @@
 {
     using System;
     using System.Threading.Tasks;
+    using CompanyManager.Business.Helpers;
     using CompanyManager.Business.Infrastructure;
-    using CompanyManager.Data.Models;
     using CompanyManager.Models;
 
     public class RoleService : CommonService
@@ -15,13 +15,9 @@
                 throw new ArgumentNullException(nameof(role));
             }
 
-            var roleDto = new RoleDto
-            {
-                Name = role.Name,
-            };
-
             using (var uow = UnitOfWork)
             {
+                var roleDto = role.ToRoleDto();
                 uow.RoleRepository.Add(roleDto);
                 await uow.SaveChangesAsync();
 

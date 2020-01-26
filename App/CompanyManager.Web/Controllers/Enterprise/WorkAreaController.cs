@@ -18,7 +18,7 @@
         }
 
         [HttpGet("get-by-enterprise-id")]
-        public IActionResult GetByEnterpriseId()
+        public IActionResult GetByEnterpriseId(int id)
         {
             return BadRequest();
         }
