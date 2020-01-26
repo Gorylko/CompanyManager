@@ -12,6 +12,8 @@
                 Id = model.Id,
                 Name = model.Name,
                 Cost = model.Cost,
+                Enterprise = model.Enterprise?.ToEnterpriseDto(),
+                EnterpriseId = model.EnterpriseId,
                 Income = model.Income,
                 RentPrice = model.RentPrice,
             };

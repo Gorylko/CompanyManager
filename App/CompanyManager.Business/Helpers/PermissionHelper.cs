@@ -2,6 +2,7 @@
 {
     using CompanyManager.Data.Models;
     using CompanyManager.Models;
+    using System.Linq;
 
     public static class PermissionHelper
     {
@@ -11,6 +12,7 @@
             {
                 Id = model.Id,
                 Name = model.Name,
+                RolesToPermissions = model.RolesToPermissions?.Select(rtp => rtp.ToRolesToPermissionDto()).ToList(),
             };
         }
 
@@ -20,6 +22,7 @@
             {
                 Id = model.Id,
                 Name = model.Name,
+                RolesToPermissions = model.RolesToPermissions?.Select(rtp => rtp.ToRolesToPermission()).ToList(),
             };
         }
     }

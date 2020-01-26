@@ -10,6 +10,8 @@
             return new EmployeeDto
             {
                 Id = model.Id,
+                Enterprise = model.Enterprise?.ToEnterpriseDto(),
+                EnterpriseId = model.EnterpriseId,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Position = model.Position,
@@ -22,6 +24,8 @@
             return new Employee
             {
                 Id = model.Id,
+                Enterprise = model.Enterprise?.ToEnterprise(),
+                EnterpriseId = model.EnterpriseId,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Position = model.Position,
