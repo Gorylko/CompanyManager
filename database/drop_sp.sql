@@ -1,0 +1,6 @@
+DROP PROCEDURE [dbo].[sp_select_areas_by_enterprise_id]
+DROP PROCEDURE [dbo].[sp_select_employees_by_enterprise_id]
+DROP PROCEDURE [dbo].[sp_select_enterprise_by_id]
+DROP PROCEDURE [dbo].[sp_select_purchases_by_enterprise_id]
+DROP PROCEDURE [dbo].[sp_select_salt_by_user_login]
+DROP PROCEDURE [dbo].[sp_select_user_by_id]
