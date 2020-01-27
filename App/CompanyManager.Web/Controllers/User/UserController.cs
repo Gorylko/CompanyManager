@@ -1,12 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CompanyManager.Business.Helpers.Cryptographers;
+using CompanyManager.Business.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace CompanyManager.Web.Controllers.User
 {
     public class UserController : Controller
     {
-        public UserController(/*params from ioc*/)
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
         {
-            // service initialization
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
         [HttpGet("get-by-id")]
@@ -28,13 +34,13 @@ namespace CompanyManager.Web.Controllers.User
         }
 
         [HttpPost("save")]
-        public IActionResult Save(Models.User employee)
+        public async Task<int> Save(Models.User user)
         {
-            return BadRequest();
+            return await _userService.AddAsync(user);
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Models.User employee)
+        public IActionResult Update(Models.User user)
         {
             return BadRequest();
         }

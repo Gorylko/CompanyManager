@@ -1,14 +1,18 @@
 ﻿namespace CompanyManager.Web.Controllers.Enterprise
 {
+    using CompanyManager.Business.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
+    using System;
 
     [ApiController]
     [Route("api/[controller]")]
     public class EmployeeController : Controller
     {
-        public EmployeeController(/*params from ioc*/)
+        private readonly IEnterpriseService _enterpriseService;
+
+        public EmployeeController(IEnterpriseService enterpriseService)
         {
-            // service initialization
+            _enterpriseService = enterpriseService ?? throw new ArgumentNullException(nameof(enterpriseService));
         }
 
         [HttpGet("get-by-id")]
