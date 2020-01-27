@@ -8,10 +8,16 @@
     using CompanyManager.Business.Infrastructure;
     using CompanyManager.Business.Services.Interfaces;
     using CompanyManager.Data.Models;
+    using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
 
     public class PurchaseService : CommonService, IPurchaseService
     {
+        public PurchaseService(IUnitOfWork work)
+            : base(work)
+        {
+        }
+
         public async Task<int> AddAsync(Purchase purchase)
         {
             if (purchase == null)
@@ -21,45 +27,27 @@
 
             PurchaseDto purchaseDto = purchase.ToPurchaseDto();
 
-            using (var uow = UnitOfWork)
-            {
-                uow.PurchaseRepository.Add(purchaseDto);
-                await uow.SaveChangesAsync();
+            _work.PurchaseRepository.Add(purchaseDto);
+            await _work.SaveChangesAsync();
 
-                return purchaseDto.Id;
-            }
+            return purchaseDto.Id;
         }
 
         public async Task<Purchase> GetByIdAsync(int id)
         {
-            PurchaseDto purchaseDto = null;
-
-            using (var uow = UnitOfWork)
-            {
-                purchaseDto = await uow.PurchaseRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(purchaseDto));
-            }
-
-            return purchaseDto?.ToPurchase();
+            return (await _work.PurchaseRepository.GetByIdAsync(id))?.ToPurchase();
         }
 
         public IEnumerable<Purchase> GetAll()
         {
-            using (var uow = UnitOfWork)
-            {
-                var purchases = uow.PurchaseRepository.GetAll();
-
-                return purchases?.Select(e => e.ToPurchase());
-            }
+            return _work.PurchaseRepository.GetAll()?.Select(e => e.ToPurchase());
         }
 
         public void Delete(int id)
         {
-            using (var uow = UnitOfWork)
-            {
-                uow.PurchaseRepository.Delete(id);
+            _work.PurchaseRepository.Delete(id);
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
 
         public void Delete(Purchase purchase)
@@ -69,12 +57,9 @@
                 throw new ArgumentNullException(nameof(purchase));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                uow.PurchaseRepository.Delete(purchase);
+            _work.PurchaseRepository.Delete(purchase);
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
 
         public void Update(Purchase purchase)
@@ -84,13 +69,10 @@
                 throw new ArgumentNullException(nameof(purchase));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                PurchaseDto purchaseDto = uow.PurchaseRepository.GetById(purchase.Id) ?? throw new ArgumentNullException(nameof(purchaseDto));
-                uow.PurchaseRepository.Update(purchase.ToPurchaseDto());
+            PurchaseDto purchaseDto = _work.PurchaseRepository.GetById(purchase.Id) ?? throw new ArgumentNullException(nameof(purchaseDto));
+            _work.PurchaseRepository.Update(purchase.ToPurchaseDto());
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
     }
 }

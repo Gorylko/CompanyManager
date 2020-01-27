@@ -19,7 +19,7 @@
             };
         }
 
-        public static Employee ToEnterprise(this EmployeeDto model)
+        public static Employee ToEmployee(this EmployeeDto model)
         {
             return new Employee
             {

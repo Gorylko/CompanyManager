@@ -1,14 +1,19 @@
 ﻿namespace CompanyManager.Web.Controllers.Enterprise
 {
+    using CompanyManager.Business.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Threading.Tasks;
 
     [ApiController]
     [Route("api/[controller]")]
     public class EmployeeController : Controller
     {
-        public EmployeeController(/*params from ioc*/)
+        private readonly IEmployeeService _employeeService;
+
+        public EmployeeController(IEmployeeService employeeService)
         {
-            // service initialization
+            _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
         }
 
         [HttpGet("get-by-id")]
@@ -30,9 +35,9 @@
         }
 
         [HttpPost("save")]
-        public IActionResult Save(Models.Employee employee)
+        public async Task<int> Save(Models.Employee employee)
         {
-            return BadRequest();
+            return await _employeeService.AddAsync(employee);
         }
 
         [HttpPost("update")]

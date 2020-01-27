@@ -8,10 +8,16 @@
     using CompanyManager.Business.Infrastructure;
     using CompanyManager.Business.Services.Interfaces;
     using CompanyManager.Data.Models;
+    using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
 
     public class PermissionService : CommonService, IPermissionService
     {
+        public PermissionService(IUnitOfWork work)
+            : base(work)
+        {
+        }
+
         public async Task<int> AddAsync(Permission permission)
         {
             if (permission == null)
@@ -21,45 +27,33 @@
 
             PermissionDto permissionDto = permission.ToPermissionDto();
 
-            using (var uow = UnitOfWork)
-            {
-                uow.PermissionRepository.Add(permissionDto);
-                await uow.SaveChangesAsync();
+            _work.PermissionRepository.Add(permissionDto);
+            await _work.SaveChangesAsync();
 
-                return permissionDto.Id;
-            }
+            return permissionDto.Id;
         }
 
         public async Task<Permission> GetByIdAsync(int id)
         {
             PermissionDto permissionDto = null;
 
-            using (var uow = UnitOfWork)
-            {
-                permissionDto = await uow.PermissionRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(permissionDto));
-            }
+            permissionDto = await _work.PermissionRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(permissionDto));
 
             return permissionDto?.ToPermission();
         }
 
         public IEnumerable<Permission> GetAll()
         {
-            using (var uow = UnitOfWork)
-            {
-                var permissions = uow.PermissionRepository.GetAll();
+            var permissions = _work.PermissionRepository.GetAll();
 
-                return permissions?.Select(e => e.ToPermission());
-            }
+            return permissions?.Select(e => e.ToPermission());
         }
 
         public void Delete(int id)
         {
-            using (var uow = UnitOfWork)
-            {
-                uow.PermissionRepository.Delete(id);
+            _work.PermissionRepository.Delete(id);
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
 
         public void Delete(Permission permission)
@@ -69,12 +63,10 @@
                 throw new ArgumentNullException(nameof(permission));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                uow.PermissionRepository.Delete(permission);
+            _work.PermissionRepository.Delete(permission);
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
+
         }
 
         public void Update(Permission permission)
@@ -84,13 +76,10 @@
                 throw new ArgumentNullException(nameof(permission));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                PermissionDto permissionDto = uow.PermissionRepository.GetById(permission.Id) ?? throw new ArgumentNullException(nameof(permissionDto));
-                uow.PermissionRepository.Update(permission.ToPermissionDto());
+            PermissionDto permissionDto = _work.PermissionRepository.GetById(permission.Id) ?? throw new ArgumentNullException(nameof(permissionDto));
+            _work.PermissionRepository.Update(permission.ToPermissionDto());
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
     }
 }

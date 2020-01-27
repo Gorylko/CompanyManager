@@ -8,10 +8,16 @@
     using CompanyManager.Business.Infrastructure;
     using CompanyManager.Business.Services.Interfaces;
     using CompanyManager.Data.Models;
+    using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
 
     public class EnterpriseService : CommonService, IEnterpriseService
     {
+        public EnterpriseService(IUnitOfWork work)
+            : base(work)
+        {
+        }
+
         public async Task<int> AddAsync(Enterprise enterprise)
         {
             if (enterprise == null)
@@ -21,45 +27,34 @@
 
             EnterpriseDto enterpriseDto = enterprise.ToEnterpriseDto();
 
-            using (var uow = UnitOfWork)
-            {
-                uow.EnterpriseRepository.Add(enterpriseDto);
-                await uow.SaveChangesAsync();
+            _work.EnterpriseRepository.Add(enterpriseDto);
+            await _work.SaveChangesAsync();
 
-                return enterpriseDto.Id;
-            }
+            return enterpriseDto.Id;
+
         }
 
         public async Task<Enterprise> GetByIdAsync(int id)
         {
             EnterpriseDto enterpriseDto = null;
 
-            using (var uow = UnitOfWork)
-            {
-                enterpriseDto = await uow.EnterpriseRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(enterpriseDto));
-            }
+            enterpriseDto = await _work.EnterpriseRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(enterpriseDto));
 
             return enterpriseDto?.ToEnterprise();
         }
 
         public IEnumerable<Enterprise> GetAll()
         {
-            using (var uow = UnitOfWork)
-            {
-                var enterprises = uow.EnterpriseRepository.GetAll();
+            var enterprises = _work.EnterpriseRepository.GetAll();
 
-                return enterprises?.Select(e => e.ToEnterprise());
-            }
+            return enterprises?.Select(e => e.ToEnterprise());
         }
 
         public void Delete(int id)
         {
-            using (var uow = UnitOfWork)
-            {
-                uow.EnterpriseRepository.Delete(id);
+            _work.EnterpriseRepository.Delete(id);
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
 
         public void Delete(Enterprise enterprise)
@@ -69,12 +64,9 @@
                 throw new ArgumentNullException(nameof(enterprise));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                uow.EnterpriseRepository.Delete(enterprise);
+            _work.EnterpriseRepository.Delete(enterprise);
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
 
         public void Update(Enterprise enterprise)
@@ -84,13 +76,10 @@
                 throw new ArgumentNullException(nameof(enterprise));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                EnterpriseDto enterpriseDto = uow.EnterpriseRepository.GetById(enterprise.Id) ?? throw new ArgumentNullException(nameof(enterpriseDto));
-                uow.EnterpriseRepository.Update(enterprise.ToEnterpriseDto());
+            EnterpriseDto enterpriseDto = _work.EnterpriseRepository.GetById(enterprise.Id) ?? throw new ArgumentNullException(nameof(enterpriseDto));
+            _work.EnterpriseRepository.Update(enterprise.ToEnterpriseDto());
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
     }
 }

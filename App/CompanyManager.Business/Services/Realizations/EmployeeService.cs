@@ -8,10 +8,16 @@
     using CompanyManager.Business.Infrastructure;
     using CompanyManager.Business.Services.Interfaces;
     using CompanyManager.Data.Models;
+    using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
 
     public class EmployeeService : CommonService, IEmployeeService
     {
+        public EmployeeService(IUnitOfWork work)
+            : base(work)
+        {
+        }
+
         public async Task<int> AddAsync(Employee employee)
         {
             if (employee == null)
@@ -21,45 +27,33 @@
 
             EmployeeDto employeeDto = employee.ToEmployeeDto();
 
-            using (var uow = UnitOfWork)
-            {
-                uow.EmployeeRepository.Add(employeeDto);
-                await uow.SaveChangesAsync();
+            _work.EmployeeRepository.Add(employeeDto);
+            await _work.SaveChangesAsync();
 
-                return employeeDto.Id;
-            }
+            return employeeDto.Id;
+
         }
 
         public async Task<Employee> GetByIdAsync(int id)
         {
             EmployeeDto employeeDto = null;
+            employeeDto = await _work.EmployeeRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(employeeDto));
 
-            using (var uow = UnitOfWork)
-            {
-                employeeDto = await uow.EmployeeRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(employeeDto));
-            }
-
-            return employeeDto?.ToEnterprise();
+            return employeeDto?.ToEmployee();
         }
 
         public IEnumerable<Employee> GetAll()
         {
-            using (var uow = UnitOfWork)
-            {
-                var employees = uow.EmployeeRepository.GetAll();
+            var employees = _work.EmployeeRepository.GetAll();
 
-                return employees?.Select(e => e.ToEnterprise());
-            }
+            return employees?.Select(e => e.ToEmployee());
         }
 
         public void Delete(int id)
         {
-            using (var uow = UnitOfWork)
-            {
-                uow.EmployeeRepository.Delete(id);
+            _work.EmployeeRepository.Delete(id);
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
 
         public void Delete(Employee employee)
@@ -69,12 +63,9 @@
                 throw new ArgumentNullException(nameof(employee));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                uow.EmployeeRepository.Delete(employee);
+            _work.EmployeeRepository.Delete(employee);
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
 
         public void Update(Employee employee)
@@ -84,13 +75,10 @@
                 throw new ArgumentNullException(nameof(employee));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                EmployeeDto employeeDto = uow.EmployeeRepository.GetById(employee.Id) ?? throw new ArgumentNullException(nameof(employeeDto));
-                uow.EmployeeRepository.Update(employee.ToEmployeeDto());
+            EmployeeDto employeeDto = _work.EmployeeRepository.GetById(employee.Id) ?? throw new ArgumentNullException(nameof(employeeDto));
+            _work.EmployeeRepository.Update(employee.ToEmployeeDto());
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
     }
 }
