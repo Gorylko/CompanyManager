@@ -10,6 +10,7 @@
     using CompanyManager.Data.Models;
     using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class EmployeeService : CommonService, IEmployeeService
     {
@@ -48,7 +49,8 @@
                 throw new ArgumentException("Id must be more than 0", nameof(enterpriseId));
             }
 
-            return _work.EmployeeRepository.GetByEnterpriseId(enterpriseId).Select(employee => employee.ToEmployee());
+            return _work.EmployeeRepository.GetByEnterpriseId(enterpriseId)
+                                           .Select(employee => employee.ToEmployee());
         }
 
         public IEnumerable<Employee> GetAll()
@@ -84,7 +86,11 @@
                 throw new ArgumentNullException(nameof(employee));
             }
 
-            EmployeeDto employeeDto = _work.EmployeeRepository.GetById(employee.Id) ?? throw new ArgumentNullException(nameof(employeeDto));
+            EmployeeDto employeeDto = _work.EmployeeRepository
+                                           .Get(e => e.Id == employee.Id)
+                                           .AsNoTracking()
+                                           .FirstOrDefault() ?? throw new ArgumentNullException(nameof(employeeDto));
+
             _work.EmployeeRepository.Update(employee.ToEmployeeDto());
 
             _work.SaveChanges();

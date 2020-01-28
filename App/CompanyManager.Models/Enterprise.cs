@@ -11,11 +11,7 @@ namespace CompanyManager.Models
 
         public string Description { get; set; }
 
-        public int CreatedBy { get; set; }
-
         public virtual ICollection<Employee> Employees { get; set; }
-
-        public virtual User User { get; set; }
 
         public virtual ICollection<Purchase> Purchases { get; set; }
 

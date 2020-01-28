@@ -10,6 +10,7 @@
     using CompanyManager.Data.Models;
     using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class RoleService : CommonService, IRoleService
     {
@@ -76,7 +77,11 @@
                 throw new ArgumentNullException(nameof(role));
             }
 
-            RoleDto roleDto = _work.RoleRepository.GetById(role.Id) ?? throw new ArgumentNullException(nameof(roleDto));
+            RoleDto roleDto = _work.RoleRepository
+                                   .Get(r => r.Id == role.Id)
+                                   .AsNoTracking()
+                                   .FirstOrDefault() ?? throw new ArgumentNullException(nameof(roleDto));
+
             _work.RoleRepository.Update(role.ToRoleDto());
 
             _work.SaveChanges();

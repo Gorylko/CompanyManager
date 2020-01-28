@@ -10,6 +10,7 @@
     using CompanyManager.Data.Models;
     using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class PermissionService : CommonService, IPermissionService
     {
@@ -76,7 +77,11 @@
                 throw new ArgumentNullException(nameof(permission));
             }
 
-            PermissionDto permissionDto = _work.PermissionRepository.GetById(permission.Id) ?? throw new ArgumentNullException(nameof(permissionDto));
+            PermissionDto permissionDto = _work.PermissionRepository
+                                               .Get(p => p.Id == permission.Id)
+                                               .AsNoTracking()
+                                               .FirstOrDefault() ?? throw new ArgumentNullException(nameof(permissionDto));
+
             _work.PermissionRepository.Update(permission.ToPermissionDto());
 
             _work.SaveChanges();

@@ -1,6 +1,7 @@
 ﻿namespace CompanyManager.Web.Controllers.Enterprise
 {
     using CompanyManager.Business.Services.Interfaces;
+    using CompanyManager.Models;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
 
@@ -16,9 +17,9 @@
         }
 
         [HttpGet("get-by-id")]
-        public IActionResult GetById(int id)
+        public async Task<Enterprise> GetById(int id)
         {
-            return BadRequest();
+            return await _enterpriseService.GetByIdAsync(id);
         }
 
         [HttpGet("get-all")]

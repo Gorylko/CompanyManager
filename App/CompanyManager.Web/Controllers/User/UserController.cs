@@ -38,8 +38,9 @@ namespace CompanyManager.Web.Controllers.User
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Models.User employee)
+        public IActionResult Update(Models.User user)
         {
+            _userService.Update(user);
             return BadRequest();
         }
 

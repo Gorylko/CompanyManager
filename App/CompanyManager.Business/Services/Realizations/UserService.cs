@@ -10,6 +10,7 @@
     using CompanyManager.Data.Models;
     using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class UserService : CommonService, IUserService
     {
@@ -75,7 +76,11 @@
                 throw new ArgumentNullException(nameof(user));
             }
 
-            UserDto userDto = _work.UserRepository.GetById(user.Id) ?? throw new ArgumentNullException(nameof(userDto));
+            UserDto userDto = _work.UserRepository
+                                   .Get(u => u.Id == user.Id)
+                                   .AsNoTracking()
+                                   .FirstOrDefault() ?? throw new ArgumentNullException(nameof(userDto));
+
             _work.UserRepository.Update(user.ToUserDto());
 
             _work.SaveChanges();
