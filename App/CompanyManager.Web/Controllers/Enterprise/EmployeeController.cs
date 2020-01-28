@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/employees")]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
@@ -16,41 +16,52 @@
             _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
         }
 
-        [HttpGet("get-by-id")]
-        public IActionResult GetById(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            return BadRequest();
+            if (id < 1)
+            {
+                return BadRequest("Invalid value of id");
+            }
+
+            return Ok(await _employeeService.GetByIdAsync(id));
         }
 
-        [HttpGet("get-by-enterprise-id")]
-        public IActionResult GetByEnterpriseId(int id)
+        [HttpGet]
+        public IActionResult GetByEnterpriseId([FromQuery]int enterpriseId)
         {
-            return Ok(_employeeService.GetByEnterpriseId(id));
+            if (enterpriseId < 1)
+            {
+                return BadRequest("Invalid value of id");
+            }
+
+            return Ok(_employeeService.GetByEnterpriseId(enterpriseId));
         }
 
-        [HttpGet("get-all")]
+        [HttpGet("all")]
         public IActionResult GetAll()
         {
             return Ok(_employeeService.GetAll());
         }
 
-        [HttpPost("save")]
+        [HttpPut]
         public async Task<int> Save(Models.Employee employee)
         {
             return await _employeeService.AddAsync(employee);
         }
 
-        [HttpPost("update")]
+        [HttpPost]
         public IActionResult Update(Models.Employee employee)
         {
-            return BadRequest();
+            _employeeService.Update(employee);
+            return Ok("successful");
         }
 
-        [HttpDelete("delete-by-id")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _employeeService.Delete(id);
-            return Ok();
+            return Ok("successful");
         }
     }
 }
