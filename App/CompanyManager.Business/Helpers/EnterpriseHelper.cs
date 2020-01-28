@@ -29,7 +29,7 @@
                 Id = model.Id,
                 CreatedBy = model.CreatedBy,
                 Description = model.Description,
-                Employees = model.Employees?.Select(e => e.ToEnterprise()).ToList(),
+                Employees = model.Employees?.Select(e => e.ToEmployee()).ToList(),
                 Name = model.Name,
                 Purchases = model.Purchases?.Select(p => p.ToPurchase()).ToList(),
                 User = model.User?.ToUser(),

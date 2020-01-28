@@ -8,10 +8,16 @@
     using CompanyManager.Business.Infrastructure;
     using CompanyManager.Business.Services.Interfaces;
     using CompanyManager.Data.Models;
+    using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
 
     public class UserService : CommonService, IUserService
     {
+        public UserService(IUnitOfWork work)
+            : base(work)
+        {
+        }
+
         public async Task<int> AddAsync(User user)
         {
             if (user == null)
@@ -21,23 +27,17 @@
 
             UserDto userDto = user.ToUserDto();
 
-            using (var uow = UnitOfWork)
-            {
-                uow.UserRepository.Add(userDto);
-                await uow.SaveChangesAsync();
+            _work.UserRepository.Add(userDto);
+            await _work.SaveChangesAsync();
 
-                return userDto.Id;
-            }
+            return userDto.Id;
         }
 
         public async void Delete(int id)
         {
-            using (var uow = UnitOfWork)
-            {
-                uow.UserRepository.Delete(id);
+            _work.UserRepository.Delete(id);
 
-                await uow.SaveChangesAsync();
-            }
+            await _work.SaveChangesAsync();
         }
 
         public async void Delete(User user)
@@ -47,32 +47,23 @@
                 throw new ArgumentNullException(nameof(user));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                uow.UserRepository.Delete(user);
+            _work.UserRepository.Delete(user);
 
-                await uow.SaveChangesAsync();
-            }
+            await _work.SaveChangesAsync();
         }
 
         public IEnumerable<User> GetAll()
         {
-            using (var uow = UnitOfWork)
-            {
-                var users = uow.UserRepository.GetAll();
+            var users = _work.UserRepository.GetAll();
 
-                return users?.Select(e => e.ToUser());
-            }
+            return users?.Select(e => e.ToUser());
         }
 
         public async Task<User> GetByIdAsync(int id)
         {
             UserDto userDto = null;
 
-            using (var uow = UnitOfWork)
-            {
-                userDto = await uow.UserRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(userDto));
-            }
+            userDto = await _work.UserRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(userDto));
 
             return userDto?.ToUser();
         }
@@ -84,13 +75,10 @@
                 throw new ArgumentNullException(nameof(user));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                UserDto userDto = uow.UserRepository.GetById(user.Id) ?? throw new ArgumentNullException(nameof(userDto));
-                uow.UserRepository.Update(user.ToUserDto());
+            UserDto userDto = _work.UserRepository.GetById(user.Id) ?? throw new ArgumentNullException(nameof(userDto));
+            _work.UserRepository.Update(user.ToUserDto());
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
     }
 }

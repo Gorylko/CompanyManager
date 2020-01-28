@@ -19,12 +19,25 @@
             };
         }
 
-        public static Employee ToEnterprise(this EmployeeDto model)
+        public static Employee ToEmployee(this EmployeeDto model)
         {
             return new Employee
             {
                 Id = model.Id,
                 Enterprise = model.Enterprise?.ToEnterprise(),
+                EnterpriseId = model.EnterpriseId,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Position = model.Position,
+                Salary = model.Salary,
+            };
+        }
+
+        public static Employee ToEmployee(this EmployeeByEnterpriseIdResult model)
+        {
+            return new Employee
+            {
+                Id = model.Id,
                 EnterpriseId = model.EnterpriseId,
                 FirstName = model.FirstName,
                 LastName = model.LastName,

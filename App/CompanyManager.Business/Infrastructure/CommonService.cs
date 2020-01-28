@@ -1,15 +1,15 @@
 ﻿namespace CompanyManager.Business.Infrastructure
 {
+    using System;
     using CompanyManager.Data.UnitOfWork;
 
     public abstract class CommonService
     {
-        private IUnitOfWork _work;
+        protected readonly IUnitOfWork _work;
 
-        protected IUnitOfWork UnitOfWork
+        public CommonService(IUnitOfWork work)
         {
-            get => _work == null || _work.Disposed ? (_work = new UnitOfWork()) : _work;
-            set => _work = value;
+            _work = work ?? throw new ArgumentNullException();
         }
     }
 }

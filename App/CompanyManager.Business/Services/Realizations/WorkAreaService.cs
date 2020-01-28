@@ -8,10 +8,16 @@
     using CompanyManager.Business.Infrastructure;
     using CompanyManager.Business.Services.Interfaces;
     using CompanyManager.Data.Models;
+    using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
 
     public class WorkAreaService : CommonService, IWorkAreaService
     {
+        public WorkAreaService(IUnitOfWork work)
+            : base(work)
+        {
+        }
+
         public async Task<WorkArea> GetByIdAsync(int id)
         {
             if (id <= 0)
@@ -19,19 +25,12 @@
                 throw new ArgumentException("id must be more than 0", nameof(id));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                WorkAreaDto workAreaDto = await uow.WorkAreaRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(workAreaDto));
-                return workAreaDto?.ToWorkArea();
-            }
+            return (await _work.WorkAreaRepository.GetByIdAsync(id))?.ToWorkArea();
         }
 
         public IEnumerable<WorkArea> GetAll()
         {
-            using (var uow = UnitOfWork)
-            {
-                return uow.WorkAreaRepository.GetAll()?.Select(wa => wa.ToWorkArea());
-            }
+            return _work.WorkAreaRepository.GetAll()?.Select(wa => wa.ToWorkArea());
         }
 
         public WorkArea GetByEnterpriseId(int id)
@@ -41,12 +40,9 @@
                 throw new ArgumentException("id must be more than 0", nameof(id));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                WorkAreaDto workAreaDto = uow.WorkAreaRepository.GetAll()
-                                                    .FirstOrDefault(wa => wa.EnterpriseId == id) ?? throw new ArgumentNullException(nameof(workAreaDto));
-                return workAreaDto?.ToWorkArea();
-            }
+            return _work.WorkAreaRepository.GetAll()
+                                           .FirstOrDefault(wa => wa.EnterpriseId == id)?
+                                           .ToWorkArea();
         }
 
         public void Delete(int id)
@@ -56,14 +52,12 @@
                 throw new ArgumentException("id must be more than 0", nameof(id));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                WorkAreaDto workAreaDto = uow.WorkAreaRepository.GetById(id) ?? throw new ArgumentNullException(nameof(workAreaDto));
-                uow.WorkAreaRepository.Delete(workAreaDto);
+            WorkAreaDto workAreaDto = _work.WorkAreaRepository.GetById(id) ?? throw new ArgumentNullException(nameof(workAreaDto));
+            _work.WorkAreaRepository.Delete(workAreaDto);
 
-                // need to use try-catch block
-                uow.SaveChanges();
-            }
+            // need to use try-catch block
+            _work.SaveChanges();
+
         }
 
         public void Delete(WorkArea workArea)
@@ -73,12 +67,9 @@
                 throw new ArgumentNullException(nameof(workArea));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                uow.WorkAreaRepository.Delete(workArea);
+            _work.WorkAreaRepository.Delete(workArea);
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
 
         public void Update(WorkArea workArea)
@@ -88,14 +79,11 @@
                 throw new ArgumentNullException(nameof(workArea));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                WorkAreaDto workAreaDto = uow.WorkAreaRepository.GetById(workArea.Id) ?? throw new ArgumentNullException(nameof(workAreaDto));
-                uow.WorkAreaRepository.Update(workAreaDto);
+            WorkAreaDto workAreaDto = _work.WorkAreaRepository.GetById(workArea.Id) ?? throw new ArgumentNullException(nameof(workAreaDto));
+            _work.WorkAreaRepository.Update(workAreaDto);
 
-                // need to use try-catch block
-                uow.SaveChanges();
-            }
+            // need to use try-catch block
+            _work.SaveChanges();
         }
 
         public async Task<int> AddAsync(WorkArea workArea)
@@ -105,15 +93,12 @@
                 throw new ArgumentNullException(nameof(workArea));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                var workAreaDto = workArea.ToWorkAreaDto();
-                uow.WorkAreaRepository.Add(workAreaDto);
+            var workAreaDto = workArea.ToWorkAreaDto();
+            _work.WorkAreaRepository.Add(workAreaDto);
 
-                // need to use try-catch block
-                await uow.SaveChangesAsync();
-                return workAreaDto.Id;
-            }
+            // need to use try-catch block
+            await _work.SaveChangesAsync();
+            return workAreaDto.Id;
         }
     }
 }

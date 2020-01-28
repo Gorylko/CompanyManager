@@ -8,10 +8,16 @@
     using CompanyManager.Business.Infrastructure;
     using CompanyManager.Business.Services.Interfaces;
     using CompanyManager.Data.Models;
+    using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
 
     public class RoleService : CommonService, IRoleService
     {
+        public RoleService(IUnitOfWork work)
+            : base(work)
+        {
+        }
+
         public async Task<int> AddAsync(Role role)
         {
             if (role == null)
@@ -21,45 +27,34 @@
 
             RoleDto roleDto = role.ToRoleDto();
 
-            using (var uow = UnitOfWork)
-            {
-                uow.RoleRepository.Add(roleDto);
-                await uow.SaveChangesAsync();
+            _work.RoleRepository.Add(roleDto);
+            await _work.SaveChangesAsync();
 
-                return roleDto.Id;
-            }
+            return roleDto.Id;
+
         }
 
         public async Task<Role> GetByIdAsync(int id)
         {
             RoleDto roleDto = null;
 
-            using (var uow = UnitOfWork)
-            {
-                roleDto = await uow.RoleRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(roleDto));
-            }
+            roleDto = await _work.RoleRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(roleDto));
 
             return roleDto?.ToRole();
         }
 
         public IEnumerable<Role> GetAll()
         {
-            using (var uow = UnitOfWork)
-            {
-                var roles = uow.RoleRepository.GetAll();
+            var roles = _work.RoleRepository.GetAll();
 
-                return roles?.Select(e => e.ToRole());
-            }
+            return roles?.Select(e => e.ToRole());
         }
 
         public void Delete(int id)
         {
-            using (var uow = UnitOfWork)
-            {
-                uow.RoleRepository.Delete(id);
+            _work.RoleRepository.Delete(id);
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
 
         public void Delete(Role role)
@@ -69,12 +64,9 @@
                 throw new ArgumentNullException(nameof(role));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                uow.RoleRepository.Delete(role);
+            _work.RoleRepository.Delete(role);
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
 
         public void Update(Role role)
@@ -84,13 +76,10 @@
                 throw new ArgumentNullException(nameof(role));
             }
 
-            using (var uow = UnitOfWork)
-            {
-                RoleDto roleDto = uow.RoleRepository.GetById(role.Id) ?? throw new ArgumentNullException(nameof(roleDto));
-                uow.RoleRepository.Update(role.ToRoleDto());
+            RoleDto roleDto = _work.RoleRepository.GetById(role.Id) ?? throw new ArgumentNullException(nameof(roleDto));
+            _work.RoleRepository.Update(role.ToRoleDto());
 
-                uow.SaveChanges();
-            }
+            _work.SaveChanges();
         }
     }
 }
