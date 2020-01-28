@@ -11,7 +11,6 @@
             return new UserDto
             {
                 Id = model.Id,
-                Enterprises = model.Enterprises?.Select(e => e.ToEnterpriseDto()).ToList(),
                 Login = model.Login,
                 Password = model.Password,
                 PasswordSalt = model.PasswordSalt,
@@ -25,7 +24,6 @@
             return new User
             {
                 Id = model.Id,
-                Enterprises = model.Enterprises?.Select(e => e.ToEnterprise()).ToList(),
                 Login = model.Login,
                 Password = model.Password,
                 PasswordSalt = model.PasswordSalt,

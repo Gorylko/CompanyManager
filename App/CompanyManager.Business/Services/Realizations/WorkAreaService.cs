@@ -10,6 +10,7 @@
     using CompanyManager.Data.Models;
     using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class WorkAreaService : CommonService, IWorkAreaService
     {
@@ -33,16 +34,15 @@
             return _work.WorkAreaRepository.GetAll()?.Select(wa => wa.ToWorkArea());
         }
 
-        public WorkArea GetByEnterpriseId(int id)
+        public IQueryable<WorkArea> GetByEnterpriseId(int enterpriseId)
         {
-            if (id <= 0)
+            if (enterpriseId <= 0)
             {
-                throw new ArgumentException("id must be more than 0", nameof(id));
+                throw new ArgumentException("id must be more than 0", nameof(enterpriseId));
             }
 
-            return _work.WorkAreaRepository.GetAll()
-                                           .FirstOrDefault(wa => wa.EnterpriseId == id)?
-                                           .ToWorkArea();
+            return _work.WorkAreaRepository.GetByEnterpriseId(enterpriseId)?
+                                           .Select(area => area.ToWorkArea());
         }
 
         public void Delete(int id)
@@ -79,7 +79,11 @@
                 throw new ArgumentNullException(nameof(workArea));
             }
 
-            WorkAreaDto workAreaDto = _work.WorkAreaRepository.GetById(workArea.Id) ?? throw new ArgumentNullException(nameof(workAreaDto));
+            WorkAreaDto workAreaDto = _work.WorkAreaRepository
+                                           .Get(w => w.Id == workArea.Id)
+                                           .AsNoTracking()
+                                           .FirstOrDefault() ?? throw new ArgumentNullException(nameof(workAreaDto));
+
             _work.WorkAreaRepository.Update(workAreaDto);
 
             // need to use try-catch block

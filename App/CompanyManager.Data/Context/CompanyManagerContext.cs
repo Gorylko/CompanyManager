@@ -10,6 +10,7 @@
         public CompanyManagerContext(DbContextOptions<CompanyManagerContext> options)
                 : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public DbSet<EmployeeDto> Employees { get; set; }
@@ -40,10 +41,26 @@
                                                       .AsQueryable();
         }
 
+        public virtual IQueryable<PurchasesByEnterpriseIdResult> PurchasesByEnterpriseId(int enterpriseId)
+        {
+            SqlParameter enterpriseIdParameter = new SqlParameter("@enterpriseId", enterpriseId);
+
+            return Set<PurchasesByEnterpriseIdResult>().FromSqlRaw("EXEC [dbo].[sp_select_purchases_by_enterprise_id] @enterpriseId", enterpriseIdParameter)
+                                                      .AsQueryable();
+        }
+
+        public virtual IQueryable<WorkAreasByEnterpriseIdResult> WorkAreasByEnterpriseId(int enterpriseId)
+        {
+            SqlParameter enterpriseIdParameter = new SqlParameter("@enterpriseId", enterpriseId);
+
+            return Set<WorkAreasByEnterpriseIdResult>().FromSqlRaw("EXEC [dbo].[sp_select_areas_by_enterprise_id] @enterpriseId", enterpriseIdParameter)
+                                                      .AsQueryable();
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UsersToEnterprisesDto>()
-                .HasKey(x => new { x.EnterpriseId, x.UserId });
+                .HasKey(x => new { x.UserId, x.EnterpriseId });
 
             modelBuilder.Entity<RolesToPermissionDto>()
                 .HasKey(x => new { x.RoleId, x.PermissionId });

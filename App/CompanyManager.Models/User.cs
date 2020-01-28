@@ -13,8 +13,6 @@ namespace CompanyManager.Models
 
         public byte[] PasswordSalt { get; set; }
 
-        public virtual ICollection<Enterprise> Enterprises { get; set; }
-
         public virtual ICollection<UserInformation> UserInformations { get; set; }
 
         public virtual ICollection<UsersToEnterprises> UsersToEnterprises { get; set; }

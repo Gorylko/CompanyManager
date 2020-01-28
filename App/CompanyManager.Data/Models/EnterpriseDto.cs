@@ -10,11 +10,7 @@
 
         public string Description { get; set; }
 
-        public int CreatedBy { get; set; }
-
         public virtual ICollection<EmployeeDto> Employees { get; set; }
-
-        public virtual UserDto User { get; set; }
 
         public virtual ICollection<PurchaseDto> Purchases { get; set; }
 

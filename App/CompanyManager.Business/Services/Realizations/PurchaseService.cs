@@ -10,6 +10,7 @@
     using CompanyManager.Data.Models;
     using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class PurchaseService : CommonService, IPurchaseService
     {
@@ -36,6 +37,17 @@
         public async Task<Purchase> GetByIdAsync(int id)
         {
             return (await _work.PurchaseRepository.GetByIdAsync(id))?.ToPurchase();
+        }
+
+        public IQueryable<Purchase> GetByEnterpriseId(int enterpriseId)
+        {
+            if (enterpriseId <= 0)
+            {
+                throw new ArgumentException("Id must be more than 0", nameof(enterpriseId));
+            }
+
+            return _work.PurchaseRepository.GetByEnterpriseId(enterpriseId)
+                                           .Select(purchase => purchase.ToPurchase());
         }
 
         public IEnumerable<Purchase> GetAll()
@@ -69,7 +81,11 @@
                 throw new ArgumentNullException(nameof(purchase));
             }
 
-            PurchaseDto purchaseDto = _work.PurchaseRepository.GetById(purchase.Id) ?? throw new ArgumentNullException(nameof(purchaseDto));
+            PurchaseDto purchaseDto = _work.PurchaseRepository
+                                           .Get(p => p.Id == purchase.Id)
+                                           .AsNoTracking()
+                                           .FirstOrDefault() ?? throw new ArgumentNullException(nameof(purchaseDto));
+
             _work.PurchaseRepository.Update(purchase.ToPurchaseDto());
 
             _work.SaveChanges();

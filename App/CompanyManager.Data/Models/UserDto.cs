@@ -12,8 +12,6 @@
 
         public byte[] PasswordSalt { get; set; }
 
-        public virtual ICollection<EnterpriseDto> Enterprises { get; set; }
-
         public virtual ICollection<UserInformationDto> UserInformations { get; set; }
 
         public virtual ICollection<UsersToEnterprisesDto> UsersToEnterprises { get; set; }
