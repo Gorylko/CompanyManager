@@ -1,6 +1,5 @@
 ﻿namespace CompanyManager.Data.Repositories.RepositoryRealization
 {
-    using System.Linq;
     using CompanyManager.Data.Context;
     using CompanyManager.Data.Models;
     using CompanyManager.Data.Repositories.GenericRepository;
@@ -11,11 +10,6 @@
         public EmployeeRepository(CompanyManagerContext context)
             : base(context)
         {
-        }
-
-        public IQueryable<EmployeeDto> GetByEnterpriseId(int enterpriseId)
-        {
-            return _context.EmployeeByEnterpriseId(enterpriseId);
         }
     }
 }

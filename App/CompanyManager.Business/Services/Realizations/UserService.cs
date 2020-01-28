@@ -19,71 +19,101 @@
         {
         }
 
-        public async Task<int> AddAsync(User user)
+        public void Delete()
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
-
-            UserDto userDto = user.ToUserDto();
-
-            _work.UserRepository.Add(userDto);
-            await _work.SaveChangesAsync();
-
-            return userDto.Id;
+            throw new NotImplementedException();
         }
 
-        public async void Delete(int id)
+        public void GetAll()
         {
-            _work.UserRepository.Delete(id);
-
-            await _work.SaveChangesAsync();
+            throw new NotImplementedException();
         }
 
-        public async void Delete(User user)
+        public Task<IEnumerable<User>> GetByEnterpriseId(object id)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
-
-            _work.UserRepository.Delete(user);
-
-            await _work.SaveChangesAsync();
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<User> GetAll()
+        public void GetById()
         {
-            var users = _work.UserRepository.GetAll();
-
-            return users?.Select(e => e.ToUser());
+            throw new NotImplementedException();
         }
 
-        public async Task<User> GetByIdAsync(int id)
+        public void Save()
         {
-            UserDto userDto = null;
-
-            userDto = await _work.UserRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(userDto));
-
-            return userDto?.ToUser();
+            throw new NotImplementedException();
         }
 
-        public void Update(User user)
+        public void Update()
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
-
-            UserDto userDto = _work.UserRepository
-                                   .Get(u => u.Id == user.Id)
-                                   .AsNoTracking()
-                                   .FirstOrDefault() ?? throw new ArgumentNullException(nameof(userDto));
-
-            _work.UserRepository.Update(user.ToUserDto());
-
-            _work.SaveChanges();
+            throw new NotImplementedException();
         }
+
+        //public async Task<int> AddAsync(User user)
+        //{
+        //    if (user == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(user));
+        //    }
+
+        //    UserDto userDto = user.ToUserDto();
+
+        //    _work.UserRepository.Add(userDto);
+        //    await _work.SaveChangesAsync();
+
+        //    return userDto.Id;
+        //}
+
+        //public async void Delete(int id)
+        //{
+        //    _work.UserRepository.Delete(id);
+
+        //    await _work.SaveChangesAsync();
+        //}
+
+        //public async void Delete(User user)
+        //{
+        //    if (user == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(user));
+        //    }
+
+        //    _work.UserRepository.Delete(user);
+
+        //    await _work.SaveChangesAsync();
+        //}
+
+        //public IEnumerable<User> GetAll()
+        //{
+        //    var users = _work.UserRepository.GetAll();
+
+        //    return users?.Select(e => e.ToUser());
+        //}
+
+        //public async Task<User> GetByIdAsync(int id)
+        //{
+        //    UserDto userDto = null;
+
+        //    userDto = await _work.UserRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(userDto));
+
+        //    return userDto?.ToUser();
+        //}
+
+        //public void Update(User user)
+        //{
+        //    if (user == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(user));
+        //    }
+
+        //    UserDto userDto = _work.UserRepository
+        //                           .Get(u => u.Id == user.Id)
+        //                           .AsNoTracking()
+        //                           .FirstOrDefault() ?? throw new ArgumentNullException(nameof(userDto));
+
+        //    _work.UserRepository.Update(user.ToUserDto());
+
+        //    _work.SaveChanges();
+        //}
     }
 }

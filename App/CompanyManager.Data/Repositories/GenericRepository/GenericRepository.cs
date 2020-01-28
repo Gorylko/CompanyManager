@@ -11,13 +11,13 @@
     public class GenericRepository<TEntity> : IGenericRepository<TEntity>
         where TEntity : class
     {
-        protected readonly CompanyManagerContext _context;
+        private readonly CompanyManagerContext _context;
         private readonly DbSet<TEntity> _dbSet;
 
         public GenericRepository(CompanyManagerContext context)
         {
             _context = context;
-            _dbSet = _context.Set<TEntity>();
+            _dbSet = context.Set<TEntity>();
         }
 
         public void Add(TEntity entity)
@@ -33,11 +33,6 @@
         public TEntity GetById(object id)
         {
             return _dbSet.Find(id);
-        }
-
-        public async Task<TEntity> GetByIdAsync(object id)
-        {
-            return await _dbSet.FindAsync(id);
         }
 
         public TEntity GetSingle(Expression<Func<TEntity, bool>> @where, params Expression<Func<TEntity, object>>[] navigationProperties)
@@ -127,6 +122,11 @@
             }
 
             _dbSet.RemoveRange(entities);
+        }
+
+        public async Task<TEntity> GetByIdAsync(object id)
+        {
+            return await _dbSet.FindAsync(id);
         }
     }
 }

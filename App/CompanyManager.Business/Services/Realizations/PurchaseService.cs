@@ -19,76 +19,106 @@
         {
         }
 
-        public async Task<int> AddAsync(Purchase purchase)
+        public void Delete()
         {
-            if (purchase == null)
-            {
-                throw new ArgumentNullException(nameof(purchase));
-            }
-
-            PurchaseDto purchaseDto = purchase.ToPurchaseDto();
-
-            _work.PurchaseRepository.Add(purchaseDto);
-            await _work.SaveChangesAsync();
-
-            return purchaseDto.Id;
+            throw new NotImplementedException();
         }
 
-        public async Task<Purchase> GetByIdAsync(int id)
+        public void GetAll()
         {
-            return (await _work.PurchaseRepository.GetByIdAsync(id))?.ToPurchase();
+            throw new NotImplementedException();
         }
 
-        public IQueryable<Purchase> GetByEnterpriseId(int enterpriseId)
+        public Task<IEnumerable<Purchase>> GetByEnterpriseId(object id)
         {
-            if (enterpriseId <= 0)
-            {
-                throw new ArgumentException("Id must be more than 0", nameof(enterpriseId));
-            }
-
-            return _work.PurchaseRepository.GetByEnterpriseId(enterpriseId)
-                                           .Select(purchase => purchase.ToPurchase());
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<Purchase> GetAll()
+        public void GetById()
         {
-            return _work.PurchaseRepository.GetAll()?.Select(e => e.ToPurchase());
+            throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Save()
         {
-            _work.PurchaseRepository.Delete(id);
-
-            _work.SaveChanges();
+            throw new NotImplementedException();
         }
 
-        public void Delete(Purchase purchase)
+        public void Update()
         {
-            if (purchase == null)
-            {
-                throw new ArgumentNullException(nameof(purchase));
-            }
-
-            _work.PurchaseRepository.Delete(purchase);
-
-            _work.SaveChanges();
+            throw new NotImplementedException();
         }
 
-        public void Update(Purchase purchase)
-        {
-            if (purchase == null)
-            {
-                throw new ArgumentNullException(nameof(purchase));
-            }
+        //public async Task<int> AddAsync(Purchase purchase)
+        //{
+        //    if (purchase == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(purchase));
+        //    }
 
-            PurchaseDto purchaseDto = _work.PurchaseRepository
-                                           .Get(p => p.Id == purchase.Id)
-                                           .AsNoTracking()
-                                           .FirstOrDefault() ?? throw new ArgumentNullException(nameof(purchaseDto));
+        //    PurchaseDto purchaseDto = purchase.ToPurchaseDto();
 
-            _work.PurchaseRepository.Update(purchase.ToPurchaseDto());
+        //    _work.PurchaseRepository.Add(purchaseDto);
+        //    await _work.SaveChangesAsync();
 
-            _work.SaveChanges();
-        }
+        //    return purchaseDto.Id;
+        //}
+
+        //public async Task<Purchase> GetByIdAsync(int id)
+        //{
+        //    return (await _work.PurchaseRepository.GetByIdAsync(id))?.ToPurchase();
+        //}
+
+        //public IQueryable<Purchase> GetByEnterpriseId(int enterpriseId)
+        //{
+        //    if (enterpriseId <= 0)
+        //    {
+        //        throw new ArgumentException("Id must be more than 0", nameof(enterpriseId));
+        //    }
+
+        //    return _work.PurchaseRepository.GetByEnterpriseId(enterpriseId)
+        //                                   .Select(purchase => purchase.ToPurchase());
+        //}
+
+        //public IEnumerable<Purchase> GetAll()
+        //{
+        //    return _work.PurchaseRepository.GetAll()?.Select(e => e.ToPurchase());
+        //}
+
+        //public void Delete(int id)
+        //{
+        //    _work.PurchaseRepository.Delete(id);
+
+        //    _work.SaveChanges();
+        //}
+
+        //public void Delete(Purchase purchase)
+        //{
+        //    if (purchase == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(purchase));
+        //    }
+
+        //    _work.PurchaseRepository.Delete(purchase);
+
+        //    _work.SaveChanges();
+        //}
+
+        //public void Update(Purchase purchase)
+        //{
+        //    if (purchase == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(purchase));
+        //    }
+
+        //    PurchaseDto purchaseDto = _work.PurchaseRepository
+        //                                   .Get(p => p.Id == purchase.Id)
+        //                                   .AsNoTracking()
+        //                                   .FirstOrDefault() ?? throw new ArgumentNullException(nameof(purchaseDto));
+
+        //    _work.PurchaseRepository.Update(purchase.ToPurchaseDto());
+
+        //    _work.SaveChanges();
+        //}
     }
 }

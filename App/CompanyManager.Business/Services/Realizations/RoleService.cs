@@ -19,72 +19,102 @@
         {
         }
 
-        public async Task<int> AddAsync(Role role)
+        public void Delete()
         {
-            if (role == null)
-            {
-                throw new ArgumentNullException(nameof(role));
-            }
-
-            RoleDto roleDto = role.ToRoleDto();
-
-            _work.RoleRepository.Add(roleDto);
-            await _work.SaveChangesAsync();
-
-            return roleDto.Id;
-
+            throw new NotImplementedException();
         }
 
-        public async Task<Role> GetByIdAsync(int id)
+        public void GetAll()
         {
-            RoleDto roleDto = null;
-
-            roleDto = await _work.RoleRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(roleDto));
-
-            return roleDto?.ToRole();
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<Role> GetAll()
+        public Task<IEnumerable<Role>> GetByEnterpriseId(object id)
         {
-            var roles = _work.RoleRepository.GetAll();
-
-            return roles?.Select(e => e.ToRole());
+            throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void GetById()
         {
-            _work.RoleRepository.Delete(id);
-
-            _work.SaveChanges();
+            throw new NotImplementedException();
         }
 
-        public void Delete(Role role)
+        public void Save()
         {
-            if (role == null)
-            {
-                throw new ArgumentNullException(nameof(role));
-            }
-
-            _work.RoleRepository.Delete(role);
-
-            _work.SaveChanges();
+            throw new NotImplementedException();
         }
 
-        public void Update(Role role)
+        public void Update()
         {
-            if (role == null)
-            {
-                throw new ArgumentNullException(nameof(role));
-            }
-
-            RoleDto roleDto = _work.RoleRepository
-                                   .Get(r => r.Id == role.Id)
-                                   .AsNoTracking()
-                                   .FirstOrDefault() ?? throw new ArgumentNullException(nameof(roleDto));
-
-            _work.RoleRepository.Update(role.ToRoleDto());
-
-            _work.SaveChanges();
+            throw new NotImplementedException();
         }
+
+        //public async Task<int> AddAsync(Role role)
+        //{
+        //    if (role == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(role));
+        //    }
+
+        //    RoleDto roleDto = role.ToRoleDto();
+
+        //    _work.RoleRepository.Add(roleDto);
+        //    await _work.SaveChangesAsync();
+
+        //    return roleDto.Id;
+
+        //}
+
+        //public async Task<Role> GetByIdAsync(int id)
+        //{
+        //    RoleDto roleDto = null;
+
+        //    roleDto = await _work.RoleRepository.GetByIdAsync(id) ?? throw new ArgumentNullException(nameof(roleDto));
+
+        //    return roleDto?.ToRole();
+        //}
+
+        //public IEnumerable<Role> GetAll()
+        //{
+        //    var roles = _work.RoleRepository.GetAll();
+
+        //    return roles?.Select(e => e.ToRole());
+        //}
+
+        //public void Delete(int id)
+        //{
+        //    _work.RoleRepository.Delete(id);
+
+        //    _work.SaveChanges();
+        //}
+
+        //public void Delete(Role role)
+        //{
+        //    if (role == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(role));
+        //    }
+
+        //    _work.RoleRepository.Delete(role);
+
+        //    _work.SaveChanges();
+        //}
+
+        //public void Update(Role role)
+        //{
+        //    if (role == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(role));
+        //    }
+
+        //    RoleDto roleDto = _work.RoleRepository
+        //                           .Get(r => r.Id == role.Id)
+        //                           .AsNoTracking()
+        //                           .FirstOrDefault() ?? throw new ArgumentNullException(nameof(roleDto));
+
+        //    _work.RoleRepository.Update(role.ToRoleDto());
+
+        //    _work.SaveChanges();
+        //}
     }
 }
