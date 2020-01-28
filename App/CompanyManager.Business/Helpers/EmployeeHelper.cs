@@ -10,7 +10,7 @@
             return new EmployeeDto
             {
                 Id = model.Id,
-                Enterprise = model.Enterprise?.ToEnterpriseDto(),
+                //Enterprise = model.Enterprise?.ToEnterpriseDto(),
                 EnterpriseId = model.EnterpriseId,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
@@ -24,7 +24,7 @@
             return new Employee
             {
                 Id = model.Id,
-                Enterprise = model.Enterprise?.ToEnterprise(),
+                //Enterprise = model.Enterprise?.ToEnterprise(),
                 EnterpriseId = model.EnterpriseId,
                 FirstName = model.FirstName,
                 LastName = model.LastName,

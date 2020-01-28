@@ -6,6 +6,6 @@
 
     public interface IEmployeeRepository : IGenericRepository<EmployeeDto>
     {
-        IQueryable<EmployeeByEnterpriseIdResult> GetByEnterpriseId(int enterpriseId);
+        IQueryable<EmployeeDto> GetByEnterpriseId(int enterpriseId);
     }
 }

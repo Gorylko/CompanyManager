@@ -23,15 +23,15 @@
         }
 
         [HttpGet("get-by-enterprise-id")]
-        public IActionResult GetByEnterpriseId()
+        public IActionResult GetByEnterpriseId(int id)
         {
-            return BadRequest();
+            return Ok(_employeeService.GetByEnterpriseId(id));
         }
 
         [HttpGet("get-all")]
         public IActionResult GetAll()
         {
-            return BadRequest();
+            return Ok(_employeeService.GetAll());
         }
 
         [HttpPost("save")]
@@ -49,7 +49,8 @@
         [HttpDelete("delete-by-id")]
         public IActionResult Delete(int id)
         {
-            return BadRequest();
+            _employeeService.Delete(id);
+            return Ok();
         }
     }
 }

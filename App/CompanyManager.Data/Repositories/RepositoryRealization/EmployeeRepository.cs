@@ -13,7 +13,7 @@
         {
         }
 
-        public IQueryable<EmployeeByEnterpriseIdResult> GetByEnterpriseId(int enterpriseId)
+        public IQueryable<EmployeeDto> GetByEnterpriseId(int enterpriseId)
         {
             return _context.EmployeeByEnterpriseId(enterpriseId);
         }
