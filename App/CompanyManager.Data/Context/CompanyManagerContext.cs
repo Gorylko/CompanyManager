@@ -2,6 +2,7 @@
 {
     using CompanyManager.Data.Models;
     using Microsoft.EntityFrameworkCore;
+    using System.Data.SqlClient;
     using System.Linq;
 
     public class CompanyManagerContext : DbContext
@@ -31,6 +32,14 @@
 
         public DbSet<RolesToPermissionDto> RolesToPermissions { get; set; }
 
+        public virtual IQueryable<EmployeeByEnterpriseIdResult> EmployeeByEnterpriseId(int enterpriseId)
+        {
+            SqlParameter enterpriseIdParameter = new SqlParameter("@enterpriseId", enterpriseId);
+
+            return Set<EmployeeByEnterpriseIdResult>().FromSqlRaw("EXEC [dbo].[sp_select_employees_by_enterprise_id] @enterpriseId", enterpriseIdParameter)
+                                                      .AsQueryable();
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UsersToEnterprisesDto>()
@@ -38,11 +47,6 @@
 
             modelBuilder.Entity<RolesToPermissionDto>()
                 .HasKey(x => new { x.RoleId, x.PermissionId });
-        }
-
-        public virtual IQueryable<EmployeeByEnterpriseIdResult> EmployeeByEnterpriseId()
-        {
-            return this.Query<EmployeeByEnterpriseIdResult>().FromSql("sp_select_employees_by_enterprise_id").AsQueryable();
         }
     }
 }

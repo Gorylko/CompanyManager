@@ -32,5 +32,18 @@
                 Salary = model.Salary,
             };
         }
+
+        public static Employee ToEmployee(this EmployeeByEnterpriseIdResult model)
+        {
+            return new Employee
+            {
+                Id = model.Id,
+                EnterpriseId = model.EnterpriseId,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Position = model.Position,
+                Salary = model.Salary,
+            };
+        }
     }
 }

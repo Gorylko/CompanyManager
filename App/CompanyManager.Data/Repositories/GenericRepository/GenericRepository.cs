@@ -11,8 +11,8 @@
     public class GenericRepository<TEntity> : IGenericRepository<TEntity>
         where TEntity : class
     {
+        protected readonly CompanyManagerContext _context;
         private readonly DbSet<TEntity> _dbSet;
-        private readonly CompanyManagerContext _context;
 
         public GenericRepository(CompanyManagerContext context)
         {
@@ -33,6 +33,11 @@
         public TEntity GetById(object id)
         {
             return _dbSet.Find(id);
+        }
+
+        public async Task<TEntity> GetByIdAsync(object id)
+        {
+            return await _dbSet.FindAsync(id);
         }
 
         public TEntity GetSingle(Expression<Func<TEntity, bool>> @where, params Expression<Func<TEntity, object>>[] navigationProperties)
@@ -65,7 +70,8 @@
             return navigationProperties.Aggregate(dbQuery, (current, navigationProperty) => current.Include(navigationProperty));
         }
 
-        public IQueryable<TSubEntity> Get<TSubEntity>(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] navigationProperties) where TSubEntity : TEntity
+        public IQueryable<TSubEntity> Get<TSubEntity>(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] navigationProperties)
+            where TSubEntity : TEntity
         {
             return Get(filter, navigationProperties).OfType<TSubEntity>();
         }
@@ -78,7 +84,6 @@
         public void Load<TCollection>(TEntity entity, Expression<Func<TEntity, ICollection<TCollection>>> navigationProperty)
             where TCollection : class
         {
-
         }
 
         public void Load<TProperty>(TEntity entity, Expression<Func<TEntity, TProperty>> navigationProperty)
@@ -122,11 +127,6 @@
             }
 
             _dbSet.RemoveRange(entities);
-        }
-
-        public async Task<TEntity> GetByIdAsync(object id)
-        {
-            return await _dbSet.FindAsync(id);
         }
     }
 }
