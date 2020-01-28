@@ -1,14 +1,18 @@
 ﻿namespace CompanyManager.Web.Controllers.Enterprise
 {
+    using CompanyManager.Business.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
 
     [ApiController]
     [Route("api/[controller]")]
     public class EnterpriseController : Controller
     {
-        public EnterpriseController(/*params from ioc*/)
+        private readonly IEnterpriseService _enterpriseService;
+
+        public EnterpriseController(IEnterpriseService enterpriseService)
         {
-            // service initialization
+            _enterpriseService = enterpriseService;
         }
 
         [HttpGet("get-by-id")]
@@ -24,20 +28,22 @@
         }
 
         [HttpPost("save")]
-        public IActionResult Save(Models.Enterprise enterprise)
+        public async Task<int> Save(Models.Enterprise enterprise)
         {
-            return BadRequest();
+            return await _enterpriseService.AddAsync(enterprise);
         }
 
         [HttpPost("update")]
         public IActionResult Update(Models.Enterprise enterprise)
         {
+            _enterpriseService.Update(enterprise);
             return BadRequest();
         }
 
         [HttpDelete("delete-by-id")]
         public IActionResult Delete(int id)
         {
+            _enterpriseService.Delete(id);
             return BadRequest();
         }
     }
