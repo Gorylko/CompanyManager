@@ -28,11 +28,11 @@
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery]int enterpriseId)
+        public async Task<IActionResult> GetAll([FromQuery]int enterpriseId)
         {
-            return Ok(enterpriseId < 1
-                ? _employeeService.GetAll()
-                : _employeeService.GetByEnterpriseId(enterpriseId));
+            return Json(enterpriseId < 1
+                ? await _employeeService.GetAll()
+                : await _employeeService.GetByEnterpriseId(enterpriseId));
         }
 
         [HttpPut]

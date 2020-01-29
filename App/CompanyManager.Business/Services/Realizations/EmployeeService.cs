@@ -19,33 +19,13 @@
         {
         }
 
-        public async Task<object> Delete(int id)
+        public async Task Delete(int id)
         {
-            if (id <= 0)
-            {
-                throw new ArgumentException("Id must be more than 0", nameof(id));
-            }
-
-            var employeeDto = await _work.EmployeeRepository.Get(e => e.Id == id)
-                                                            .FirstOrDefaultAsync();
-
-            if (employeeDto == null)
-            {
-                throw new ArgumentNullException("Employee not found", nameof(employeeDto));
-            }
+            var employeeDto = await _work.EmployeeRepository
+                .Get(e => e.Id == id).SingleAsync();
 
             _work.EmployeeRepository.Delete(employeeDto);
-
-            try
-            {
-                await _work.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Database error", ex);
-            }
-
-            return "something response";
+            await _work.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Employee>> GetAll()
@@ -56,20 +36,12 @@
 
         public async Task<IEnumerable<Employee>> GetByEnterpriseId(int id)
         {
-            var result = await _work.Context.EmployeeByEnterpriseId(id).ToListAsync();
-            return result?.Select(e => e.ToEmployee());
+            return (await _work.Context.EmployeeByEnterpriseId(id).ToListAsync()).Select(e => e.ToEmployee());
         }
 
         public async Task<Employee> GetById(int id)
         {
-            if (id <= 0)
-            {
-                throw new ArgumentException("Id must be more than 0", nameof(id));
-            }
-
-            var result = await _work.EmployeeRepository.Get(e => e.Id == id).FirstOrDefaultAsync();
-
-            return result?.ToEmployee();
+            return (await _work.EmployeeRepository.Get(e => e.Id == id).SingleAsync()).ToEmployee();
         }
 
         public async Task<int> Save(Employee employee)
@@ -80,18 +52,8 @@
             }
 
             var employeeDto = employee.ToEmployeeDto();
-
             _work.EmployeeRepository.Add(employeeDto);
-
-            try
-            {
-                await _work.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Database error", ex);
-            }
-
+            await _work.SaveChangesAsync();
             return employeeDto.Id;
         }
 
@@ -102,26 +64,13 @@
                 throw new ArgumentNullException(nameof(employee));
             }
 
-            var employeeDto = await _work.EmployeeRepository.Get(e => e.Id == employee.Id)
-                                                            .AsNoTracking()
-                                                            .FirstOrDefaultAsync();
-            if (employeeDto == null)
-            {
-                throw new ArgumentNullException("Employee not found", nameof(employeeDto));
-            }
+            var employeeDto = await _work.EmployeeRepository
+                .Get(e => e.Id == employee.Id)
+                .AsNoTracking()
+                .SingleAsync();
 
-            employeeDto = employee.ToEmployeeDto();
-            _work.EmployeeRepository.Update(employeeDto);
-
-            try
-            {
-                await _work.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Database error", ex);
-            }
-
+            _work.EmployeeRepository.Update(employee.ToEmployeeDto());
+            await _work.SaveChangesAsync();
             return employeeDto.Id;
         }
 

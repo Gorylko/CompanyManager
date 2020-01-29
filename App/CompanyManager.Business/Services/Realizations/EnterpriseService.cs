@@ -19,7 +19,7 @@
         {
         }
 
-        public Task<object> Delete(int id)
+        public async Task Delete(int id)
         {
             throw new NotImplementedException();
         }

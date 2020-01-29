@@ -32,6 +32,6 @@
 
         Task<int> Update(T model);
 
-        Task<object> Delete(int id);
+        Task Delete(int id);
     }
 }
