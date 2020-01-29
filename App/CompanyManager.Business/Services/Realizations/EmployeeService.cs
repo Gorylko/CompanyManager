@@ -7,7 +7,6 @@
     using CompanyManager.Business.Helpers;
     using CompanyManager.Business.Infrastructure;
     using CompanyManager.Business.Services.Interfaces;
-    using CompanyManager.Data.Models;
     using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
     using Microsoft.EntityFrameworkCore;

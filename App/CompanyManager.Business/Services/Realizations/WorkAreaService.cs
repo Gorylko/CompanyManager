@@ -7,7 +7,6 @@
     using CompanyManager.Business.Helpers;
     using CompanyManager.Business.Infrastructure;
     using CompanyManager.Business.Services.Interfaces;
-    using CompanyManager.Data.Models;
     using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
     using Microsoft.EntityFrameworkCore;
@@ -21,32 +20,57 @@
 
         public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var workAreaDto = await _work.WorkAreaRepository
+                .Get(e => e.Id == id).SingleAsync();
+
+            _work.WorkAreaRepository.Delete(workAreaDto);
+            await _work.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<WorkArea>> GetAll()
+        public async Task<IEnumerable<WorkArea>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = await _work.WorkAreaRepository.Get().ToListAsync();
+            return result?.Select(e => e.ToWorkArea());
         }
 
-        public Task<IEnumerable<WorkArea>> GetByEnterpriseId(int id)
+        public async Task<IEnumerable<WorkArea>> GetByEnterpriseId(int id)
         {
-            throw new NotImplementedException();
+            return (await _work.Context.WorkAreasByEnterpriseId(id).ToListAsync()).Select(e => e.ToWorkArea());
         }
 
-        public Task<WorkArea> GetById(int id)
+        public async Task<WorkArea> GetById(int id)
         {
-            throw new NotImplementedException();
+            return (await _work.WorkAreaRepository.Get(e => e.Id == id).SingleAsync()).ToWorkArea();
         }
 
-        public Task<int> Save(WorkArea model)
+        public async Task<int> Save(WorkArea workArea)
         {
-            throw new NotImplementedException();
+            if (workArea == null)
+            {
+                throw new ArgumentNullException(nameof(workArea));
+            }
+
+            var workAreaDto = workArea.ToWorkAreaDto();
+            _work.WorkAreaRepository.Add(workAreaDto);
+            await _work.SaveChangesAsync();
+            return workAreaDto.Id;
         }
 
-        public Task<int> Update(WorkArea model)
+        public async Task<int> Update(WorkArea workArea)
         {
-            throw new NotImplementedException();
+            if (workArea == null)
+            {
+                throw new ArgumentNullException(nameof(workArea));
+            }
+
+            var workAreaDto = await _work.WorkAreaRepository
+                .Get(e => e.Id == workArea.Id)
+                .AsNoTracking()
+                .SingleAsync();
+
+            _work.WorkAreaRepository.Update(workArea.ToWorkAreaDto());
+            await _work.SaveChangesAsync();
+            return workAreaDto.Id;
         }
 
         //public async Task<WorkArea> GetByIdAsync(int id)
