@@ -24,7 +24,7 @@
                 return BadRequest("Invalid value of id");
             }
 
-            return Ok(await _employeeService.GetByIdAsync(id));
+            return Ok(await _employeeService.GetById(id));
         }
 
         [HttpGet]
@@ -38,7 +38,7 @@
         [HttpPut]
         public async Task<int> Save(Models.Employee employee)
         {
-            return await _employeeService.AddAsync(employee);
+            return await _employeeService.Save(employee);
         }
 
         [HttpPost]

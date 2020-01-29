@@ -1,50 +1,59 @@
 ﻿namespace CompanyManager.Web.Controllers.Enterprise
 {
+    using System;
+    using System.Threading.Tasks;
+    using CompanyManager.Business.Services.Interfaces;
+    using CompanyManager.Models;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
     [Route("api/[controller]")]
     public class WorkAreaController : Controller
     {
-        public WorkAreaController(/*params from ioc*/)
+        private readonly IWorkAreaService _workAreaService;
+
+        public WorkAreaController(IWorkAreaService workAreaService)
         {
-            // service initialization
+            _workAreaService = workAreaService ?? throw new ArgumentNullException(nameof(workAreaService));
         }
 
-        [HttpGet("get-by-id")]
-        public IActionResult GetById(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            return BadRequest();
+            if (id < 1)
+            {
+                return BadRequest("Invalid value of id");
+            }
+
+            return Ok(await _workAreaService.GetById(id));
         }
 
-        [HttpGet("get-by-enterprise-id")]
-        public IActionResult GetByEnterpriseId(int id)
+        [HttpGet]
+        public IActionResult GetByEnterpriseId([FromQuery]int enterpriseId)
         {
-            return BadRequest();
+            return Ok(enterpriseId < 1
+                ? _workAreaService.GetAll()
+                : _workAreaService.GetByEnterpriseId(enterpriseId));
         }
 
-        [HttpGet("get-all")]
-        public IActionResult GetAll()
+        [HttpPut]
+        public async Task<int> Save(WorkArea workArea)
         {
-            return View();
+            return await _workAreaService.Save(workArea);
         }
 
-        [HttpPost("save")]
-        public IActionResult Save(Models.WorkArea workArea)
+        [HttpPost]
+        public IActionResult Update(WorkArea workArea)
         {
-            return BadRequest();
-        }
-
-        [HttpPost("update")]
-        public IActionResult Update(Models.WorkArea workArea)
-        {
-            return BadRequest();
+            _workAreaService.Save(workArea);
+            return Ok("successful");
         }
 
         [HttpDelete("delete-by-id")]
         public IActionResult Delete(int id)
         {
-            return BadRequest();
+            _workAreaService.Delete(id);
+            return Ok("successful");
         }
     }
 }

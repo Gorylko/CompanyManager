@@ -18,9 +18,14 @@
         }
 
         [HttpGet("{id}")]
-        public async Task<Enterprise> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return await _enterpriseService.GetByIdAsync(id);
+            if (id < 1)
+            {
+                return BadRequest("Invalid value of id");
+            }
+
+            return Ok(await _enterpriseService.GetById(id));
         }
 
         [HttpGet]
@@ -32,13 +37,13 @@
         }
 
         [HttpPut]
-        public async Task<int> Save(Models.Enterprise enterprise)
+        public async Task<int> Save(Enterprise enterprise)
         {
-            return await _enterpriseService.AddAsync(enterprise);
+            return await _enterpriseService.Save(enterprise);
         }
 
         [HttpPost]
-        public IActionResult Update(Models.Enterprise enterprise)
+        public IActionResult Update(Enterprise enterprise)
         {
             _enterpriseService.Update(enterprise);
             return Ok("successful");

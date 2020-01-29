@@ -20,22 +20,26 @@
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _purchaseService.GetByIdAsync(id));
+            if (id < 1)
+            {
+                return BadRequest("Invalid value of id");
+            }
+
+            return Ok(await _purchaseService.GetById(id));
         }
 
-        //[HttpGet]
-        //public IActionResult GetAll([FromQuery]int enterpriseId)
-        //{
-        //    return Ok(enterpriseId < 1
-        //        ? _purchaseService.GetAll()
-        //        : _purchaseService.);
-        //}
+        [HttpGet]
+        public IActionResult GetAll([FromQuery]int enterpriseId)
+        {
+            return Ok(enterpriseId < 1
+                ? _purchaseService.GetAll()
+                : _purchaseService.GetByEnterpriseId(enterpriseId));
+        }
 
         [HttpPut]
-        public async Task<IActionResult> Save(Purchase purchase)
+        public async Task<int> Save(Purchase purchase)
         {
-            await _purchaseService.AddAsync(purchase);
-            return Ok("successful");
+            return await _purchaseService.Save(purchase);
         }
 
         [HttpPost]
