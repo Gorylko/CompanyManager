@@ -7,7 +7,6 @@
     using CompanyManager.Business.Helpers;
     using CompanyManager.Business.Infrastructure;
     using CompanyManager.Business.Services.Interfaces;
-    using CompanyManager.Data.Models;
     using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
     using Microsoft.EntityFrameworkCore;
@@ -21,27 +20,52 @@
 
         public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var userDto = await _work.UserRepository
+                .Get(e => e.Id == id).SingleAsync();
+
+            _work.UserRepository.Delete(userDto);
+            await _work.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<User>> GetAll()
+        public async Task<IEnumerable<User>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = await _work.UserRepository.Get().ToListAsync();
+            return result?.Select(e => e.ToUser());
         }
 
-        public Task<User> GetById(int id)
+        public async Task<User> GetById(int id)
         {
-            throw new NotImplementedException();
+            return (await _work.UserRepository.Get(e => e.Id == id).SingleAsync()).ToUser();
         }
 
-        public Task<int> Save(User model)
+        public async Task<int> Save(User user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            var userDto = user.ToUserDto();
+            _work.UserRepository.Add(userDto);
+            await _work.SaveChangesAsync();
+            return userDto.Id;
         }
 
-        public Task<int> Update(User model)
+        public async Task<int> Update(User user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            var userDto = await _work.UserRepository
+                .Get(e => e.Id == user.Id)
+                .AsNoTracking()
+                .SingleAsync();
+
+            _work.UserRepository.Update(user.ToUserDto());
+            await _work.SaveChangesAsync();
+            return userDto.Id;
         }
 
         //public async Task<int> AddAsync(User user)
