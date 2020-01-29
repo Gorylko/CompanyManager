@@ -19,32 +19,32 @@
         {
         }
 
-        public void Delete()
+        public Task<object> Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void GetAll()
+        public Task<IEnumerable<Purchase>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Purchase>> GetByEnterpriseId(object id)
+        public Task<IEnumerable<Purchase>> GetByEnterpriseId(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void GetById()
+        public Task<Purchase> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Save()
+        public Task<int> Save(Purchase model)
         {
             throw new NotImplementedException();
         }
 
-        public void Update()
+        public Task<int> Update(Purchase model)
         {
             throw new NotImplementedException();
         }

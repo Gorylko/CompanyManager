@@ -19,32 +19,27 @@
         {
         }
 
-        public void Delete()
+        public Task<object> Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void GetAll()
+        public Task<IEnumerable<Role>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Role>> GetByEnterpriseId(object id)
+        public Task<Role> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void GetById()
+        public Task<int> Save(Role model)
         {
             throw new NotImplementedException();
         }
 
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update()
+        public Task<int> Update(Role model)
         {
             throw new NotImplementedException();
         }

@@ -19,32 +19,32 @@
         {
         }
 
-        public void Delete()
+        public Task<object> Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void GetAll()
+        public Task<IEnumerable<WorkArea>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<WorkArea>> GetByEnterpriseId(object id)
+        public Task<IEnumerable<WorkArea>> GetByEnterpriseId(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void GetById()
+        public Task<WorkArea> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Save()
+        public Task<int> Save(WorkArea model)
         {
             throw new NotImplementedException();
         }
 
-        public void Update()
+        public Task<int> Update(WorkArea model)
         {
             throw new NotImplementedException();
         }

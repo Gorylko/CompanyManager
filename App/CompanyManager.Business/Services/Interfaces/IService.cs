@@ -24,7 +24,7 @@
 
         Task<T> GetById(int id);
 
-        Task<IEnumerable<T>> GetByEnterpriseId(int id);
+        //Task<IEnumerable<T>> GetByEnterpriseId(int id);
 
         Task<IEnumerable<T>> GetAll();
 
