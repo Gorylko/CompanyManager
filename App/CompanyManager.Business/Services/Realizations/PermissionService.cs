@@ -7,7 +7,6 @@
     using CompanyManager.Business.Helpers;
     using CompanyManager.Business.Infrastructure;
     using CompanyManager.Business.Services.Interfaces;
-    using CompanyManager.Data.Models;
     using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
     using Microsoft.EntityFrameworkCore;
@@ -21,27 +20,52 @@
 
         public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var permissionDto = await _work.PermissionRepository
+                .Get(e => e.Id == id).SingleAsync();
+
+            _work.PermissionRepository.Delete(permissionDto);
+            await _work.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Permission>> GetAll()
+        public async Task<IEnumerable<Permission>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = await _work.PermissionRepository.Get().ToListAsync();
+            return result?.Select(e => e.ToPermission());
         }
 
-        public Task<Permission> GetById(int id)
+        public async Task<Permission> GetById(int id)
         {
-            throw new NotImplementedException();
+            return (await _work.PermissionRepository.Get(e => e.Id == id).SingleAsync()).ToPermission();
         }
 
-        public Task<int> Save(Permission model)
+        public async Task<int> Save(Permission permission)
         {
-            throw new NotImplementedException();
+            if (permission == null)
+            {
+                throw new ArgumentNullException(nameof(permission));
+            }
+
+            var permissionDto = permission.ToPermissionDto();
+            _work.PermissionRepository.Add(permissionDto);
+            await _work.SaveChangesAsync();
+            return permissionDto.Id;
         }
 
-        public Task<int> Update(Permission model)
+        public async Task<int> Update(Permission permission)
         {
-            throw new NotImplementedException();
+            if (permission == null)
+            {
+                throw new ArgumentNullException(nameof(permission));
+            }
+
+            var permissionDto = await _work.PermissionRepository
+                .Get(e => e.Id == permission.Id)
+                .AsNoTracking()
+                .SingleAsync();
+
+            _work.PermissionRepository.Update(permission.ToPermissionDto());
+            await _work.SaveChangesAsync();
+            return permissionDto.Id;
         }
 
         //public async Task<int> AddAsync(Permission permission)
