@@ -7,7 +7,6 @@
     using CompanyManager.Business.Helpers;
     using CompanyManager.Business.Infrastructure;
     using CompanyManager.Business.Services.Interfaces;
-    using CompanyManager.Data.Models;
     using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
     using Microsoft.EntityFrameworkCore;
@@ -21,32 +20,57 @@
 
         public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var purchaseDto = await _work.PurchaseRepository
+                .Get(e => e.Id == id).SingleAsync();
+
+            _work.PurchaseRepository.Delete(purchaseDto);
+            await _work.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Purchase>> GetAll()
+        public async Task<IEnumerable<Purchase>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = await _work.PurchaseRepository.Get().ToListAsync();
+            return result?.Select(e => e.ToPurchase());
         }
 
-        public Task<IEnumerable<Purchase>> GetByEnterpriseId(int id)
+        public async Task<IEnumerable<Purchase>> GetByEnterpriseId(int id)
         {
-            throw new NotImplementedException();
+            return (await _work.Context.PurchasesByEnterpriseId(id).ToListAsync()).Select(e => e.ToPurchase());
         }
 
-        public Task<Purchase> GetById(int id)
+        public async Task<Purchase> GetById(int id)
         {
-            throw new NotImplementedException();
+            return (await _work.PurchaseRepository.Get(e => e.Id == id).SingleAsync()).ToPurchase();
         }
 
-        public Task<int> Save(Purchase model)
+        public async Task<int> Save(Purchase purchase)
         {
-            throw new NotImplementedException();
+            if (purchase == null)
+            {
+                throw new ArgumentNullException(nameof(purchase));
+            }
+
+            var purchaseDto = purchase.ToPurchaseDto();
+            _work.PurchaseRepository.Add(purchaseDto);
+            await _work.SaveChangesAsync();
+            return purchaseDto.Id;
         }
 
-        public Task<int> Update(Purchase model)
+        public async Task<int> Update(Purchase purchase)
         {
-            throw new NotImplementedException();
+            if (purchase == null)
+            {
+                throw new ArgumentNullException(nameof(purchase));
+            }
+
+            var purchaseDto = await _work.PurchaseRepository
+                .Get(e => e.Id == purchase.Id)
+                .AsNoTracking()
+                .SingleAsync();
+
+            _work.PurchaseRepository.Update(purchase.ToPurchaseDto());
+            await _work.SaveChangesAsync();
+            return purchaseDto.Id;
         }
 
         //public async Task<int> AddAsync(Purchase purchase)
