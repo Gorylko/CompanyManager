@@ -7,7 +7,6 @@
     using CompanyManager.Business.Helpers;
     using CompanyManager.Business.Infrastructure;
     using CompanyManager.Business.Services.Interfaces;
-    using CompanyManager.Data.Models;
     using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
     using Microsoft.EntityFrameworkCore;
@@ -21,27 +20,52 @@
 
         public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var enterpriseDto = await _work.EnterpriseRepository
+                .Get(e => e.Id == id).SingleAsync();
+
+            _work.EnterpriseRepository.Delete(enterpriseDto);
+            await _work.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Enterprise>> GetAll()
+        public async Task<IEnumerable<Enterprise>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = await _work.EnterpriseRepository.Get().ToListAsync();
+            return result?.Select(e => e.ToEnterprise());
         }
 
-        public Task<Enterprise> GetById(int id)
+        public async Task<Enterprise> GetById(int id)
         {
-            throw new NotImplementedException();
+            return (await _work.EnterpriseRepository.Get(e => e.Id == id).SingleAsync()).ToEnterprise();
         }
 
-        public Task<int> Save(Enterprise model)
+        public async Task<int> Save(Enterprise enterprise)
         {
-            throw new NotImplementedException();
+            if (enterprise == null)
+            {
+                throw new ArgumentNullException(nameof(enterprise));
+            }
+
+            var enterpriseDto = enterprise.ToEnterpriseDto();
+            _work.EnterpriseRepository.Add(enterpriseDto);
+            await _work.SaveChangesAsync();
+            return enterpriseDto.Id;
         }
 
-        public Task<int> Update(Enterprise model)
+        public async Task<int> Update(Enterprise enterprise)
         {
-            throw new NotImplementedException();
+            if (enterprise == null)
+            {
+                throw new ArgumentNullException(nameof(enterprise));
+            }
+
+            var enterpriseDto = await _work.EnterpriseRepository
+                .Get(e => e.Id == enterprise.Id)
+                .AsNoTracking()
+                .SingleAsync();
+
+            _work.EnterpriseRepository.Update(enterprise.ToEnterpriseDto());
+            await _work.SaveChangesAsync();
+            return enterpriseDto.Id;
         }
 
         //public async Task<int> AddAsync(Enterprise enterprise)
