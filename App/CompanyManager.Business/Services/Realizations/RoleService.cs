@@ -7,7 +7,6 @@
     using CompanyManager.Business.Helpers;
     using CompanyManager.Business.Infrastructure;
     using CompanyManager.Business.Services.Interfaces;
-    using CompanyManager.Data.Models;
     using CompanyManager.Data.UnitOfWork;
     using CompanyManager.Models;
     using Microsoft.EntityFrameworkCore;
@@ -21,27 +20,52 @@
 
         public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var roleDto = await _work.RoleRepository
+                .Get(e => e.Id == id).SingleAsync();
+
+            _work.RoleRepository.Delete(roleDto);
+            await _work.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Role>> GetAll()
+        public async Task<IEnumerable<Role>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = await _work.RoleRepository.Get().ToListAsync();
+            return result?.Select(e => e.ToRole());
         }
 
-        public Task<Role> GetById(int id)
+        public async Task<Role> GetById(int id)
         {
-            throw new NotImplementedException();
+            return (await _work.RoleRepository.Get(e => e.Id == id).SingleAsync()).ToRole();
         }
 
-        public Task<int> Save(Role model)
+        public async Task<int> Save(Role role)
         {
-            throw new NotImplementedException();
+            if (role == null)
+            {
+                throw new ArgumentNullException(nameof(role));
+            }
+
+            var roleDto = role.ToRoleDto();
+            _work.RoleRepository.Add(roleDto);
+            await _work.SaveChangesAsync();
+            return roleDto.Id;
         }
 
-        public Task<int> Update(Role model)
+        public async Task<int> Update(Role role)
         {
-            throw new NotImplementedException();
+            if (role == null)
+            {
+                throw new ArgumentNullException(nameof(role));
+            }
+
+            var roleDto = await _work.RoleRepository
+                .Get(e => e.Id == role.Id)
+                .AsNoTracking()
+                .SingleAsync();
+
+            _work.RoleRepository.Update(role.ToRoleDto());
+            await _work.SaveChangesAsync();
+            return roleDto.Id;
         }
 
         //public async Task<int> AddAsync(Role role)
