@@ -1,51 +1,54 @@
 ﻿namespace CompanyManager.Web.Controllers.Enterprise
 {
+    using System;
+    using System.Threading.Tasks;
     using CompanyManager.Business.Services.Interfaces;
     using CompanyManager.Models;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/enterprises")]
     public class EnterpriseController : Controller
     {
         private readonly IEnterpriseService _enterpriseService;
 
         public EnterpriseController(IEnterpriseService enterpriseService)
         {
-            _enterpriseService = enterpriseService;
+            _enterpriseService = enterpriseService ?? throw new ArgumentNullException(nameof(enterpriseService));
         }
 
-        [HttpGet("get-by-id")]
+        [HttpGet("{id}")]
         public async Task<Enterprise> GetById(int id)
         {
             return await _enterpriseService.GetByIdAsync(id);
         }
 
-        [HttpGet("get-all")]
-        public IActionResult GetAll()
+        [HttpGet]
+        public IActionResult GetAll([FromQuery]int userId)
         {
-            return BadRequest();
+            return Ok(userId < 1
+                ? _enterpriseService.GetAll()
+                : _enterpriseService.GetAll());
         }
 
-        [HttpPost("save")]
+        [HttpPut]
         public async Task<int> Save(Models.Enterprise enterprise)
         {
             return await _enterpriseService.AddAsync(enterprise);
         }
 
-        [HttpPost("update")]
+        [HttpPost]
         public IActionResult Update(Models.Enterprise enterprise)
         {
             _enterpriseService.Update(enterprise);
-            return BadRequest();
+            return Ok("successful");
         }
 
-        [HttpDelete("delete-by-id")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _enterpriseService.Delete(id);
-            return BadRequest();
+            return Ok("successful");
         }
     }
 }

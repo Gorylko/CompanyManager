@@ -28,20 +28,11 @@
         }
 
         [HttpGet]
-        public IActionResult GetByEnterpriseId([FromQuery]int enterpriseId)
+        public IActionResult GetAll([FromQuery]int enterpriseId)
         {
-            if (enterpriseId < 1)
-            {
-                return BadRequest("Invalid value of id");
-            }
-
-            return Ok(_employeeService.GetByEnterpriseId(enterpriseId));
-        }
-
-        [HttpGet("all")]
-        public IActionResult GetAll()
-        {
-            return Ok(_employeeService.GetAll());
+            return Ok(enterpriseId < 1
+                ? _employeeService.GetAll()
+                : _employeeService.GetByEnterpriseId(enterpriseId));
         }
 
         [HttpPut]
