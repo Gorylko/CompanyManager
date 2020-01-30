@@ -21,13 +21,16 @@
 
         IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] navigationProperties);
 
-        IQueryable<TSubEntity> Get<TSubEntity>(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] navigationProperties) where TSubEntity : TEntity;
+        IQueryable<TSubEntity> Get<TSubEntity>(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] navigationProperties)
+            where TSubEntity : TEntity;
 
         IQueryable<TEntity> GetAll();
 
-        void Load<TProperty>(TEntity entity, Expression<Func<TEntity, TProperty>> navigationProperty) where TProperty : class;
+        void Load<TProperty>(TEntity entity, Expression<Func<TEntity, TProperty>> navigationProperty)
+            where TProperty : class;
 
-        void Load<TCollection>(TEntity entity, Expression<Func<TEntity, ICollection<TCollection>>> navigationProperty) where TCollection : class;
+        void Load<TCollection>(TEntity entity, Expression<Func<TEntity, ICollection<TCollection>>> navigationProperty)
+            where TCollection : class;
 
         void Update(TEntity entity);
 

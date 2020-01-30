@@ -69,7 +69,7 @@
         public IWorkAreaRepository WorkAreaRepository
         {
             get => _workAreaRepository ?? new WorkAreaRepository(_context);
-            set => WorkAreaRepository = value;
+            set => _workAreaRepository = value;
         }
 
         public IUserRepository UserRepository

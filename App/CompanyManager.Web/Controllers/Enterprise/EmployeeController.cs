@@ -1,12 +1,12 @@
 ﻿namespace CompanyManager.Web.Controllers.Enterprise
 {
-    using CompanyManager.Business.Services.Interfaces;
-    using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Threading.Tasks;
+    using CompanyManager.Business.Services.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/employees")]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
@@ -16,40 +16,43 @@
             _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
         }
 
-        [HttpGet("get-by-id")]
-        public IActionResult GetById(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            return BadRequest();
+            if (id < 1)
+            {
+                return BadRequest("Invalid value of id");
+            }
+
+            return Ok(await _employeeService.GetById(id));
         }
 
-        [HttpGet("get-by-enterprise-id")]
-        public IActionResult GetByEnterpriseId()
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery]int enterpriseId)
         {
-            return BadRequest();
+            return Json(enterpriseId < 1
+                ? await _employeeService.GetAll()
+                : await _employeeService.GetByEnterpriseId(enterpriseId));
         }
 
-        [HttpGet("get-all")]
-        public IActionResult GetAll()
-        {
-            return BadRequest();
-        }
-
-        [HttpPost("save")]
+        [HttpPost]
         public async Task<int> Save(Models.Employee employee)
         {
-            return await _employeeService.AddAsync(employee);
+            return await _employeeService.Save(employee);
         }
 
-        [HttpPost("update")]
-        public IActionResult Update(Models.Employee employee)
+        [HttpPut]
+        public async Task<IActionResult> Update(Models.Employee employee)
         {
-            return BadRequest();
+            await _employeeService.Update(employee);
+            return Ok("successful");
         }
 
-        [HttpDelete("delete-by-id")]
-        public IActionResult Delete(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            return BadRequest();
+            await _employeeService.Delete(id);
+            return Ok("successful");
         }
     }
 }

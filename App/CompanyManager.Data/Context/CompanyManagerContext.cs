@@ -1,9 +1,9 @@
 ﻿namespace CompanyManager.Data.Context
 {
-    using CompanyManager.Data.Models;
-    using Microsoft.EntityFrameworkCore;
-    using System.Data.SqlClient;
     using System.Linq;
+    using CompanyManager.Data.Models;
+    using Microsoft.Data.SqlClient;
+    using Microsoft.EntityFrameworkCore;
 
     public class CompanyManagerContext : DbContext
     {
@@ -33,28 +33,25 @@
 
         public DbSet<RolesToPermissionDto> RolesToPermissions { get; set; }
 
-        public virtual IQueryable<EmployeeByEnterpriseIdResult> EmployeeByEnterpriseId(int enterpriseId)
+        public virtual IQueryable<EmployeeDto> EmployeeByEnterpriseId(object enterpriseId)
         {
             SqlParameter enterpriseIdParameter = new SqlParameter("@enterpriseId", enterpriseId);
 
-            return Set<EmployeeByEnterpriseIdResult>().FromSqlRaw("EXEC [dbo].[sp_select_employees_by_enterprise_id] @enterpriseId", enterpriseIdParameter)
-                                                      .AsQueryable();
+            return Set<EmployeeDto>().FromSqlRaw("EXEC [dbo].[sp_select_employees_by_enterprise_id] @enterpriseId", enterpriseIdParameter);
         }
 
-        public virtual IQueryable<PurchasesByEnterpriseIdResult> PurchasesByEnterpriseId(int enterpriseId)
+        public virtual IQueryable<PurchaseDto> PurchasesByEnterpriseId(object enterpriseId)
         {
             SqlParameter enterpriseIdParameter = new SqlParameter("@enterpriseId", enterpriseId);
 
-            return Set<PurchasesByEnterpriseIdResult>().FromSqlRaw("EXEC [dbo].[sp_select_purchases_by_enterprise_id] @enterpriseId", enterpriseIdParameter)
-                                                      .AsQueryable();
+            return Set<PurchaseDto>().FromSqlRaw("EXEC [dbo].[sp_select_purchases_by_enterprise_id] @enterpriseId", enterpriseIdParameter);
         }
 
-        public virtual IQueryable<WorkAreasByEnterpriseIdResult> WorkAreasByEnterpriseId(int enterpriseId)
+        public virtual IQueryable<WorkAreaDto> WorkAreasByEnterpriseId(object enterpriseId)
         {
             SqlParameter enterpriseIdParameter = new SqlParameter("@enterpriseId", enterpriseId);
 
-            return Set<WorkAreasByEnterpriseIdResult>().FromSqlRaw("EXEC [dbo].[sp_select_areas_by_enterprise_id] @enterpriseId", enterpriseIdParameter)
-                                                      .AsQueryable();
+            return Set<WorkAreaDto>().FromSqlRaw("EXEC [dbo].[sp_select_areas_by_enterprise_id] @enterpriseId", enterpriseIdParameter);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

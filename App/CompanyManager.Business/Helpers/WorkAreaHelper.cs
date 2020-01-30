@@ -32,18 +32,5 @@
                 RentRrice = model.RentRrice,
             };
         }
-
-        public static WorkArea ToWorkArea(this WorkAreasByEnterpriseIdResult model)
-        {
-            return new WorkArea
-            {
-                Id = model.Id,
-                EnterpriseId = model.EnterpriseId,
-                Cost = model.Cost,
-                Location = model.Location,
-                Name = model.Name,
-                RentRrice = model.RentRrice,
-            };
-        }
     }
 }

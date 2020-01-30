@@ -1,50 +1,59 @@
 ﻿namespace CompanyManager.Web.Controllers.Enterprise
 {
+    using System;
+    using System.Threading.Tasks;
+    using CompanyManager.Business.Services.Interfaces;
+    using CompanyManager.Models;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/purchases")]
     public class PurchaseController : Controller
     {
-        public PurchaseController(/*params from ioc*/)
+        private readonly IPurchaseService _purchaseService;
+
+        public PurchaseController(IPurchaseService purchaseService)
         {
-            // service initialization
+            _purchaseService = purchaseService ?? throw new ArgumentNullException(nameof(purchaseService));
         }
 
-        [HttpGet("get-by-id")]
-        public IActionResult GetById(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            return BadRequest();
+            if (id < 1)
+            {
+                return BadRequest("Invalid value of id");
+            }
+
+            return Ok(await _purchaseService.GetById(id));
         }
 
-        [HttpGet("get-by-enterprise-id")]
-        public IActionResult GetByEnterpriseId()
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery]int enterpriseId)
         {
-            return BadRequest();
+            return Ok(enterpriseId < 1
+                ? await _purchaseService.GetAll()
+                : await _purchaseService.GetByEnterpriseId(enterpriseId));
         }
 
-        [HttpGet("get-all")]
-        public IActionResult GetAll()
+        [HttpPost]
+        public async Task<int> Save(Purchase purchase)
         {
-            return BadRequest();
+            return await _purchaseService.Save(purchase);
         }
 
-        [HttpPost("save")]
-        public IActionResult Save(Models.Purchase purchase)
+        [HttpPut]
+        public async Task<IActionResult> Update(Purchase purchase)
         {
-            return BadRequest();
+            await _purchaseService.Update(purchase);
+            return Ok("successful");
         }
 
-        [HttpPost("update")]
-        public IActionResult Update(Models.Employee purchase)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            return BadRequest();
-        }
-
-        [HttpDelete("delete-by-id")]
-        public IActionResult Delete(int id)
-        {
-            return BadRequest();
+            await _purchaseService.Delete(id);
+            return Ok("successful");
         }
     }
 }
