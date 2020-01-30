@@ -34,13 +34,13 @@
             return Ok(await _userService.GetAll());
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<int> Save(User user)
         {
             return await _userService.Save(user);
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Update(User user)
         {
             await _userService.Update(user);

@@ -36,13 +36,13 @@
                 : await _purchaseService.GetByEnterpriseId(enterpriseId));
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<int> Save(Purchase purchase)
         {
             return await _purchaseService.Save(purchase);
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Update(Purchase purchase)
         {
             await _purchaseService.Update(purchase);

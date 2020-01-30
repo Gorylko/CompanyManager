@@ -36,13 +36,13 @@
                 : await _enterpriseService.GetAll());
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<int> Save(Enterprise enterprise)
         {
             return await _enterpriseService.Save(enterprise);
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Update(Enterprise enterprise)
         {
             await _enterpriseService.Update(enterprise);

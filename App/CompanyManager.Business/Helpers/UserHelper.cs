@@ -12,8 +12,8 @@
             {
                 Id = model.Id,
                 Login = model.Login,
-                Password = model.Password,
-                PasswordSalt = model.PasswordSalt,
+                Password = Cryptographer.Encrypt(model.Password, out byte[] salt),
+                PasswordSalt = salt,
                 UserInformations = model.UserInformations?.Select(ui => ui.ToUserInformationDto()).ToList(),
                 UsersToEnterprises = model.UsersToEnterprises?.Select(ute => ute.ToUsersToEnterprisesDto()).ToList(),
             };
@@ -25,8 +25,6 @@
             {
                 Id = model.Id,
                 Login = model.Login,
-                Password = model.Password,
-                PasswordSalt = model.PasswordSalt,
                 UserInformations = model.UserInformations?.Select(ui => ui.ToUserInformation()).ToList(),
                 UsersToEnterprises = model.UsersToEnterprises?.Select(ute => ute.ToUsersToEnterprises()).ToList(),
             };

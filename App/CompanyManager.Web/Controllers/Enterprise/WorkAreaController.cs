@@ -36,13 +36,13 @@
                 : await _workAreaService.GetByEnterpriseId(enterpriseId));
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<int> Save(WorkArea workArea)
         {
             return await _workAreaService.Save(workArea);
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Update(WorkArea workArea)
         {
             await _workAreaService.Save(workArea);

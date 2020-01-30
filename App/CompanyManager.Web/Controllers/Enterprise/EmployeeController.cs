@@ -1,9 +1,9 @@
 ﻿namespace CompanyManager.Web.Controllers.Enterprise
 {
-    using CompanyManager.Business.Services.Interfaces;
-    using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Threading.Tasks;
+    using CompanyManager.Business.Services.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
     [Route("api/employees")]
@@ -35,13 +35,13 @@
                 : await _employeeService.GetByEnterpriseId(enterpriseId));
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<int> Save(Models.Employee employee)
         {
             return await _employeeService.Save(employee);
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Update(Models.Employee employee)
         {
             await _employeeService.Update(employee);
