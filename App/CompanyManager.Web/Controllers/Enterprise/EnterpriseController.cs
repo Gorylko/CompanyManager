@@ -1,51 +1,59 @@
 ﻿namespace CompanyManager.Web.Controllers.Enterprise
 {
+    using System;
+    using System.Threading.Tasks;
     using CompanyManager.Business.Services.Interfaces;
     using CompanyManager.Models;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/enterprises")]
     public class EnterpriseController : Controller
     {
         private readonly IEnterpriseService _enterpriseService;
 
         public EnterpriseController(IEnterpriseService enterpriseService)
         {
-            _enterpriseService = enterpriseService;
+            _enterpriseService = enterpriseService ?? throw new ArgumentNullException(nameof(enterpriseService));
         }
 
-        [HttpGet("get-by-id")]
-        public async Task<Enterprise> GetById(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            return await _enterpriseService.GetByIdAsync(id);
+            if (id < 1)
+            {
+                return BadRequest("Invalid value of id");
+            }
+
+            return Ok(await _enterpriseService.GetById(id));
         }
 
-        [HttpGet("get-all")]
-        public IActionResult GetAll()
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery]int userId)
         {
-            return BadRequest();
+            return Ok(userId < 1
+                ? await _enterpriseService.GetAll()
+                : await _enterpriseService.GetAll());
         }
 
-        [HttpPost("save")]
-        public async Task<int> Save(Models.Enterprise enterprise)
+        [HttpPost]
+        public async Task<int> Save(Enterprise enterprise)
         {
-            return await _enterpriseService.AddAsync(enterprise);
+            return await _enterpriseService.Save(enterprise);
         }
 
-        [HttpPost("update")]
-        public IActionResult Update(Models.Enterprise enterprise)
+        [HttpPut]
+        public async Task<IActionResult> Update(Enterprise enterprise)
         {
-            _enterpriseService.Update(enterprise);
-            return BadRequest();
+            await _enterpriseService.Update(enterprise);
+            return Ok("successful");
         }
 
-        [HttpDelete("delete-by-id")]
-        public IActionResult Delete(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            _enterpriseService.Delete(id);
-            return BadRequest();
+            await _enterpriseService.Delete(id);
+            return Ok("successful");
         }
     }
 }

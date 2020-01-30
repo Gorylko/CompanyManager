@@ -31,18 +31,5 @@
                 RentPrice = model.RentPrice,
             };
         }
-
-        public static Purchase ToPurchase(this PurchasesByEnterpriseIdResult model)
-        {
-            return new Purchase
-            {
-                Id = model.Id,
-                EnterpriseId = model.EnterpriseId,
-                Name = model.Name,
-                Cost = model.Cost,
-                Income = model.Income,
-                RentPrice = model.RentPrice,
-            };
-        }
     }
 }

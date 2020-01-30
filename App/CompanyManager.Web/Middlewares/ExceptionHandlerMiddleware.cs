@@ -1,10 +1,10 @@
 ﻿namespace CompanyManager.Web.Middlewares
 {
-    using Microsoft.AspNetCore.Http;
-    using Serilog;
     using System;
     using System.Net;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Http;
+    using Serilog;
 
     public class ExceptionHandlerMiddleware
     {
@@ -12,7 +12,7 @@
 
         public ExceptionHandlerMiddleware(RequestDelegate next)
         {
-            _next = next;
+            _next = next ?? throw new ArgumentNullException(nameof(next));
         }
 
         public async Task InvokeAsync(HttpContext httpContext)

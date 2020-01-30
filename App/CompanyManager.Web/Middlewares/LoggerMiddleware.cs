@@ -1,5 +1,6 @@
 ﻿namespace CompanyManager.Web.Middlewares
 {
+    using System;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
     using Serilog;
@@ -10,7 +11,7 @@
 
         public LoggerMiddleware(RequestDelegate next)
         {
-            _next = next;
+            _next = next ?? throw new ArgumentNullException(nameof(next));
         }
 
         public async Task InvokeAsync(HttpContext context)
