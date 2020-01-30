@@ -1,13 +1,14 @@
 ﻿namespace CompanyManager.Web.Controllers.Enterprise
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using CompanyManager.Business.Services.Interfaces;
     using CompanyManager.Models;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class WorkAreaController : Controller
     {
         private readonly IWorkAreaService _workAreaService;
@@ -20,20 +21,15 @@
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            if (id < 1)
-            {
-                return BadRequest("Invalid value of id");
-            }
-
             return Ok(await _workAreaService.GetById(id));
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetByEnterpriseId([FromQuery]int enterpriseId)
+        public async Task<IEnumerable<WorkArea>> GetByEnterpriseId([FromQuery]int enterpriseId)
         {
-            return Ok(enterpriseId < 1
+            return enterpriseId < 1
                 ? await _workAreaService.GetAll()
-                : await _workAreaService.GetByEnterpriseId(enterpriseId));
+                : await _workAreaService.GetByEnterpriseId(enterpriseId);
         }
 
         [HttpPost]
@@ -42,18 +38,17 @@
             return await _workAreaService.Save(workArea);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(WorkArea workArea)
+        [HttpPut("{id}")]
+        public async Task Update(WorkArea workArea, int id)
         {
+            workArea.Id = id;
             await _workAreaService.Save(workArea);
-            return Ok("successful");
         }
 
-        [HttpDelete("delete-by-id")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{id}")]
+        public async Task Delete(int id)
         {
             await _workAreaService.Delete(id);
-            return Ok("successful");
         }
     }
 }

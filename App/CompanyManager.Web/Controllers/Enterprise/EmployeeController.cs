@@ -1,12 +1,14 @@
 ﻿namespace CompanyManager.Web.Controllers.Enterprise
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using CompanyManager.Business.Services.Interfaces;
+    using CompanyManager.Models;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
-    [Route("api/employees")]
+    [Route("api/v1/employees")]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
@@ -17,42 +19,36 @@
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<Employee> GetById(int id)
         {
-            if (id < 1)
-            {
-                return BadRequest("Invalid value of id");
-            }
-
-            return Ok(await _employeeService.GetById(id));
+            return await _employeeService.GetById(id);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery]int enterpriseId)
+        public async Task<IEnumerable<Employee>> GetAll([FromQuery]int enterpriseId)
         {
-            return Json(enterpriseId < 1
+            return enterpriseId < 1
                 ? await _employeeService.GetAll()
-                : await _employeeService.GetByEnterpriseId(enterpriseId));
+                : await _employeeService.GetByEnterpriseId(enterpriseId);
         }
 
         [HttpPost]
-        public async Task<int> Save(Models.Employee employee)
+        public async Task<int> Save(Employee employee)
         {
             return await _employeeService.Save(employee);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(Models.Employee employee)
+        [HttpPut("{id}")]
+        public async Task Update(Employee employee, int id)
         {
+            employee.Id = id;
             await _employeeService.Update(employee);
-            return Ok("successful");
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task Delete(int id)
         {
             await _employeeService.Delete(id);
-            return Ok("successful");
         }
     }
 }

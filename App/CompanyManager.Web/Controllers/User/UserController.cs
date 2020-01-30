@@ -1,13 +1,14 @@
 ﻿namespace CompanyManager.Web.Controllers.User
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using CompanyManager.Business.Services.Interfaces;
     using CompanyManager.Models;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
-    [Route("api/users")]
+    [Route("api/v1/users")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -18,20 +19,15 @@
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<User> GetById(int id)
         {
-            if (id < 1)
-            {
-                return BadRequest("Invalid value of id");
-            }
-
-            return Ok(await _userService.GetById(id));
+            return await _userService.GetById(id);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IEnumerable<User>> GetAll()
         {
-            return Ok(await _userService.GetAll());
+            return await _userService.GetAll();
         }
 
         [HttpPost]
@@ -40,18 +36,17 @@
             return await _userService.Save(user);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(User user)
+        [HttpPut("{id}")]
+        public async Task Update(User user, int id)
         {
+            user.Id = id;
             await _userService.Update(user);
-            return Ok("successful");
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task Delete(int id)
         {
             await _userService.Delete(id);
-            return Ok("successful");
         }
     }
 }
