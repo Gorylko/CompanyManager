@@ -1,9 +1,9 @@
 ﻿namespace CompanyManager.Web.Controllers.Enterprise
 {
-    using CompanyManager.Business.Services.Interfaces;
-    using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Threading.Tasks;
+    using CompanyManager.Business.Services.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
     [Route("api/[controller]")]
