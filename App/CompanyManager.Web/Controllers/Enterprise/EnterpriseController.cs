@@ -25,9 +25,9 @@
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Enterprise>> GetAll([FromQuery]int userId)
+        public async Task<IEnumerable<Enterprise>> GetAll([FromQuery]int? userId)
         {
-            return userId < 1
+            return userId != null
                 ? await _enterpriseService.GetAll()
                 : await _enterpriseService.GetAll();
         }

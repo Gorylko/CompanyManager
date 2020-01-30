@@ -25,11 +25,11 @@
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Employee>> GetAll([FromQuery]int enterpriseId)
+        public async Task<IEnumerable<Employee>> GetAll([FromQuery]int? enterpriseId)
         {
-            return enterpriseId < 1
-                ? await _employeeService.GetAll()
-                : await _employeeService.GetByEnterpriseId(enterpriseId);
+            return enterpriseId != null
+                ? await _employeeService.GetByEnterpriseId(enterpriseId.Value)
+                : await _employeeService.GetAll();
         }
 
         [HttpPost]

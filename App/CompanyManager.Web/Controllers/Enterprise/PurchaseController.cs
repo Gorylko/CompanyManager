@@ -25,11 +25,11 @@
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Purchase>> GetAll([FromQuery]int enterpriseId)
+        public async Task<IEnumerable<Purchase>> GetAll([FromQuery]int? enterpriseId)
         {
-            return enterpriseId < 1
-                ? await _purchaseService.GetAll()
-                : await _purchaseService.GetByEnterpriseId(enterpriseId);
+            return enterpriseId != null
+                ? await _purchaseService.GetByEnterpriseId(enterpriseId.Value)
+                : await _purchaseService.GetAll();
         }
 
         [HttpPost]
