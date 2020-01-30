@@ -29,11 +29,11 @@
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery]int enterpriseId)
+        public async Task<IActionResult> GetAll([FromQuery]int enterpriseId)
         {
             return Ok(enterpriseId < 1
-                ? _purchaseService.GetAll()
-                : _purchaseService.GetByEnterpriseId(enterpriseId));
+                ? await _purchaseService.GetAll()
+                : await _purchaseService.GetByEnterpriseId(enterpriseId));
         }
 
         [HttpPut]
@@ -43,16 +43,16 @@
         }
 
         [HttpPost]
-        public IActionResult Update(Purchase purchase)
+        public async Task<IActionResult> Update(Purchase purchase)
         {
-            _purchaseService.Update(purchase);
+            await _purchaseService.Update(purchase);
             return Ok("successful");
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _purchaseService.Delete(id);
+            await _purchaseService.Delete(id);
             return Ok("successful");
         }
     }

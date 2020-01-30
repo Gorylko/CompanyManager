@@ -29,11 +29,11 @@
         }
 
         [HttpGet]
-        public IActionResult GetByEnterpriseId([FromQuery]int enterpriseId)
+        public async Task<IActionResult> GetByEnterpriseId([FromQuery]int enterpriseId)
         {
             return Ok(enterpriseId < 1
-                ? _workAreaService.GetAll()
-                : _workAreaService.GetByEnterpriseId(enterpriseId));
+                ? await _workAreaService.GetAll()
+                : await _workAreaService.GetByEnterpriseId(enterpriseId));
         }
 
         [HttpPut]
@@ -43,16 +43,16 @@
         }
 
         [HttpPost]
-        public IActionResult Update(WorkArea workArea)
+        public async Task<IActionResult> Update(WorkArea workArea)
         {
-            _workAreaService.Save(workArea);
+            await _workAreaService.Save(workArea);
             return Ok("successful");
         }
 
         [HttpDelete("delete-by-id")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _workAreaService.Delete(id);
+            await _workAreaService.Delete(id);
             return Ok("successful");
         }
     }

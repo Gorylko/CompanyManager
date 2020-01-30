@@ -42,16 +42,16 @@
         }
 
         [HttpPost]
-        public IActionResult Update(Models.Employee employee)
+        public async Task<IActionResult> Update(Models.Employee employee)
         {
-            _employeeService.Update(employee);
+            await _employeeService.Update(employee);
             return Ok("successful");
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _employeeService.Delete(id);
+            await _employeeService.Delete(id);
             return Ok("successful");
         }
     }

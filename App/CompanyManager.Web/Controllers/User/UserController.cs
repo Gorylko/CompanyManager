@@ -29,9 +29,9 @@
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(_userService.GetAll());
+            return Ok(await _userService.GetAll());
         }
 
         [HttpPut]
@@ -41,9 +41,9 @@
         }
 
         [HttpPost]
-        public IActionResult Update(User user)
+        public async Task<IActionResult> Update(User user)
         {
-            _userService.Update(user);
+            await _userService.Update(user);
             return Ok("successful");
         }
 
