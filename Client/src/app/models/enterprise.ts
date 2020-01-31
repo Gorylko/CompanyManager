@@ -8,9 +8,9 @@ export class Enterprise{
 
     public Description: string;
 
-    public Employees: Array<Employee>;
+    public Employees?: Array<Employee>;
 
-    public Purchases: Array<Purchase>;
+    public Purchases?: Array<Purchase>;
 
-    public WorkAreas: Array<WorkArea>;
+    public WorkAreas?: Array<WorkArea>;
 }
