@@ -12,12 +12,12 @@ export class PurchaseService {
   constructor(private httpClient: HttpClient) { }
 
   Add(purchase: Purchase) {
-    this.httpClient.post<Purchase>(this.url, purchase);
+    return this.httpClient.post<Purchase>(this.url, purchase);
   }
 
   Delete(id: number) {
 
-    this.httpClient.delete(this.url + "/" + id);
+    return this.httpClient.delete(this.url + "/" + id);
   }
 
   GetById(id: number) {
@@ -32,6 +32,6 @@ export class PurchaseService {
 
   Update(enterprise: Purchase) {
 
-    this.httpClient.put(this.url, enterprise);
+    return this.httpClient.put(this.url, enterprise);
   }
 }

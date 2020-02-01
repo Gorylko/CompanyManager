@@ -12,6 +12,7 @@ export class EnterpriseComponent implements OnInit {
 
   constructor(private service: EnterpriseService) { }
 
+  enterprises: Enterprise[];
   getEnterprise: Enterprise;
 
   id: number;
@@ -32,8 +33,29 @@ export class EnterpriseComponent implements OnInit {
                 .subscribe();
   }
 
-  GetById(id: number) {
+  GetById() {
     this.service.GetById(this.id)
                 .subscribe(data => this.getEnterprise = data);
+  }
+
+  Delete() {
+    console.log('hi btw')
+    this.service.Delete(this.id)
+                .subscribe();
+  }
+
+  Update() { 
+    const enterprise: Enterprise = {
+      name: this.Name,
+      description: this.Description
+    }
+
+    this.service.Update(enterprise)
+                .subscribe();
+  }
+
+  GetAll() { 
+    this.service.GetAll()
+                .subscribe(data => this.enterprises = data);
   }
 }

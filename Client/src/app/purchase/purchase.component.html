@@ -4,19 +4,19 @@
     </mat-form-field>
   
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="First Name" [(ngModel)]="FirstName" [ngModelOptions]="{standalone: true}">
+      <input matInput placeholder="Name" [(ngModel)]="Name" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="Last Name" [(ngModel)]="LastName" [ngModelOptions]="{standalone: true}">
+        <input matInput placeholder="Cost" type="number" [(ngModel)]="Cost" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Position" [(ngModel)]="Position" [ngModelOptions]="{standalone: true}">
+        <input matInput placeholder="Rent Price" type="number" [(ngModel)]="RentPrice" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Salary" type="number" [(ngModel)]="Salary" [ngModelOptions]="{standalone: true}">
+        <input matInput placeholder="Income" type="number" [(ngModel)]="Income" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
 
       <button mat-button class="example-full-width" (click)="Add()">Save</button>

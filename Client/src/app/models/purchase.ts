@@ -4,9 +4,9 @@ export class Purchase {
 
     public Name: string;
 
-    public Cost: number;
+    public Cost?: number;
 
-    public RentPrice: number;
+    public RentPrice?: number;
 
-    public Income: number;
+    public Income?: number;
 }

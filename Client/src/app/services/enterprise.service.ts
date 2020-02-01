@@ -18,8 +18,8 @@ export class EnterpriseService {
   }
 
   Delete(id: number) {
-
-    this.httpClient.delete(this.url + "/" + id);
+    console.log('And im here ' + this.url + "/" + id);
+    return this.httpClient.delete(this.url + "/" + id);
   }
 
   GetById(id: number) {
@@ -34,6 +34,6 @@ export class EnterpriseService {
 
   Update(enterprise: Enterprise) {
 
-    this.httpClient.put(this.url, enterprise);
+    return this.httpClient.put<Enterprise>(this.url, enterprise);
   }
 }

@@ -39,8 +39,6 @@
         [HttpPost]
         public async Task<int> Save(Enterprise enterprise)
         {
-            Console.WriteLine("Привет");
-
             return await _enterpriseService.Save(enterprise);
         }
 
