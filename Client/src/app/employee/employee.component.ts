@@ -15,12 +15,12 @@ export class EmployeeComponent implements OnInit {
   Position: string;
   Salary: number;
 
-  constructor(service: EmployeeService) { }
+  constructor(private service: EmployeeService) { }
 
   ngOnInit() {
   }
   
-  log(){
+  Add(){
 
     const employee: Employee = {
       EnterpriseId: this.EnterpriseId,
@@ -30,10 +30,6 @@ export class EmployeeComponent implements OnInit {
       Salary: this.Salary
     }
 
-    console.log(employee.EnterpriseId);
-    console.log(employee.FirstName);
-    console.log(employee.LastName);
-    console.log(employee.Position);
-    console.log(employee.Salary);
+    this.service.Add(employee);
   }
 }

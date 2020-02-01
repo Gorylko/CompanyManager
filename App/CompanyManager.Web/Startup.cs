@@ -26,6 +26,12 @@ namespace CompanyManager.Web
 
             services.AddControllers();
 
+            services.AddCors(options => options.AddPolicy(
+                                                "AllowLocalhost4200",
+                                                builder => builder.WithOrigins("http://localhost:4200")
+                                                                  .AllowAnyHeader()
+                                                                  .AllowAnyMethod()));
+
             services.AddSwaggerDocument(config =>
             {
                 config.PostProcess = document =>
@@ -52,6 +58,8 @@ namespace CompanyManager.Web
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowLocalhost4200");
 
             app.UseRouting();
 

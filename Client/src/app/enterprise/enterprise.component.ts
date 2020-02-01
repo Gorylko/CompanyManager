@@ -12,19 +12,28 @@ export class EnterpriseComponent implements OnInit {
 
   constructor(private service: EnterpriseService) { }
 
+  getEnterprise: Enterprise;
+
+  id: number;
+
   Name: string;
   Description: string;
 
   ngOnInit() {
   }
 
-  log(){
-
+  Add(){
     const enterprise: Enterprise = {
-      Name: this.Name,
-      Description: this.Description
+      name: this.Name,
+      description: this.Description
     }
 
-    this.service.Add(enterprise);
+    this.service.Add(enterprise)
+                .subscribe();
+  }
+
+  GetById(id: number) {
+    this.service.GetById(this.id)
+                .subscribe(data => this.getEnterprise = data);
   }
 }

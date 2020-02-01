@@ -7,14 +7,13 @@ import { Enterprise } from '../models/enterprise';
 })
 export class EnterpriseService {
 
-  private url: string = "http://localhost:63801/api/enterprises";
+  private url: string = 'https://localhost:44337/api/enterprises';
   
   constructor(private httpClient: HttpClient) { }  
 
   Add(enterprise: Enterprise) {
 
-    console.log(enterprise.Description + "Здарова");
-    console.log("Пока");
+    
     return this.httpClient.post<Enterprise>(this.url, enterprise);
   }
 

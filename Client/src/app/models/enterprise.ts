@@ -4,13 +4,13 @@ import { WorkArea } from './workArea';
 
 export class Enterprise{
 
-    public Name: string;
+    public name: string;
 
-    public Description: string;
+    public description: string;
 
-    public Employees?: Array<Employee>;
+    public employees?: Array<Employee>;
 
-    public Purchases?: Array<Purchase>;
+    public purchases?: Array<Purchase>;
 
-    public WorkAreas?: Array<WorkArea>;
+    public workAreas?: Array<WorkArea>;
 }
