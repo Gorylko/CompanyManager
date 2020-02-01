@@ -7,8 +7,13 @@ namespace CompanyManager.Web
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using CompanyManager.Web.ExceptionHandling;
     using Microsoft.Extensions.Hosting;
     using Serilog;
+    using System;
+    using System.Net;
+    using CompanyManager.Web.ExceptionHandling.Builders;
+    using Microsoft.Azure.Documents;
 
     public class Startup
     {
@@ -46,10 +51,12 @@ namespace CompanyManager.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            app.UseExceptionHandling(builder =>
             {
-                app.UseDeveloperExceptionPage();
-            }
+                builder.WithException<DocumentClientException>(ex => (HttpStatusCode)ex.StatusCode);
+                builder.WithException<ArgumentNullException>(HttpStatusCode.LengthRequired);
+                builder.WithException<Exception>(HttpStatusCode.NotFound);
+            });
 
             app.UseHttpsRedirection();
 
@@ -68,7 +75,6 @@ namespace CompanyManager.Web
             ConfigureLogger();
 
             app.UseMiddleware<LoggerMiddleware>();
-            app.UseMiddleware<ExceptionHandlerMiddleware>();
         }
 
         private void ConfigureLogger()
