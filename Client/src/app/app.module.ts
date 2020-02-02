@@ -12,13 +12,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { EnterpriseService } from './services/enterprise.service';
 import { PurchaseComponent } from './purchase/purchase.component';
+import { WorkAreaComponent } from './work-area/work-area.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EnterpriseComponent,
     EmployeeComponent,
-    PurchaseComponent
+    PurchaseComponent,
+    WorkAreaComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

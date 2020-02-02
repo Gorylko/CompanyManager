@@ -1,0 +1,11 @@
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Login" [(ngModel)]="login" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Password" [(ngModel)]="password" type="password" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+      <button mat-button class="example-full-width" (click)="Add()">Save</button>
+</form>

@@ -29,7 +29,7 @@
                 Cost = model.Cost,
                 Location = model.Location,
                 Name = model.Name,
-                RentRrice = model.RentRrice,
+                RentRrice = model.RentRrice.Value,
             };
         }
     }

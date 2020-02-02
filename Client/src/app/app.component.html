@@ -61,11 +61,6 @@
   <input type="hidden" #selection>
 
   <div class="card-container">
-    <div class="card card-small" (click)="selection.value = 'component'" tabindex="0">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>New Employee</span>
-    </div>
 
     <div class="card card-small" (click)="selection.value = 'enterprise'" tabindex="0">
         <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
@@ -73,7 +68,13 @@
       <span>New Enterprise</span>
     </div>
 
-    <div class="card card-small" (click)="selection.value = 'dependency'" tabindex="0">
+    <div class="card card-small" (click)="selection.value = 'employee'" tabindex="0">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+
+      <span>New Employee</span>
+    </div>
+
+    <div class="card card-small" (click)="selection.value = 'work-area'" tabindex="0">
       <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
 
       <span>New Work Area</span>
@@ -85,20 +86,21 @@
       <span>New Purchase</span>
     </div>
 
-    <div class="card card-small" (click)="selection.value = 'build'" tabindex="0">
+    <div class="card card-small" (click)="selection.value = 'user'" tabindex="0">
       <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
 
       <span>New User</span>
     </div>
+
   </div>
 
   <!-- Terminal -->
   <div class="terminal" [ngSwitch]="selection.value">
-      <pre *ngSwitchDefault><app-employee></app-employee></pre>
-      <pre *ngSwitchCase="'enterprise'"><app-enterprise></app-enterprise></pre>
-      <pre *ngSwitchCase="'dependency'">ng add _____</pre>
+      <pre *ngSwitchDefault><app-enterprise></app-enterprise></pre>
+      <pre *ngSwitchCase="'employee'"><app-employee></app-employee></pre>
+      <pre *ngSwitchCase="'work-area'"><app-work-area></app-work-area></pre>
       <pre *ngSwitchCase="'purchase'"><app-purchase></app-purchase></pre>
-      <pre *ngSwitchCase="'build'">ng build --prod</pre>
+      <pre *ngSwitchCase="'user'"><app-user></app-user></pre>
   </div>
 
   <svg id="clouds" alt="Gray Clouds Background" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">

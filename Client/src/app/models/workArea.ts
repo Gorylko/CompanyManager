@@ -6,7 +6,7 @@ export class WorkArea {
 
     public Location: string;
 
-    public Cost: number;
+    public Cost?: number;
 
-    public RentPrice: number;
+    public rentRrice?: number;
 }

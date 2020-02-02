@@ -12,6 +12,7 @@
             services.AddScoped<IPurchaseService, PurchaseService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IEnterpriseService, EnterpriseService>();
+            services.AddScoped<IWorkAreaService, WorkAreaService>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

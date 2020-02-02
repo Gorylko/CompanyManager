@@ -7,7 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/workAreas")]
     public class WorkAreaController : Controller
     {
         private readonly IWorkAreaService _workAreaService;
