@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CompanyManager.Assistant\CompanyManager.Assistant.csproj" />
     <ProjectReference Include="..\CompanyManager.Data\CompanyManager.Data.csproj" />
     <ProjectReference Include="..\CompanyManager.Models\CompanyManager.Models.csproj" />
   </ItemGroup>

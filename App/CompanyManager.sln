@@ -15,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		test.ruleset = test.ruleset
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyManager.Models", "CompanyManager.Models\CompanyManager.Models.csproj", "{1A5C715C-18F2-4971-B878-FEF5CCD6A4C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyManager.Models", "CompanyManager.Models\CompanyManager.Models.csproj", "{1A5C715C-18F2-4971-B878-FEF5CCD6A4C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyManager.Assistant", "CompanyManager.Assistant\CompanyManager.Assistant.csproj", "{8AE4D3C6-A1B5-4E8B-A85D-0BFACE49A2DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{1A5C715C-18F2-4971-B878-FEF5CCD6A4C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A5C715C-18F2-4971-B878-FEF5CCD6A4C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A5C715C-18F2-4971-B878-FEF5CCD6A4C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AE4D3C6-A1B5-4E8B-A85D-0BFACE49A2DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AE4D3C6-A1B5-4E8B-A85D-0BFACE49A2DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AE4D3C6-A1B5-4E8B-A85D-0BFACE49A2DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AE4D3C6-A1B5-4E8B-A85D-0BFACE49A2DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
