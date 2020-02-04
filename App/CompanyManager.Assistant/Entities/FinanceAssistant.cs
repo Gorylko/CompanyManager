@@ -19,8 +19,9 @@ namespace CompanyManager.Assistant.Entities
             AssistantSettings.InitializeModules(_countModules);
         }
 
-        public FinanceAssistant(IEnumerable<ICountModule<RequestModel>> modules)
+        public FinanceAssistant(string name, IEnumerable<ICountModule<RequestModel>> modules)
         {
+            this.Name = name;
             _countModules = modules ?? throw new ArgumentNullException(nameof(modules));
         }
 

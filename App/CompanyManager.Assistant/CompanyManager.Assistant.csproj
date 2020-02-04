@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Folder Include="Dependency\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 
 </Project>
