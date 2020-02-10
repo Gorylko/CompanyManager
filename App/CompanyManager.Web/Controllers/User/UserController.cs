@@ -51,7 +51,7 @@
         public async Task<IActionResult> Delete(int id)
         {
             await _userService.Delete(id);
-            return Ok("successful");
+            return Ok("\"successful\"");
         }
     }
 }
