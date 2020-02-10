@@ -12,7 +12,8 @@ export class EmployeeComponent implements OnInit {
   employee: Employee;
   employees: Employee[];
 
-
+  idField: string;
+  responseString: string = null;  
   id: number;
 
   EnterpriseId: number;
@@ -25,6 +26,16 @@ export class EmployeeComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  CheckGet(){
+
+    if (this.id == null) {
+      this.GetAll();
+    }
+    else {
+      this.GetById();
+    }
+  }
   
   Add(){
 
@@ -36,26 +47,40 @@ export class EmployeeComponent implements OnInit {
       Salary: this.Salary
     }
 
-    this.service.Add(employee)
-                .subscribe();
+    this.service.Add(employee).subscribe();
   }
 
   Delete() {
 
-    this.service.Delete(this.id)
-                .subscribe()
+    this.service.Delete(this.id).subscribe()
   }
 
   GetById() {
 
-    this.service.GetById(this.id)
-                .subscribe(data => this.employee = data);
+    this.employees = null;
+    this.service.GetById(this.id).subscribe(data => {
+      this.employees = [data]
+    }, err => {
+
+      if (err.status == 500){
+
+      this.responseString = "Check input data\nPerhaps this employee doesn't exist";
+      }
+    });
+
+
   }
 
   GetAll() {
 
-    this.service.GetAll()
-                .subscribe(data => this.employees = data);
+    this.employees = null;
+    this.service.GetAll().subscribe(data => {
+      
+      this.employees = data
+    }, err => {
+      
+      this.responseString = "Check input data\n" + "Status code:" + err.status;
+    });
   }
 
   Update() {
@@ -68,7 +93,11 @@ export class EmployeeComponent implements OnInit {
       Salary: this.Salary
     }
 
-    this.service.Update(employee)
-                .subscribe();
+    this.service.Update(employee).subscribe(resp =>{
+      this.responseString = resp.toString();
+    }, err => {
+      
+      this.responseString = "Check input data\n" + "Status code:" + err.status;
+    });
   }
 }

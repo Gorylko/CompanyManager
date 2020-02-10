@@ -16,7 +16,6 @@ export class UserComponent implements OnInit {
   ngOnInit() {
   }
 
-  idField: string;
   responseString: string = null;  
   id: number;
 
@@ -42,13 +41,17 @@ export class UserComponent implements OnInit {
       login: this.login,
       password: this.password
     }
-    this.service.Add(user)
-                .subscribe();
+    this.service.Add(user).subscribe();
+
+    this.login = null;
+    this.password = null;
   }
 
   Delete() {
 
-    this.service.Delete(this.id).subscribe();
+    this.service.Delete(this.id).subscribe(resp =>{
+      this.responseString = resp.toString();
+    });
 
     this.id = null;
   }
@@ -59,11 +62,10 @@ export class UserComponent implements OnInit {
     this.service.GetById(this.id).subscribe(data => {
       
       this.users = [data];
-      console.log(this.users.length)
     }, err => {
 
       if (err.status == 500){
-        
+
       this.responseString = "Check input data\nPerhaps this user doesn't exist";
       }
     })
@@ -77,7 +79,7 @@ export class UserComponent implements OnInit {
       this.users = data
     }, err => {
       
-      console.log(err.status)
+      this.responseString = "Check input data\n" + "Status code:" + err.status;
     });
 
   
@@ -90,8 +92,11 @@ export class UserComponent implements OnInit {
       password: this.password
     }
  
-    this.service.Update(user)
-                .subscribe();
+    this.service.Update(user).subscribe(resp =>{
+      this.responseString = resp.toString();
+    }, err => {
+      
+      this.responseString = "Check input data\n" + "Status code:" + err.status;
+    });
   }
-
 }
