@@ -1,12 +1,12 @@
 export class WorkArea {
 
-    public EnterpriseId: number;
+    public enterpriseId: number;
 
-    public Name: string;
+    public name: string;
 
-    public Location: string;
+    public location: string;
 
-    public Cost?: number;
+    public cost: number;
 
-    public rentRrice?: number;
+    public rentRrice: number;
 }

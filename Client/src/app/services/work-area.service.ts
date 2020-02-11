@@ -12,7 +12,7 @@ export class WorkAreaService {
   constructor(private httpClient: HttpClient) { }
 
   Add(workArea: WorkArea) {
-    return this.httpClient.post<WorkArea>(this.url, workArea);
+    return this.httpClient.post(this.url, workArea);
   }
 
   Delete(id: number) {

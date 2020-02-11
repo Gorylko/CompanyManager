@@ -15,6 +15,7 @@ export class EnterpriseComponent implements OnInit {
   enterprises: Enterprise[];
   getEnterprise: Enterprise;
 
+  responseString: string;
   id: number;
 
   Name: string;
@@ -23,25 +24,53 @@ export class EnterpriseComponent implements OnInit {
   ngOnInit() {
   }
 
+  CheckGet(){
+
+    if (this.id == null) {
+      this.GetAll();
+    }
+    else {
+      this.GetById();
+    }
+  }
+
   Add(){
     const enterprise: Enterprise = {
       name: this.Name,
       description: this.Description
     }
 
-    this.service.Add(enterprise)
-                .subscribe();
+    this.Name = null;
+    this.Description = null;
+
+    this.service.Add(enterprise).subscribe(resp => {
+
+      this.responseString = 'Index of this employee ' + resp.toString();
+    }, err => {
+      
+      this.responseString = 'Error ' + err.status;
+    });
   }
 
   GetById() {
-    this.service.GetById(this.id)
-                .subscribe(data => this.getEnterprise = data);
+
+    this.enterprises = null;
+    this.service.GetById(this.id).subscribe(data => {
+      this.getEnterprise = data
+    }, err => {
+
+      if (err.status == 500){
+
+      this.responseString = "Check input data\nPerhaps this employee doesn't exist";
+      }
+    });
   }
 
   Delete() {
-    console.log('hi btw')
-    this.service.Delete(this.id)
-                .subscribe();
+
+    this.service.Delete(this.id).subscribe(resp => {
+      this.responseString = resp.toString();
+    });
   }
 
   Update() { 
@@ -50,12 +79,23 @@ export class EnterpriseComponent implements OnInit {
       description: this.Description
     }
 
-    this.service.Update(enterprise)
-                .subscribe();
+    this.service.Update(enterprise).subscribe(resp =>{
+      this.responseString = resp.toString();
+    }, err => {
+      
+      this.responseString = "Check input data\n" + "Status code:" + err.status;
+    });
   }
 
   GetAll() { 
-    this.service.GetAll()
-                .subscribe(data => this.enterprises = data);
+
+    this.enterprises = null;
+    this.service.GetAll().subscribe(data => {
+
+      this.enterprises = data
+    }, err => {
+      
+      this.responseString = "Check input data\n" + "Status code:" + err.status;
+    });
   }
 }

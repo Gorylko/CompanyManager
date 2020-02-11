@@ -15,59 +15,87 @@ export class WorkAreaComponent implements OnInit {
   }
 
   id: number;
+  responseString: string;
 
   workArea: WorkArea;
   workAreas: WorkArea[];
 
   EnterpriseId: number;
   Name: string;
-  Cost?: number;
-  rentRrice?: number;
+  Cost: number;
+  rentRrice: number;
   Location: string; 
 
   Add(){
 
     const workArea: WorkArea = {
-      EnterpriseId: this.EnterpriseId,
-      Name: this.Name,
-      Location: this.Location,
-      Cost: this.Cost,
+      enterpriseId: this.EnterpriseId,
+      name: this.Name,
+      location: this.Location,
+      cost: this.Cost,
       rentRrice: this.rentRrice
     }
+    this.EnterpriseId = null;
+    this.Name = null;
+    this.Cost = null;
+    this.rentRrice = null;
+    this.Location = null;
 
-    this.service.Add(workArea)
-                .subscribe();
+    this.service.Add(workArea).subscribe(resp => {
+
+      this.responseString = 'Index of this work area ' + resp.toString();
+    }, err => {
+      
+      this.responseString = 'Error ' + err.status;
+    });
   }
 
   Delete() {
 
-    this.service.Delete(this.id)
-                .subscribe()
+    this.service.Delete(this.id).subscribe(resp => {
+      this.responseString = resp.toString();
+    })
   }
 
   GetById() {
 
-    this.service.GetById(this.id)
-                .subscribe(data => this.workArea = data);
+    this.workAreas = null
+    this.service.GetById(this.id).subscribe(data => {
+      this.workArea = data
+    }, err => {
+
+      if (err.status == 500){
+
+      this.responseString = "Check input data\nPerhaps this employee doesn't exist";
+      }
+    });
   }
 
   GetAll() {
 
-    this.service.GetAll()
-                .subscribe(data => this.workAreas = data);
+    this.service.GetAll().subscribe(data => {
+      this.workAreas = data
+    }, err => {
+      
+      this.responseString = "Check input data\n" + "Status code:" + err.status;
+    });
   }
 
   Update() {
 
     const workArea: WorkArea = {
-      EnterpriseId: this.EnterpriseId,
-      Name: this.Name,
-      Cost: this.Cost,
+      enterpriseId: this.EnterpriseId,
+      name: this.Name,
+      cost: this.Cost,
       rentRrice: this.rentRrice,
-      Location: this.Location
+      location: this.Location
     }
  
-    this.service.Update(workArea)
-                .subscribe();
+    this.service.Update(workArea).subscribe(resp =>{
+      this.responseString = resp.toString();
+    }, err => {
+      
+      this.responseString = "Check input data\n" + "Status code:" + err.status;
+    });
   }
 }
