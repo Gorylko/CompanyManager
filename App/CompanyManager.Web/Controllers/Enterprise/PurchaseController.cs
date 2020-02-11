@@ -46,14 +46,14 @@
         public async Task<IActionResult> Update(Purchase purchase)
         {
             await _purchaseService.Update(purchase);
-            return Ok("successful");
+            return Ok("\"Successful\"");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _purchaseService.Delete(id);
-            return Ok("successful");
+            return Ok("\"Successful\"");
         }
     }
 }

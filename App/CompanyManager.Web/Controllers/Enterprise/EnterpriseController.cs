@@ -46,14 +46,14 @@
         public async Task<IActionResult> Update(Enterprise enterprise)
         {
             await _enterpriseService.Update(enterprise);
-            return Ok("successful");
+            return Ok("\"Successful\"");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _enterpriseService.Delete(id);
-            return Ok("successful");
+            return Ok("\"Successful\"");
         }
     }
 }

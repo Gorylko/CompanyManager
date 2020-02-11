@@ -45,14 +45,14 @@
         public async Task<IActionResult> Update(Models.Employee employee)
         {
             await _employeeService.Update(employee);
-            return Ok("successful");
+            return Ok("\"Successful\"");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _employeeService.Delete(id);
-            return Ok("successful");
+            return Ok("\"Successful\"");
         }
     }
 }

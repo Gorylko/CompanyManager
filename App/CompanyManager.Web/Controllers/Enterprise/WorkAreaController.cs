@@ -46,14 +46,14 @@
         public async Task<IActionResult> Update(WorkArea workArea)
         {
             await _workAreaService.Save(workArea);
-            return Ok("successful");
+            return Ok("\"Successful\"");
         }
 
         [HttpDelete("delete-by-id")]
         public async Task<IActionResult> Delete(int id)
         {
             await _workAreaService.Delete(id);
-            return Ok("successful");
+            return Ok("\"Successful\"");
         }
     }
 }
