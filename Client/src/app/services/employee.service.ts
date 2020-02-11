@@ -13,12 +13,12 @@ export class EmployeeService {
 
   Add(employee: Employee) {
 
-    return this.httpClient.post<Employee>(this.url, employee);
+    return this.httpClient.post(this.url, employee);
   }
 
   Delete(id: number) {
 
-    return this.httpClient.delete<Employee>(this.url + "/" + id);
+    return this.httpClient.delete(this.url + "/" + id);
   }
 
   GetById(id: number) {
@@ -33,6 +33,6 @@ export class EmployeeService {
 
   Update(employee: Employee) {
 
-    return this.httpClient.put<Employee>(this.url, employee);
+    return this.httpClient.put(this.url, employee);
   }
 }

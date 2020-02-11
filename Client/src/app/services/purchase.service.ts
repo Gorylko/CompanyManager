@@ -12,7 +12,7 @@ export class PurchaseService {
   constructor(private httpClient: HttpClient) { }
 
   Add(purchase: Purchase) {
-    return this.httpClient.post<Purchase>(this.url, purchase);
+    return this.httpClient.post(this.url, purchase);
   }
 
   Delete(id: number) {

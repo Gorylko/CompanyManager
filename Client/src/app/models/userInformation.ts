@@ -1,10 +1,10 @@
 export class UserInformation {
 
-    public UserId: number;
+    public userId: number;
 
-    public FirstName: string;
+    public firstName: string;
 
-    public LastName: string;
+    public lastName: string;
 
-    public PhoneNumber: string;
+    public phoneNumber: string;
 }

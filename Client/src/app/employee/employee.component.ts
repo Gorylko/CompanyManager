@@ -12,7 +12,6 @@ export class EmployeeComponent implements OnInit {
   employee: Employee;
   employees: Employee[];
 
-  idField: string;
   responseString: string = null;  
   id: number;
 
@@ -40,26 +39,41 @@ export class EmployeeComponent implements OnInit {
   Add(){
 
     const employee: Employee = {
-      EnterpriseId: this.EnterpriseId,
-      FirstName: this.FirstName,
-      LastName: this.LastName,
-      Position: this.Position,
-      Salary: this.Salary
+      enterpriseId: this.EnterpriseId,
+      firstName: this.FirstName,
+      lastName: this.LastName,
+      position: this.Position,
+      salary: this.Salary
     }
 
-    this.service.Add(employee).subscribe();
+    this.EnterpriseId = null;
+    this.FirstName = null;
+    this.LastName = null;
+    this.Position = null;
+    this.Salary = null;
+
+    this.service.Add(employee).subscribe(resp => {
+
+      this.responseString = 'Index of this employee ' + resp.toString();
+    }, err => {
+      
+      this.responseString = 'Error ' + err.status;
+    });
   }
 
   Delete() {
 
-    this.service.Delete(this.id).subscribe()
+    this.service.Delete(this.id).subscribe(resp => {
+      this.responseString = resp.toString();
+    })
   }
 
   GetById() {
 
     this.employees = null;
     this.service.GetById(this.id).subscribe(data => {
-      this.employees = [data]
+
+      this.employees = [data];
     }, err => {
 
       if (err.status == 500){
@@ -75,8 +89,8 @@ export class EmployeeComponent implements OnInit {
 
     this.employees = null;
     this.service.GetAll().subscribe(data => {
-      
-      this.employees = data
+
+      this.employees = data;
     }, err => {
       
       this.responseString = "Check input data\n" + "Status code:" + err.status;
@@ -86,11 +100,11 @@ export class EmployeeComponent implements OnInit {
   Update() {
 
     const employee: Employee = {
-      EnterpriseId: this.EnterpriseId,
-      FirstName: this.FirstName,
-      LastName: this.LastName,
-      Position: this.Position,
-      Salary: this.Salary
+      enterpriseId: this.EnterpriseId,
+      firstName: this.FirstName,
+      lastName: this.LastName,
+      position: this.Position,
+      salary: this.Salary
     }
 
     this.service.Update(employee).subscribe(resp =>{

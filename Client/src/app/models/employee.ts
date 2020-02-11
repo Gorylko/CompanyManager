@@ -1,12 +1,12 @@
 export class Employee {
 
-    public EnterpriseId: number;
+    public enterpriseId: number;
 
-    public FirstName: string;
+    public firstName: string;
 
-    public LastName: string;
+    public lastName: string;
 
-    public Position: string;
+    public position: string;
 
-    public Salary: number;
+    public salary: number;
 }

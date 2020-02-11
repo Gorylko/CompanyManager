@@ -1,12 +1,12 @@
 export class Purchase {
 
-    public EnterpriseId: number;
+    public enterpriseId: number;
 
-    public Name: string;
+    public name: string;
 
-    public Cost?: number;
+    public cost: number;
 
-    public RentPrice?: number;
+    public rentPrice: number;
 
-    public Income?: number;
+    public income: number;
 }

@@ -44,14 +44,14 @@
         public async Task<IActionResult> Update(User user)
         {
             await _userService.Update(user);
-            return Ok("successful");
+            return Ok("\"Successful\"");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _userService.Delete(id);
-            return Ok("\"successful\"");
+            return Ok("\"Successful\"");
         }
     }
 }

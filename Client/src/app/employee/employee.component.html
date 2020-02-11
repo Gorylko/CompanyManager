@@ -21,6 +21,8 @@
 
       <button mat-button class="example-full-width" (click)="Add()">Save</button>
 
+      <div class="center-text example-full-width"></div>
+
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Employee Id" [(ngModel)]="id" #idField name='idField' [ngModelOptions]="{standalone: true}">
       </mat-form-field>
@@ -29,8 +31,8 @@
   
       <button mat-button class="example-full-width" (click)="CheckGet()">Get by Id or get all users</button>
   
-      <div *ngFor="let employee of employees">
-        <div class="example-full-width">{{employee.FirstName}} {{employee.FirstName}}</div>
+      <div *ngFor="let employee of employees" class="example-full-width">
+        <div class="center-text">{{employee.firstName}} {{employee.lastName}} | {{employee.position}} | {{employee.salary}}BYN</div>
       </div>
   
       <div class="example-full-width" *ngIf="responseString != null">
