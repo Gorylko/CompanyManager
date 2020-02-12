@@ -26,6 +26,16 @@ export class WorkAreaComponent implements OnInit {
   rentRrice: number;
   Location: string; 
 
+  CheckGet(){
+
+    if (this.id == null) {
+      this.GetAll();
+    }
+    else {
+      this.GetById();
+    }
+  }
+
   Add(){
 
     const workArea: WorkArea = {
@@ -35,6 +45,7 @@ export class WorkAreaComponent implements OnInit {
       cost: this.Cost,
       rentRrice: this.rentRrice
     }
+    
     this.EnterpriseId = null;
     this.Name = null;
     this.Cost = null;
