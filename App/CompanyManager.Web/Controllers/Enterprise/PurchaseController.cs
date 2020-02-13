@@ -1,13 +1,14 @@
 ﻿namespace CompanyManager.Web.Controllers.Enterprise
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using CompanyManager.Business.Services.Interfaces;
     using CompanyManager.Models;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
-    [Route("api/purchases")]
+    [Route("api/v1/purchases")]
     public class PurchaseController : Controller
     {
         private readonly IPurchaseService _purchaseService;
@@ -18,22 +19,17 @@
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<Purchase> GetById(int id)
         {
-            if (id < 1)
-            {
-                return BadRequest("Invalid value of id");
-            }
-
-            return Ok(await _purchaseService.GetById(id));
+            return await _purchaseService.GetById(id);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery]int enterpriseId)
+        public async Task<IEnumerable<Purchase>> GetAll([FromQuery]int? enterpriseId)
         {
-            return Ok(enterpriseId < 1
-                ? await _purchaseService.GetAll()
-                : await _purchaseService.GetByEnterpriseId(enterpriseId));
+            return enterpriseId != null
+                ? await _purchaseService.GetByEnterpriseId(enterpriseId.Value)
+                : await _purchaseService.GetAll();
         }
 
         [HttpPost]
@@ -42,15 +38,16 @@
             return await _purchaseService.Save(purchase);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(Purchase purchase)
+        [HttpPut("{id}")]
+        public async Task Update(Purchase purchase, int id)
         {
+            purchase.Id = id;
             await _purchaseService.Update(purchase);
             return Ok("\"Successful\"");
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task Delete(int id)
         {
             await _purchaseService.Delete(id);
             return Ok("\"Successful\"");
