@@ -25,6 +25,8 @@
 
         IWorkAreaRepository WorkAreaRepository { get; set; }
 
+        IUserInfomationRepository UserInformationRepository { get; set; }
+
         #endregion
 
         void SaveChanges();
