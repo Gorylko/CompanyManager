@@ -12,7 +12,6 @@
                 Id = model.Id,
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
-                User = model.User?.ToUserDto(),
                 UserId = model.UserId,
             };
         }
@@ -25,7 +24,6 @@
                 Id = model.Id,
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
-                User = model.User?.ToUser(),
                 UserId = model.UserId,
             };
         }

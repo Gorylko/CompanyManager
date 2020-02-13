@@ -13,7 +13,5 @@ namespace CompanyManager.Data.Models
         public string LastName { get; set; }
 
         public string PhoneNumber { get; set; }
-
-        public virtual User User { get; set; }
     }
 }
