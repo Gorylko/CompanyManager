@@ -12,7 +12,7 @@
                     .AddJsonFile("settings.json", false, true);
 
             IConfiguration configuration = builder.Build();
-            ConnectionString = configuration.GetConnectionString("localConnection");
+            ConnectionString = configuration.GetConnectionString("azureConnection");
         }
 
         public static string ConnectionString { get; }
