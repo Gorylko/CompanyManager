@@ -30,22 +30,42 @@
         public async Task<IEnumerable<UserInformation>> GetAll()
         {
             var result = await _work.UserInformationRepository.Get().GetListAsync();
-            return result?.Select(e => e.ToUserInformation());
+            return result?.Select(u => u.ToUserInformation());
         }
 
-        public Task<UserInformation> GetById(int id)
+        public async Task<UserInformation> GetById(int id)
         {
-            throw new NotImplementedException();
+            return (await _work.UserInformationRepository.Get(u => u.Id == id).GetSingleAsync()).ToUserInformation();
         }
 
-        public Task<int> Save(UserInformation model)
+        public async Task<int> Save(UserInformation userInformation)
         {
-            throw new NotImplementedException();
+            if (userInformation == null)
+            {
+                throw new ArgumentNullException(nameof(userInformation));
+            }
+
+            var userInformationDto = userInformation.ToUserInformationDto();
+            _work.UserInformationRepository.Add(userInformationDto);
+            await _work.SaveChangesAsync();
+            return userInformationDto.Id;
         }
 
-        public Task<int> Update(UserInformation model)
+        public async Task<int> Update(UserInformation userInformation)
         {
-            throw new NotImplementedException();
+            if (userInformation == null)
+            {
+                throw new ArgumentNullException(nameof(userInformation));
+            }
+
+            var userInformationDto = await _work.EmployeeRepository
+                .Get(u => u.Id == userInformation.Id)
+                .GetNoTracking()
+                .GetSingleAsync();
+
+            _work.UserInformationRepository.Update(userInformation.ToUserInformationDto());
+            await _work.SaveChangesAsync();
+            return userInformationDto.Id;
         }
     }
 }
