@@ -1,58 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from '../services/employee.service';
-import { Employee } from '../models/employee';
+import { UserInformationService } from '../services/user-information.service';
+import { UserInformation } from '../models/userInformation';
 
 @Component({
-  selector: 'app-employee',
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.scss']
+  selector: 'app-user-information',
+  templateUrl: './user-information.component.html',
+  styleUrls: ['./user-information.component.scss']
 })
-export class EmployeeComponent implements OnInit {
+export class UserInformationComponent implements OnInit {
 
-  constructor(private service: EmployeeService) { }
-  
-  employee: Employee;
-  employees: Employee[];
+  constructor(private service: UserInformationService) { }
+
+  employee: UserInformation;
+  employees: UserInformation[];
 
   responseString: string = null;  
   id: number;
 
-  EnterpriseId: number;
+  UserId: number;
   FirstName: string;
   LastName: string;
-  Position: string;
-  Salary: number;
+  PhoneNumber: string;
 
   ngOnInit() {
   }
-
-  CheckGet(){
-
-    if (this.id == null) {
-      this.GetAll();
-    }
-    else {
-      this.GetById();
-    }
-  }
   
-  Add(){
+  add(){
 
-    const employee: Employee = {
-      enterpriseId: this.EnterpriseId,
+    const userInformation: UserInformation = {
+      userId: this.UserId,
       firstName: this.FirstName,
       lastName: this.LastName,
-      position: this.Position,
-      salary: this.Salary
+      phoneNumber: this.PhoneNumber
     }
 
-    this.EnterpriseId = null;
+    this.UserId = null;
     this.FirstName = null;
     this.LastName = null;
-    this.Position = null;
-    this.Salary = null;
+    this.PhoneNumber = null;
 
-    this.service.Add(employee).subscribe(resp => {
+    this.service.Add(userInformation).subscribe(resp => {
 
       this.responseString = 'Index of this employee ' + resp.toString();
     }, err => {
@@ -61,14 +48,14 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
-  Delete() {
+  delete() {
 
     this.service.Delete(this.id).subscribe(resp => {
       this.responseString = resp.toString();
     })
   }
 
-  GetById() {
+  getById() {
 
     this.employees = null;
     this.service.GetById(this.id).subscribe(data => {
@@ -85,7 +72,7 @@ export class EmployeeComponent implements OnInit {
 
   }
 
-  GetAll() {
+  getAll() {
 
     this.employees = null;
     this.service.GetAll().subscribe(data => {
@@ -97,21 +84,22 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
-  Update() {
+  update() {
 
-    const employee: Employee = {
-      enterpriseId: this.EnterpriseId,
+    const userInformation: UserInformation = {
+      userInformationId: this.id,
+      userId: this.UserId,
       firstName: this.FirstName,
       lastName: this.LastName,
-      position: this.Position,
-      salary: this.Salary
+      phoneNumber: this.PhoneNumber
     }
 
-    this.service.Update(employee).subscribe(resp =>{
+    this.service.Update(userInformation).subscribe(resp =>{
       this.responseString = resp.toString();
     }, err => {
       
       this.responseString = "Check input data\n" + "Status code:" + err.status;
     });
   }
+
 }

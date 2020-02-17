@@ -7,7 +7,7 @@ import { WorkArea } from '../models/workArea';
 })
 export class WorkAreaService {
 
-  private url: string = 'https://localhost:44337/api/workAreas';
+  private url: string = 'https://localhost:44337/api/v1/workAreas';
 
   constructor(private httpClient: HttpClient) { }
 

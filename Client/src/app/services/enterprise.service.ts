@@ -7,7 +7,7 @@ import { Enterprise } from '../models/enterprise';
 })
 export class EnterpriseService {
 
-  private url: string = 'https://localhost:44337/api/enterprises';
+  private url: string = 'https://localhost:44337/api/v1/enterprises';
   
   constructor(private httpClient: HttpClient) { }  
 

@@ -14,6 +14,7 @@ import { EnterpriseService } from './services/enterprise.service';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { WorkAreaComponent } from './work-area/work-area.component';
 import { UserComponent } from './user/user.component';
+import { UserInformationComponent } from './user-information/user-information.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UserComponent } from './user/user.component';
     EmployeeComponent,
     PurchaseComponent,
     WorkAreaComponent,
-    UserComponent
+    UserComponent,
+    UserInformationComponent
   ],
   imports: [
     BrowserModule,

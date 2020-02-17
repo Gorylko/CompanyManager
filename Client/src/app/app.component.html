@@ -56,7 +56,8 @@
 
   <!-- Next Steps -->
   <h2>Add</h2>
-  <p>Choose object, which you want to add</p>
+  <p>Choose object,
+     which you want to add</p>
 
   <input type="hidden" #selection>
 
@@ -92,6 +93,12 @@
       <span>New User</span>
     </div>
 
+    <div class="card card-small" (click)="selection.value = 'user-information'" tabindex="0">
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+
+      <span>New User Information</span>
+    </div>
+
   </div>
 
   <!-- Terminal -->
@@ -101,6 +108,7 @@
       <pre *ngSwitchCase="'work-area'"><app-work-area></app-work-area></pre>
       <pre *ngSwitchCase="'purchase'"><app-purchase></app-purchase></pre>
       <pre *ngSwitchCase="'user'"><app-user></app-user></pre>
+      <pre *ngSwitchCase="'user-information'"><app-user-information></app-user-information></pre>
   </div>
 
 

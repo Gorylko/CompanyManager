@@ -14,6 +14,7 @@
             services.AddScoped<IEnterpriseService, EnterpriseService>();
             services.AddScoped<IWorkAreaService, WorkAreaService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserInfomationService, UserInformationService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }

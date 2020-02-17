@@ -1,5 +1,7 @@
 export class UserInformation {
 
+    public userInformationId?: number;
+
     public userId: number;
 
     public firstName: string;

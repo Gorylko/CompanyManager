@@ -43,14 +43,12 @@
         {
             enterprise.Id = id;
             await _enterpriseService.Update(enterprise);
-            return Ok("\"Successful\"");
         }
 
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
             await _enterpriseService.Delete(id);
-            return Ok("\"Successful\"");
         }
     }
 }

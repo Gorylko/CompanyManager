@@ -43,14 +43,12 @@
         {
             purchase.Id = id;
             await _purchaseService.Update(purchase);
-            return Ok("\"Successful\"");
         }
 
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
             await _purchaseService.Delete(id);
-            return Ok("\"Successful\"");
         }
     }
 }

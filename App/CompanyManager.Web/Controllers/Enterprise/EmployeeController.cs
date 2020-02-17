@@ -42,15 +42,13 @@
         public async Task Update(Employee employee, int id)
         {
             employee.Id = id;
-            await _employeeService.Update(employee)
-            return Ok("\"Successful\"");
+            await _employeeService.Update(employee);
         }
 
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
             await _employeeService.Delete(id);
-            return Ok("\"Successful\"");
         }
     }
 }

@@ -41,7 +41,13 @@ export class UserComponent implements OnInit {
       login: this.login,
       password: this.password
     }
-    this.service.Add(user).subscribe();
+    this.service.Add(user).subscribe(resp => {
+
+      this.responseString = 'Index of this employee ' + resp.toString();
+    }, err => {
+      
+      this.responseString = 'Error ' + err.status;
+    });
 
     this.login = null;
     this.password = null;

@@ -43,14 +43,12 @@
         {
             workArea.Id = id;
             await _workAreaService.Save(workArea);
-            return Ok("\"Successful\"");
         }
 
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
             await _workAreaService.Delete(id);
-            return Ok("\"Successful\"");
         }
     }
 }

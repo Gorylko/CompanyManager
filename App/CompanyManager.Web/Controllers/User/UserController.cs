@@ -41,14 +41,12 @@
         {
             user.Id = id;
             await _userService.Update(user);
-            return Ok("\"Successful\"");
         }
 
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
             await _userService.Delete(id);
-            return Ok("\"Successful\"");
         }
     }
 }

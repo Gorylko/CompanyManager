@@ -7,7 +7,7 @@ import { Employee } from '../models/employee';
 })
 export class EmployeeService {
 
-  private url: string = "https://localhost:44337/api/employees";
+  private url: string = "https://localhost:44337/api/v1/employees";
 
   constructor(private httpClient: HttpClient) { }
 
