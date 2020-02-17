@@ -24,17 +24,7 @@ export class EnterpriseComponent implements OnInit {
   ngOnInit() {
   }
 
-  CheckGet(){
-
-    if (this.id == null) {
-      this.GetAll();
-    }
-    else {
-      this.GetById();
-    }
-  }
-
-  Add(){
+  add(){
     const enterprise: Enterprise = {
       name: this.Name,
       description: this.Description
@@ -52,7 +42,7 @@ export class EnterpriseComponent implements OnInit {
     });
   }
 
-  GetById() {
+  getById() {
 
     this.enterprises = null;
     this.service.GetById(this.id).subscribe(data => {
@@ -66,14 +56,14 @@ export class EnterpriseComponent implements OnInit {
     });
   }
 
-  Delete() {
+  delete() {
 
     this.service.Delete(this.id).subscribe(resp => {
       this.responseString = resp.toString();
     });
   }
 
-  Update() { 
+  update() { 
     const enterprise: Enterprise = {
       name: this.Name,
       description: this.Description
@@ -87,7 +77,7 @@ export class EnterpriseComponent implements OnInit {
     });
   }
 
-  GetAll() { 
+  getAll() { 
 
     this.enterprises = null;
     this.service.GetAll().subscribe(data => {

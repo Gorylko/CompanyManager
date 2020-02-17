@@ -1,24 +1,60 @@
-<form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Name" [(ngModel)]="Name" [ngModelOptions]="{standalone: true}">
-    </mat-form-field>
+<input type="hidden" #selection>
 
-    <mat-form-field class="example-full-width">
+<form class="example-form">
+  <div class="example-full-width">
+    <button mat-button click (click)="selection.value = 'save'">Add</button>
+    <button mat-button click (click)="selection.value = 'delete'">Delete</button>
+    <button mat-button click (click)="selection.value = 'update'">Update</button>    
+    <button mat-button click (click)="selection.value = 'getById'">Get By Id</button>    
+    <button mat-button click (click)="selection.value = 'getAll'; getAll()">Get All</button>    
+  </div>
+
+  <div [ngSwitch]="selection.value">
+    <div *ngSwitchDefault>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Name" [(ngModel)]="Name" [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+  
+      <mat-form-field class="example-full-width">
         <input matInput placeholder="Description" [(ngModel)]="Description" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
+  
+      <button mat-button class="example-full-width" (click)="Add()">Save</button>  
+    </div>
 
-      <button mat-button class="example-full-width" (click)="Add()">Save</button>
-
-      <div class="center-text example-full-width"></div>
-
+    <div *ngSwitchCase="'delete'">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Enterprise Id" [(ngModel)]="id" #idField name='idField' [ngModelOptions]="{standalone: true}">
       </mat-form-field>
   
       <button mat-button class="example-full-width" (click)="Delete()">Delete</button>
+    </div>
+
+    <div *ngSwitchCase="'update'">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Enterprise Id" [(ngModel)]="id" #idField name='idField' [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Name" [(ngModel)]="Name" [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
   
-      <button mat-button class="example-full-width" (click)="CheckGet()">Get By Id Or Get All Enterprises</button>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Description" [(ngModel)]="Description" [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
   
+      <button mat-button class="example-full-width" (click)="update()">Update</button>  
+    </div>
+
+    <div *ngSwitchCase="'getById'">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Enterprise Id" [(ngModel)]="id" #idField name='idField' [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+  
+      <button mat-button class="example-full-width" (click)="getById()">Get By Id</button>
+    </div>
+
+    <div *ngSwitchCase="'getAll'"> 
       <div *ngFor="let enterprise of enterprises" class="example-full-width">
         <div class="center-text">{{enterprise.name}} | {{enterprise.description}}</div>
       </div>
@@ -26,4 +62,6 @@
       <div class="example-full-width" *ngIf="responseString != null">
           <div class="center-text">{{responseString}}</div>
       </div>
+    </div>
+  </div>
 </form>

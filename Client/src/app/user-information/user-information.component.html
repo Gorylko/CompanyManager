@@ -9,8 +9,8 @@
     <button mat-button click (click)="selection.value = 'getAll'; getAll()">Get All</button>    
   </div>
 
-<div [ngSwitch]="selection.value">
-  <div *ngSwitchDefault>
+  <div [ngSwitch]="selection.value">
+    <div *ngSwitchDefault>
       <mat-form-field class="example-full-width">
         <input matInput placeholder="User Id" type="number" [(ngModel)]="UserId" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
@@ -28,17 +28,17 @@
       </mat-form-field>
 
       <button mat-button class="example-full-width" (click)="add()">Save</button>  
-  </div>
+    </div>
 
-  <div *ngSwitchCase="'delete'">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="User Information Id" [(ngModel)]="id" #idField name='idField' [ngModelOptions]="{standalone: true}">
-    </mat-form-field>
+    <div *ngSwitchCase="'delete'">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="User Information Id" [(ngModel)]="id" #idField name='idField' [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
   
-    <button mat-button class="example-full-width" (click)="delete()">Delete</button>
-  </div>
+      <button mat-button class="example-full-width" (click)="delete()">Delete</button>
+    </div>
 
-  <div *ngSwitchCase="'update'">
+    <div *ngSwitchCase="'update'">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="User Information Id" [(ngModel)]="id" #idField name='idField' [ngModelOptions]="{standalone: true}">
       </mat-form-field>
@@ -59,10 +59,10 @@
         <input matInput placeholder="Phone Number" type="number" [(ngModel)]="PhoneNumber" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
 
-      <button mat-button class="example-full-width" (click)="update()">Save</button>
-  </div>
+      <button mat-button class="example-full-width" (click)="update()">Update</button>
+    </div>
 
-  <div *ngSwitchCase="'getById'">
+    <div *ngSwitchCase="'getById'">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="User Information Id" [(ngModel)]="id" #idField name='idField' [ngModelOptions]="{standalone: true}">
       </mat-form-field>
@@ -76,9 +76,9 @@
       <div class="example-full-width" *ngIf="responseString != null">
         <div class="center-text">{{responseString}}</div>
       </div>
-  </div>
+    </div>
 
-  <div *ngSwitchCase="'getAll'">
+    <div *ngSwitchCase="'getAll'">
       <div *ngFor="let userInformation of userInformations">
         <div class="example-full-width">{{userInformation.firstName}} | {{userInformation.lastName}} | {{userInformation.phoneNumber}}</div>
       </div>
@@ -86,7 +86,7 @@
       <div class="example-full-width" *ngIf="responseString != null">
         <div class="center-text">{{responseString}}</div>
       </div>
+    </div>
   </div>
-</div>
 </form>
 

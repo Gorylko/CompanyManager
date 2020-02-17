@@ -23,19 +23,9 @@ export class UserComponent implements OnInit {
   users: UserLoginModel[];
 
   login: string;
-  password: string;  
+  password: string;
 
-  CheckGet(){
-
-    if (this.id == null) {
-      this.GetAll();
-    }
-    else {
-      this.GetById();
-    }
-  }
-
-  Add(){
+  add(){
 
     const user: UserLoginModel = {
       login: this.login,
@@ -53,7 +43,7 @@ export class UserComponent implements OnInit {
     this.password = null;
   }
 
-  Delete() {
+  delete() {
 
     this.service.Delete(this.id).subscribe(resp =>{
       this.responseString = resp.toString();
@@ -62,7 +52,7 @@ export class UserComponent implements OnInit {
     this.id = null;
   }
 
-  GetById() {
+  getById() {
     
     this.users = null;
     this.service.GetById(this.id).subscribe(data => {
@@ -77,7 +67,7 @@ export class UserComponent implements OnInit {
     })
   }
 
-  GetAll() {
+  getAll() {
     
     this.users = null;
     this.service.GetAll().subscribe(data => {
@@ -86,12 +76,10 @@ export class UserComponent implements OnInit {
     }, err => {
       
       this.responseString = "Check input data\n" + "Status code:" + err.status;
-    });
-
-  
+    });  
   }
 
-  Update() {
+  update() {
 
     const user: UserLoginModel = {
       login: this.login,
