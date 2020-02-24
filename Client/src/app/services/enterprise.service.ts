@@ -32,8 +32,8 @@ export class EnterpriseService {
     return this.httpClient.get<Enterprise[]>(this.url);
   }
 
-  Update(enterprise: Enterprise) {
+  Update(enterprise: Enterprise, id: number) {
 
-    return this.httpClient.put<Enterprise>(this.url, enterprise);
+    return this.httpClient.put<Enterprise>(this.url + "/" + id, enterprise);
   }
 }

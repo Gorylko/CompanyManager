@@ -46,7 +46,7 @@ export class EnterpriseComponent implements OnInit {
 
     this.enterprises = null;
     this.service.GetById(this.id).subscribe(data => {
-      this.getEnterprise = data
+      this.enterprises = [data]
     }, err => {
 
       if (err.status == 500){
@@ -61,15 +61,21 @@ export class EnterpriseComponent implements OnInit {
     this.service.Delete(this.id).subscribe(resp => {
       this.responseString = resp.toString();
     });
+    
+    this.id = null;
   }
 
   update() { 
+
     const enterprise: Enterprise = {
       name: this.Name,
       description: this.Description
     }
 
-    this.service.Update(enterprise).subscribe(resp =>{
+    this.Name = null;
+    this.Description = null;
+
+    this.service.Update(enterprise, this.id).subscribe(resp =>{
       this.responseString = resp.toString();
     }, err => {
       

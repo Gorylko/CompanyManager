@@ -30,8 +30,8 @@ export class UserService {
     return this.httpClient.get<UserLoginModel[]>(this.url);
   }
 
-  Update(user: UserLoginModel) {
+  Update(user: UserLoginModel, id: number) {
 
-    return this.httpClient.put(this.url, user);
+    return this.httpClient.put(this.url + "/" + id, user);
   }
 }

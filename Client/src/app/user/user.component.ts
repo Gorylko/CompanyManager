@@ -86,7 +86,7 @@ export class UserComponent implements OnInit {
       password: this.password
     }
  
-    this.service.Update(user).subscribe(resp =>{
+    this.service.Update(user, this.id).subscribe(resp =>{
       this.responseString = resp.toString();
     }, err => {
       

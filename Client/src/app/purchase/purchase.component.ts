@@ -26,16 +26,6 @@ export class PurchaseComponent implements OnInit {
   RentPrice: number;
   Income: number;  
 
-  CheckGet(){
-
-    if (this.id == null) {
-      this.GetAll();
-    }
-    else {
-      this.GetById();
-    }
-  }
-
   Add(){
 
     const purchase: Purchase = {
@@ -74,9 +64,7 @@ export class PurchaseComponent implements OnInit {
       
       this.purchases = [data]
     }, err => {
-
       if (err.status == 500){
-
       this.responseString = "Check input data\nPerhaps this purchase doesn't exist";
       }
     });

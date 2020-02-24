@@ -19,7 +19,7 @@
         <input matInput placeholder="Description" [(ngModel)]="Description" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
   
-      <button mat-button class="example-full-width" (click)="Add()">Save</button>  
+      <button mat-button class="example-full-width" (click)="add()">Save</button>  
     </div>
 
     <div *ngSwitchCase="'delete'">
@@ -27,7 +27,7 @@
         <input matInput placeholder="Enterprise Id" [(ngModel)]="id" #idField name='idField' [ngModelOptions]="{standalone: true}">
       </mat-form-field>
   
-      <button mat-button class="example-full-width" (click)="Delete()">Delete</button>
+      <button mat-button class="example-full-width" (click)="delete()">Delete</button>
     </div>
 
     <div *ngSwitchCase="'update'">
@@ -52,6 +52,14 @@
       </mat-form-field>
   
       <button mat-button class="example-full-width" (click)="getById()">Get By Id</button>
+      
+      <div *ngFor="let enterprise of enterprises" class="example-full-width">
+        <div class="center-text">{{enterprise.name}} | {{enterprise.description}}</div>
+      </div>
+  
+      <div class="example-full-width" *ngIf="responseString != null">
+          <div class="center-text">{{responseString}}</div>
+      </div>
     </div>
 
     <div *ngSwitchCase="'getAll'"> 
