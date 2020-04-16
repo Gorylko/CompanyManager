@@ -29,6 +29,7 @@
         private IRoleRepository _roleRepository;
         private IWorkAreaRepository _workAreaRepository;
         private IUserRepository _userRepository;
+        private IUserInfomationRepository _userInfomationRepository;
 
         #endregion
 
@@ -76,6 +77,12 @@
         {
             get => _userRepository ?? new UserRepository(_context);
             set => _userRepository = value;
+        }
+
+        public IUserInfomationRepository UserInformationRepository
+        {
+            get => _userInfomationRepository ?? new UserInformationRepository(_context);
+            set => _userInfomationRepository = value;
         }
 
         #endregion
