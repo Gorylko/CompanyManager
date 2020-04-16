@@ -8,11 +8,15 @@
     {
         public static UserDto ToUserDto(this User model)
         {
+            byte[] salt = null;
+
             return new UserDto
             {
                 Id = model.Id,
                 Login = model.Login,
-                Password = Cryptographer.Encrypt(model.Password, out byte[] salt),
+                Password = model.Password != null
+                    ? Cryptographer.Encrypt(model.Password, out salt)
+                    : null,
                 PasswordSalt = salt,
                 UserInformations = model.UserInformations?.Select(ui => ui.ToUserInformationDto()).ToList(),
                 UsersToEnterprises = model.UsersToEnterprises?.Select(ute => ute.ToUsersToEnterprisesDto()).ToList(),
